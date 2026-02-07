@@ -1,0 +1,192 @@
+.registro {
+    width: 1050px;
+    margin: 30px auto;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 0 18px rgba(0,0,0,0.15);
+    font-family: Arial, sans-serif;
+    position: relative;
+}
+
+.registro h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+    font-weight: bold;
+}
+
+.encabezado-registro {
+    display: grid;
+    grid-template-columns: 2fr 1.2fr 1fr 1.2fr 1fr 1fr 0.8fr 1fr 0.8fr;
+    background: #c5d3e0;
+    color: #131313;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.fila-registro {
+    display: grid;
+    grid-template-columns: 2fr 1.2fr 1fr 1.2fr 1fr 1fr 0.8fr 1fr 0.8fr;
+    padding: 10px 12px;
+    border-bottom: 1px solid #ccc;
+    text-align: center;
+    align-items: center;
+}
+
+.fila-registro:hover {
+    background: #f1f7ff;
+}
+
+.fila-registro:nth-child(even) {
+    background: rgba(0,0,0,0.03);
+}
+
+.paginacion {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    padding: 15px 0;
+}
+
+.paginacion .pagina,
+.paginacion .puntos {
+    padding: 8px 14px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 0.95em;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.paginacion .numero {
+    background: #f2f2f2;
+    color: #333;
+    border: 1px solid #ccc;
+}
+
+.paginacion .numero:hover {
+    background: #dfe9ff;
+    border-color: #8fb3ff;
+    transform: translateY(-2px);
+}
+
+.paginacion .active {
+    background: #000;
+    color: #fff;
+}
+
+.paginacion .anterior,
+.paginacion .siguiente {
+    background: #fff;
+    border: 2px solid #000;
+    color: #000;
+}
+
+.paginacion .anterior:hover,
+.paginacion .siguiente:hover {
+    background: #000;
+    color: #fff;
+}
+
+.btn-volver-flecha {
+    text-decoration: none;
+    text-align: center;
+    line-height: 34px;
+    background-color: #c5d3e0;
+    border: 2px solid #c5d3e0;
+    color: #0c0c0c;
+    font-weight: bold;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    display: inline-block;
+    width: 40px;
+    height: 36px;
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.btn-volver-flecha:hover {
+    background-color: #7fb1fb;
+    border-color: #88b7fd;
+    color: #fff;
+}
+
+.acciones {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.acciones a {
+    min-width: 140px;
+    padding: 10px 0;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 10px;
+    text-decoration: none;
+    cursor: pointer;
+    background: #fff;
+    border: 2px solid #000;
+    color: #000;
+    transition: all 0.3s ease;
+}
+
+.btn-cierre:hover {
+    background: #3498db;
+    color: #fff;
+    transform: scale(1.05);
+}
+
+.menu-opciones {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: inline-block;
+}
+
+.btn-tres-puntos {
+    text-decoration: none;
+    font-size: 22px;
+    font-weight: bold;
+    color: #000;
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.opciones {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    min-width: 160px;
+    z-index: 10;
+}
+
+.opciones a {
+    display: block;
+    padding: 10px 14px;
+    text-decoration: none;
+    color: #000;
+    font-weight: 600;
+}
+
+.opciones a:hover {
+    background: #f2f2f2;
+}
+
+.menu-opciones:focus-within .opciones,
+.menu-opciones:hover .opciones {
+    display: block;
+}

@@ -1,0 +1,89 @@
+{% extends 'baseaut.html' %}
+{% load static %}
+{% block estilos %}
+     <link rel="stylesheet" href="{% static 'css/control.css' %}">  
+{% endblock %}
+{% block titulo %}control{% endblock %}
+{% block contenido  %}
+<div class="contenedor-acceso">
+    <a href="{% url 'configuracion' %}" class="btn-volver-flecha">↩</a>
+    <h2>Control de Acceso</h2>
+
+    <div class="encabezado-tabla">
+        <span>Puerta</span>
+        <span>Dirección IP</span>
+        <span>Activo</span>
+    </div>
+
+    <div class="fila-acceso">
+        <span class="dato-puerta">Puerta Principal</span>
+        <span class="direccion-ip">192.168.0.10</span>
+        <label class="interruptor">
+            <input type="checkbox" checked>
+            <span class="deslizador"></span>
+        </label>
+    </div>
+
+    <div class="fila-acceso">
+        <span class="dato-puerta">Puerta parqueadero</span>
+        <span class="direccion-ip">192.168.0.11</span>
+        <label class="interruptor">
+            <input type="checkbox">
+            <span class="deslizador"></span>
+        </label>
+    </div>
+
+    <div class="fila-acceso">
+        <span class="dato-puerta">Puerta de personas discapacitadas</span>
+        <span class="direccion-ip">192.168.0.16</span>
+        <label class="interruptor">
+            <input type="checkbox">
+            <span class="deslizador"></span>
+        </label>
+    </div>
+
+    <div class="fila-acceso">
+        <span class="dato-puerta">Puerta Torre 1</span>
+        <span class="direccion-ip">192.168.0.12</span>
+        <label class="interruptor">
+            <input type="checkbox">
+            <span class="deslizador"></span>
+        </label>
+    </div>
+
+    <div class="fila-acceso">
+        <span class="dato-puerta">Puerta Torre 2</span>
+        <span class="direccion-ip">192.168.0.13</span>
+        <label class="interruptor">
+            <input type="checkbox">
+            <span class="deslizador"></span>
+        </label>
+    </div>
+
+    <div class="fila-acceso">
+        <span class="dato-puerta">Puerta Torre 3</span>
+        <span class="direccion-ip">192.168.0.14</span>
+        <label class="interruptor">
+            <input type="checkbox">
+            <span class="deslizador"></span>
+        </label>
+    </div>
+
+    <div class="fila-acceso">
+        <span class="dato-puerta">Puerta Torre 4</span>
+        <span class="direccion-ip">192.168.0.15</span>
+        <label class="interruptor">
+            <input type="checkbox">
+            <span class="deslizador"></span>
+        </label>
+    </div>
+
+    <div class="acciones-acceso">
+        <a href="{% url 'editaracc' %}" class="boton-accion btn-editar">Editar</a>
+        <a href="#" class="boton-accion btn-guardar">Guardar</a>
+    </div>
+</div>
+
+
+
+{% endblock %}

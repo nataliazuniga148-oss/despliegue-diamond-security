@@ -1,0 +1,99 @@
+{% extends 'baseaut.html' %}
+{% load static %}
+{% block estilos %}
+<link rel="stylesheet" href="{% static 'css/paquetes.css' %}">
+{% endblock %}
+{% block titulo %}Registro entrada de paquetes{% endblock %}
+{% block contenido %}
+
+<div class="registro">
+
+    <a href="{% url 'recepcion' %}" class="btn-volver-flecha">↩</a>
+
+    <div class="menu-opciones">
+        <a href="#" class="btn-tres-puntos">⋮</a>
+        <div class="opciones">
+            <a href="#">Exportar a PDF</a>
+            <a href="#">Imprimir</a>
+        </div>
+    </div>
+
+    <h2>Registro entrada de paquetes</h2>
+
+    <div class="encabezado-registro">
+        <span>Nombre Completo</span>
+        <span>Documento</span>
+        <span>Torre / Apto</span>
+        <span>Paquete</span>
+        <span>Agencia de envío</span>
+        <span>Fecha</span>
+        <span>Hora ingreso</span>
+        <span>Hora entrega</span>
+        <span>Observaciones</span>
+        <span>Acciones</span>
+    </div>
+
+    <div class="fila-registro">
+        <span>Camila Lucia Rodríguez Pedraza</span>
+        <span>1090123476</span>
+        <span>4-103</span>
+        <span>FT7667</span>
+        <span>Servientrega</span>
+        <span>2025-12-08</span>
+        <span>07:45</span>
+        <span>18:10</span>
+        <span>-</span>
+        <a href="{% url 'editarpa' %}" class="btn-editar">Editar</a>
+    </div>
+
+    <div class="fila-registro">
+        <span>María Cárdenas López</span>
+        <span>10425636</span>
+        <span>4-104</span>
+        <span>45880</span>
+        <span>Interrapidísimo</span>
+        <span>2025-12-08</span>
+        <span>08:05</span>
+        <span>17:50</span>
+        <span>-</span>
+        <a href="#" class="btn-editar">Editar</a>
+    </div>
+
+    <div class="fila-registro">
+        <span>Laura Sofía Noruega Pinzón</span>
+        <span>1002987654</span>
+        <span>1-103</span>
+        <span>90123</span>
+        <span>Coordinadora</span>
+        <span>2025-12-08</span>
+        <span>09:20</span>
+        <span>—</span>
+        <span>-</span>
+        <a href="#" class="btn-editar">Editar</a>
+    </div>
+
+    <div class="fila-registro">
+        <span>Camilo Martínez Quintero</span>
+        <span>243345356</span>
+        <span>2-103</span>
+        <span>45881</span>
+        <span>Deprisa</span>
+        <span>2025-12-08</span>
+        <span>06:55</span>
+        <span>19:00</span>
+        <span>-</span>
+        <a href="#" class="btn-editar">Editar</a>
+    </div>
+
+    <div class="paginacion">
+        <a class="pagina anterior" href="#">‹ Página anterior</a>
+        <a class="pagina numero active" href="#">1</a>
+        <a class="pagina numero" href="#">2</a>
+        <a class="pagina numero" href="#">3</a>
+        <span class="puntos">...</span>
+        <a class="pagina numero" href="#">20</a>
+        <a class="pagina siguiente" href="#">Siguiente página ›</a>
+    </div>
+
+</div>
+{% endblock %}

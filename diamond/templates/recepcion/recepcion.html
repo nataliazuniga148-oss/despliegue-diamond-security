@@ -1,0 +1,22 @@
+{% extends 'baseaut.html' %}
+{% load static %}
+{% block estilos %}
+  <link rel="stylesheet" href="{% static 'css/emergencia.css' %}">   
+{% endblock %}
+    
+{% block titulo %}resepción {% endblock %}
+
+{% block contenido  %}
+
+<div class="contenedor-menu">
+    <div class="panel-acceso">
+    <a href="{% url 'gestion' %}" class="btn-volver-flecha">↩</a>
+
+    <h2>Registro de resepción</h2>
+
+    <div class="seleccion-puerta">
+        <a href="{% url 'visitantes' %}" class="btn-puerta principal">Visitantes</a>
+        <a href="{% url 'paquetes' %}" class="btn-puerta discapacitados">Paquetes de mensajeria</a>
+    </div>
+</div>
+{% endblock contenido%}

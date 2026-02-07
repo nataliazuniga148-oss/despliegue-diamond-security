@@ -1,0 +1,83 @@
+{% extends 'baseaut.html' %}
+{% load static %}
+{% block estilos %}
+   <link rel="stylesheet" href="{% static 'css/ajustes.css' %}">
+{% endblock %}
+
+{% block titulo %}ajustes{% endblock %}
+
+{% block contenido %}
+<div class="contenedor">
+<a href="{% url 'configuracion' %}" class="btn-volver-flecha">↩</a>
+    <h2>Ajustes</h2>
+    <div class="encabezado-tabla">
+        <span>Horarios permitidos</span>
+    </div>
+
+    <div class="fila-usuario">
+        <span>Hora de apertura:</span>
+        <input type="time" value="06:00">
+    </div>
+
+    <div class="fila-usuario">
+        <span>Hora de cierre:</span>
+        <input type="time" value="22:00">
+    </div>
+
+
+    <div class="encabezado-tabla" style="margin-top:20px;">
+        <span>Definición de roles</span>
+    </div>
+
+    <div class="fila-usuario">
+        <span>Rol asignado:</span>
+        <select>
+            <option>Administrador</option>
+            <option>Seguridad</option>
+        </select>
+    </div>
+
+
+  
+    <div class="encabezado-tabla" style="margin-top:20px;">
+        <span>Configuración de alertas</span>
+    </div>
+
+    <div class="fila-usuario">
+        <span>Alertas por correo:</span>
+        <label class="switch">
+            <input type="checkbox" checked>
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <div class="fila-usuario">
+        <span>Alertas por sonido:</span>
+        <label class="switch">
+            <input type="checkbox">
+            <span class="slider"></span>
+        </label>
+    </div>
+    
+    <div class="encabezado-tabla" style="margin-top:20px;">
+        <span>Actualización del software</span>
+    </div>
+
+    <div class="fila-usuario">
+        <span>Versión actual:</span>
+        <input type="text" value="v1.0.3" readonly>
+    </div>
+
+    <div class="fila-usuario">
+        <span>Buscar actualizaciones:</span>
+        <a class="cta-button btn-guardar" style="width:140px;">Buscar</a>
+    </div>
+
+
+    <div class="botones-acciones-acceso" style="margin-top:25px;">
+        <a href="#" class="boton btn-volver">Volver</a>
+        <a href="#" class="boton btn-guardar">Guardar</a>
+    </div>
+
+</div>
+{% endblock %}

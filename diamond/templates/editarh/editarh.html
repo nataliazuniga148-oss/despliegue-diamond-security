@@ -1,0 +1,108 @@
+{% extends 'baseaut.html' %}
+{% load static %}
+{% block estilos %}
+     <link rel="stylesheet" href="{% static 'css/editarh.css' %}">
+{% endblock %}
+{% block titulo %}editarhorario{% endblock %}
+{% block contenido %}
+
+<div class="contenedor-lista">
+
+    <h2>Editar Horario de Trabajo</h2>
+
+    <form action="" method="POST">
+        {% csrf_token %}
+
+        <div class="encabezados">
+            <span>Día</span>
+            <span>Hora inicio</span>
+            <span>Hora fin</span>
+            <span>Estado</span>
+        </div>
+
+      
+        <div class="fila-usuario">
+            <span class="dato">Lunes</span>
+            <input type="time" name="lunes_inicio" class="dato" value="06:00">
+            <input type="time" name="lunes_fin" class="dato" value="17:00">
+            <select name="lunes_estado" class="dato">
+                <option value="Activo" selected>Activo</option>
+                <option value="Libre">Libre</option>
+            </select>
+        </div>
+
+       
+        <div class="fila-usuario">
+            <span class="dato">Martes</span>
+            <input type="time" name="martes_inicio" class="dato" value="06:00">
+            <input type="time" name="martes_fin" class="dato" value="17:00">
+            <select name="martes_estado" class="dato">
+                <option value="Activo" selected>Activo</option>
+                <option value="Libre">Libre</option>
+            </select>
+        </div>
+
+       
+        <div class="fila-usuario">
+            <span class="dato">Miércoles</span>
+            <input type="time" name="miercoles_inicio" class="dato" value="06:00">
+            <input type="time" name="miercoles_fin" class="dato" value="17:00">
+            <select name="miercoles_estado" class="dato">
+                <option value="Activo" selected>Activo</option>
+                <option value="Libre">Libre</option>
+            </select>
+        </div>
+
+       
+        <div class="fila-usuario">
+            <span class="dato">Jueves</span>
+            <input type="time" name="jueves_inicio" class="dato" value="06:00">
+            <input type="time" name="jueves_fin" class="dato" value="17:00">
+            <select name="jueves_estado" class="dato">
+                <option value="Activo" selected>Activo</option>
+                <option value="Libre">Libre</option>
+            </select>
+        </div>
+
+     
+        <div class="fila-usuario">
+            <span class="dato">Viernes</span>
+            <input type="time" name="viernes_inicio" class="dato" value="06:00">
+            <input type="time" name="viernes_fin" class="dato" value="17:00">
+            <select name="viernes_estado" class="dato">
+                <option value="Activo" selected>Activo</option>
+                <option value="Libre">Libre</option>
+            </select>
+        </div>
+
+    
+        <div class="fila-usuario">
+            <span class="dato">Sábado</span>
+            <input type="time" name="sabado_inicio" class="dato" value="06:00">
+            <input type="time" name="sabado_fin" class="dato" value="13:00">
+            <select name="sabado_estado" class="dato">
+                <option value="Activo" selected>Activo</option>
+                <option value="Libre">Libre</option>
+            </select>
+        </div>
+
+ 
+        <div class="fila-usuario">
+            <span class="dato">Domingo</span>
+            <input type="time" name="domingo_inicio" class="dato" value="">
+            <input type="time" name="domingo_fin" class="dato" value="">
+            <select name="domingo_estado" class="dato">
+                <option value="Libre" selected>Libre</option>
+                <option value="Activo">Activo</option>
+            </select>
+        </div>
+
+        <div class="acciones" style="margin-top: 20px;">
+            <button type="submit" class="btn-editar">Guardar Cambios</button>
+            <a href="{% url 'horarioad' %}" class="btn-eliminar">volver</a>
+        </div>
+
+    </form>
+
+</div>
+{% endblock %}

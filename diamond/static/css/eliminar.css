@@ -1,0 +1,85 @@
+.contenedor-editar {
+    width: 600px;
+    background: rgba(255, 255, 255, 0.85);
+    padding: 40px;
+    border-radius: 15px;
+    margin: 40px auto;
+    box-shadow: 0 0 20px rgba(0,0,0,0.15);
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+.contenedor-editar h2 {
+    text-align: center;
+    margin-bottom: 35px;
+    font-size: 1.9em;
+    font-weight: 700;
+}
+
+.mensaje {
+    font-size: 1.2em;
+    text-align: center;
+    margin-bottom: 30px;
+    color: #001c33;
+    font-weight: bold;
+}
+
+.botones-acciones {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 25px;
+    align-items: center;
+}
+
+.cta-button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 22px;       
+    font-size: 1em;
+    font-weight: bold;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s ease;
+    text-decoration: none;
+    background: white;
+    border: 2px solid black;
+    color: black;
+    min-width: 150px;       
+    height: 40px;            
+    text-align: center;
+}
+
+.cta-button:hover {
+    background: black;
+    color: white;
+    transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+    .contenedor-editar {
+        width: 90%;
+        padding: 25px;
+    }
+
+    .botones-acciones {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .cta-button {
+        width: 100%;
+        min-width: unset;
+    }
+}
+html, body {
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

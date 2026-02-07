@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block estilos %}
+  <link rel="stylesheet" href="{% static 'css/hablac.css' %}">  
+{% endblock %}
+    
+{% block titulo %}nosotros{% endblock %}
+
+{% block contenido  %}
+<body>
+
+<section class="seccion nosotros">
+  <div class="texto-nosotros">
+    <h2>Diamond Security</h2>
+    <p>
+      Somos una empresa especializada en soluciones de seguridad avanzadas,
+      enfocadas en proteger espacios residenciales
+      mediante tecnología confiable, moderna y eficiente.
+    </p>
+    <p>
+      Nuestro compromiso es brindar control, confianza y tranquilidad a
+      nuestros clientes a través de sistemas de acceso inteligentes y soporte
+      profesional.
+    </p>
+  </div>
+
+  <div class="productos">
+    <h3>Productos</h3>
+    <ul>
+      <li>Control de Acceso</li>
+      <li>Acceso Peatonal</li>
+      <li>Acceso Vehicular</li>
+    </ul>
+  </div>
+</section>
+
+</body>
+{% endblock %}

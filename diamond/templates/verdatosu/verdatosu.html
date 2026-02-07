@@ -1,0 +1,90 @@
+{% extends 'baseaut.html' %}
+{% load static %}
+{% block estilos %}
+<link rel="stylesheet" href="{% static 'css/verdatosu.css' %}">
+{% endblock %}
+{% block titulo %}editar usuario{% endblock %}
+{% block contenido %}
+
+<div class="contenedor-editar">
+    <h2>Editar Usuario</h2>
+
+    <form action="#" method="POST" class="form-editar">
+
+        
+        <div class="fila">
+            <div class="campo">
+                <label for="tipo_usuario">Tipo de usuario</label>
+                <input type="text" id="tipo_usuario" name="tipo_usuario" value="Residente">
+            </div>
+
+            <div class="campo">
+                <label for="nombre">Nombre completo</label>
+                <input type="text" id="nombre" name="nombre" value="Juan David Lopez Suarez">
+            </div>
+        </div>
+
+        
+        <div class="fila">
+            <div class="campo">
+                <label for="tipo_documento">Tipo de documento</label>
+                <input type="text" id="tipo_documento" name="tipo_documento" value="CC">
+            </div>
+
+            <div class="campo">
+                <label for="numero_documento">Número de documento</label>
+                <input type="text" id="numero_documento" name="numero_documento" value="25262627">
+            </div>
+        </div>
+
+        
+        <div class="fila">
+            <div class="campo">
+                <label for="telefono">Número de teléfono</label>
+                <input type="text" id="telefono" name="telefono" value="3105555555">
+            </div>
+
+            <div class="campo">
+                <label for="correo">Correo electrónico</label>
+                <input type="email" id="correo" name="correo" value="juan450@gmail.com">
+            </div>
+        </div>
+
+        
+        <div class="fila">
+            <div class="campo">
+                <label for="torre">Torre de apartamento</label>
+                <input type="text" id="torre" name="torre" value="Torre 3">
+            </div>
+
+            <div class="campo">
+                <label for="registro_tarjeta">Registro de tarjeta</label>
+                <input type="text" id="registro_tarjeta" name="registro_tarjeta" value="123456">
+            </div>
+        </div>
+
+        
+        <div class="fila">
+            <div class="campo">
+                <label for="numero_parqueadero">Número de parqueadero</label>
+                <input type="text" id="numero_parqueadero" name="numero_parqueadero" value="45">
+            </div>
+
+            <div class="campo">
+                <label for="vehiculo">Vehículo</label>
+                <input type="text" id="vehiculo" name="vehiculo" value="Toyota Corolla">
+            </div>
+        </div>
+      
+        <div class="botones-acciones">
+            <button type="submit" class="botones btn-guardar">
+                Guardar cambios
+            </button>
+            <a href="{% url 'registroa' %}" class="botones btn-volver">
+                Volver
+            </a>
+        </div>
+
+    </form>
+</div>
+{% endblock %}

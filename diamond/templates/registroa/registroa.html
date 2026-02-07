@@ -1,0 +1,114 @@
+{% extends 'baseaut.html' %}
+{% load static %}
+{% block estilos %}
+   <link rel="stylesheet" href="{% static 'css/registroa.css' %}">
+{% endblock %}    
+{% block titulo %}{% endblock %}
+{% block contenido  %}
+
+<div class="panel-registro">  
+    <main class="fondo">
+        <section class="contenedor-formulario">
+            
+            <h2><em>INGRESE LOS SIGUIENTES DATOS</em></h2>
+
+            <form>
+
+                <div class="fila">
+                    <div class="campo">
+                        <label for="tipo_usuario">Tipo de usuario:</label>
+                        <select id="tipo_usuario" required>
+                            <option value="" disabled selected>Seleccione</option>
+                            <option value="residente">Residente</option>
+                            <option value="visitante">Visitante</option>
+                        </select>
+                    </div>
+
+                    <div class="campo">
+                        <label for="nombre">Nombre completo:</label>
+                        <input type="text" id="nombre" placeholder="Tu nombre completo" required>
+                    </div>
+                </div>
+
+                <div class="fila">
+                    <div class="campo">
+                        <label for="tipo_documento">Tipo de documento:</label>
+                        <select id="tipo_documento" required>
+                            <option value="" disabled selected>Seleccione</option>
+                            <option value="cc">Cédula de ciudadanía</option>
+                            <option value="ce">Cédula de extranjería</option>
+                            <option value="pasaporte">Pasaporte</option>
+                            <option value="ti">Tarjeta de identidad</option>
+                        </select>
+                    </div>
+
+                    <div class="campo">
+                        <label for="documento">Número de documento:</label>
+                        <input type="text" id="documento" placeholder="Documento" required>
+                    </div>
+                </div>
+
+                <div class="fila">
+                    <div class="campo">
+                        <label for="telefono">Número de teléfono:</label>
+                        <input type="text" id="telefono" placeholder="Número de teléfono" required>
+                    </div>
+
+                    <div class="campo">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" placeholder="Correo electrónico" required>
+                    </div>
+                </div>
+
+                <div class="fila">
+                    <div class="campo">
+                        <label for="torre">Torre y apartamento:</label>
+                        <input type="text" id="torre" placeholder="Torre y apartamento" required>
+                    </div>
+
+                    <div class="campo">
+                        <label for="registro_tarjeta">Registro de tarjeta:</label>
+                        <input type="text" id="registro_tarjeta" placeholder="Registro de tarjeta" required>
+                    </div>
+                </div>
+
+                <div class="fila">
+                    <div class="campo">
+                        <label for="parqueadero">Número de parqueadero:</label>
+                        <input type="text" id="parqueadero" placeholder="Parqueadero" required>
+                    </div>
+
+                    <div class="campo">
+                        <label for="placa">Vehículo:</label>
+                        <input type="text" id="placa" placeholder="Descripción del vehículo">
+                    </div>
+                </div>
+
+                <div class="fila">
+                    <div class="campo">
+                        <label for="fecha">Fecha:</label>
+                        <input type="date" id="fecha" required>
+                    </div>
+
+                    <div class="campo">
+                        <label for="hora_ingreso">Hora de ingreso:</label>
+                        <input type="time" id="hora_ingreso" required>
+                    </div>
+
+                    <div class="campo">
+                        <label for="hora_salida">Hora de salida:</label>
+                        <input type="time" id="hora_salida">
+                    </div>
+                </div>
+
+                <div class="fila centrar">
+                    <a href="{% url 'usuarios' %}" class="btn-registrar">Registrar</a>
+                    <a href="{% url 'verusuario' %}" class="btn-ver">Ver registro</a>
+                </div>
+
+            </form>
+
+        </section>
+    </main>
+</div>
+{% endblock %}

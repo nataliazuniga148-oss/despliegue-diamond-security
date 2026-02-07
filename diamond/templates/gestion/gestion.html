@@ -1,0 +1,20 @@
+{% extends 'baseaut.html' %}
+{% load static %}
+{% block estilos %}
+  <link rel="stylesheet" href="{% static 'css/gestion.css' %}">   
+{% endblock %}   
+{% block titulo %}botones control de acceso{% endblock %}
+{% block contenido  %}
+
+<body>
+    <div class="contenedor-menu">
+        <div class="menu-principal">
+            <h1 class="hero-titulo">Registro control de acceso</h1>
+            <a href="{% url 'emergencia' %}" class="boton-menu">Acceso peatonal</a>
+            <a href="{% url 'vehiculos' %}" class="boton-menu">Acceso vehicular</a>
+            <a href="{% url 'recepcion' %}" class="boton-menu">Recepción</a>
+        </div>
+    </div>
+</body>
+
+{% endblock contenido%}

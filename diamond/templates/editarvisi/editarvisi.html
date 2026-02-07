@@ -1,0 +1,56 @@
+{% extends 'baseaut.html' %}
+{% load static %}
+{% block estilos %}
+<link rel="stylesheet" href="{% static 'css/verdatosu.css' %}">
+{% endblock %}
+{% block titulo %}Editar visitante{% endblock %}
+{% block contenido %}
+<div class="contenedor-editar">
+    <h2>Editar Visitante</h2>
+
+    <form action="#" method="POST" class="editar">
+
+        <div class="fila">
+            <div class="campo">
+                <label for="nombre">Nombre completo</label>
+                <input type="text" id="nombre" name="nombre" value="Andre Lopez Martines">
+            </div>
+
+            <div class="campo">
+                <label for="numero_documento">Número de documento</label>
+                <input type="text" id="numero_documento" name="numero_documento" value="1023456789">
+            </div>
+        </div>
+
+        <div class="fila">
+            <div class="campo">
+                <label for="torre">Torre y apto</label>
+                <input type="text" id="torre" name="torre" value="3-204">
+            </div>
+
+            <div class="campo">
+                <label for="registro_tarjeta">N° de tarjeta</label>
+                <input type="text" id="registro_tarjeta" name="registro_tarjeta" value="5602">
+            </div>
+        </div>
+
+        <div class="fila">
+            <div class="campo campo-completo">
+                <label for="observaciones">Observaciones</label>
+                <input type="text" id="observaciones" name="observaciones" value="Ingreso con bicicleta">
+            </div>
+        </div>
+
+        <div class="botones-acciones">
+            <button type="submit" class="botones btn-guardar">
+                Guardar cambios
+            </button>
+            <a href="{% url 'visitantes' %}" class="botones btn-volver">
+                Volver
+            </a>
+        </div>
+
+    </form>
+</div>
+{% endblock %}
+

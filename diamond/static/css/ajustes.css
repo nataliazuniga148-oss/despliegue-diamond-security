@@ -1,0 +1,187 @@
+.contenedor {
+    width: 600px;
+    background: rgba(255, 255, 255, 0.85);
+    padding: 20px;
+    border-radius: 12px;
+    margin: 20px auto;
+    box-shadow: 0 0 15px rgba(0,0,0,0.15);
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+.contenedor h2 {
+    font-style: italic;
+    margin-bottom: 18px;
+    font-size: 1.5em;
+    text-align: center;
+    color: #333;
+}
+
+.encabezado-tabla {
+    display: grid;
+    grid-template-columns: 1fr 1fr 80px;
+    font-weight: bold;
+    padding-bottom: 6px;
+    border-bottom: 2px solid #333;
+    margin-bottom: 10px;
+    font-size: 0.9em;
+}
+
+.encabezado-tabla span {
+    font-size: 1em;
+    font-weight: bold;
+}
+
+.fila-usuario {
+    display: grid;
+    grid-template-columns: 1fr 1fr 80px;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #bbb;
+    font-size: 0.9em;
+    gap: 8px;
+}
+
+.fila-usuario input[type="text"],
+.fila-usuario input[type="time"],
+.fila-usuario input[type="password"],
+.fila-usuario select {
+    width: 95%;
+    padding: 5px;
+    border: 1px solid #888;
+    border-radius: 5px;
+    font-size: 0.9em;
+}
+
+.fila-usuario .dato {
+    font-weight: 500;
+}
+
+.fila-usuario .ip {
+    color: #222;
+    font-size: 0.88em;
+}
+
+/* SWITCH */
+.switch {
+    position: relative;
+    width: 45px;
+    height: 22px;
+    display: inline-block;
+}
+
+.switch input {
+    display: none;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #c5d3e0;
+    transition: 0.4s;
+    border-radius: 22px;
+    border: 2px solid #000;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 3px;
+    bottom: 2px;
+    background-color: white;
+    transition: 0.3s;
+    border-radius: 50%;
+    border: 1px solid black;
+}
+
+input:checked + .slider {
+    background-color: #78e6bd;
+}
+
+input:checked + .slider:before {
+    transform: translateX(22px);
+}
+
+
+.botones-acciones-acceso {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.boton {
+    flex: 0 0 auto;
+    text-align: center;
+    width: 140px;          
+    padding: 10px;
+    font-size: 0.9em;
+    font-weight: bold;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+    text-decoration: none;
+    border: 2px solid black;
+    background: white;
+    color: black;
+}
+
+.boton:hover {
+    background: black;
+    color: white;
+}
+
+.btn-guardar {
+    border-color: black;
+}
+
+.btn-volver {
+    border-color: black;
+}
+
+
+.fila-usuario-ajustes {
+    grid-template-columns: 1.2fr 2fr;
+}
+.btn-volver-flecha {
+    text-decoration: none;
+    text-align: center;
+    line-height: 32px;
+    background-color: #c5d3e0;
+    border: 2px solid #c5d3e0;
+    color: #0c0c0c;
+    font-weight: bold;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    display: inline-block;
+    width: 40px;
+    height: 36px;
+    font-size: 1.2em;
+    padding: 0;
+    margin-bottom: 10px;
+}
+
+.btn-volver-flecha:hover {
+    background-color: #7fb1fb;
+    border-color: #88b7fd;
+    color: white;
+    transform: scale(1.05);
+}
+
+.btn-volver-flecha:active {
+    background-color: #79a9f1;
+    border-color: #7aacf8;
+    color: white;
+    transform: scale(0.95);
+}
+
+
+
+

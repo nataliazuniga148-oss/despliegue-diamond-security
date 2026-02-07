@@ -1,0 +1,118 @@
+{% extends 'baseaut.html' %}
+{% load static %}
+{% block estilos %}
+<link rel="stylesheet" href="{% static 'css/visitantes.css' %}">
+{% endblock %}
+{% block titulo %}Registro visitantes{% endblock %}
+{% block contenido %}
+
+<div class="registro">
+
+    <a href="{% url 'recepcion' %}" class="btn-volver-flecha">↩</a>
+
+    <div class="menu-opciones">
+        <a href="#" class="btn-tres-puntos">⋮</a>
+        <div class="opciones">
+            <a href="#">Exportar a PDF</a>
+            <a href="#">Imprimir</a>
+        </div>
+    </div>
+
+    <h2>Registro de visitantes</h2>
+
+    <div class="encabezado-registro">
+        <span>Nombre Completo</span>
+        <span>Documento</span>
+        <span>N° de Tarjeta</span>
+        <span>Torre / Apto</span>
+        <span>Fecha</span>
+        <span>Hora Entrada</span>
+        <span>Hora Salida</span>
+        <span>Observaciones</span>
+        <span>Editar</span>
+    </div>
+
+    <div class="fila-registro">
+        <span>Andrea López Martínez</span>
+        <span>1023456789</span>
+        <span>56021</span>
+        <span>3-204</span>
+        <span>2025-12-10</span>
+        <span>07:30</span>
+        <span>18:00</span>
+        <span>Ingreso con bicicleta</span>
+        <a href="{% url 'editarvisi' %}" class="btn-editar">Editar</a>
+    </div>
+
+    <div class="fila-registro">
+        <span>Carlos Méndez Ruiz</span>
+        <span>987654321</span>
+        <span>56022</span>
+        <span>1-101</span>
+        <span>2025-12-10</span>
+        <span>08:15</span>
+        <span>17:45</span>
+        <span>-</span>
+        <a href="#" class="btn-editar">Editar</a>
+    </div>
+
+    <div class="fila-registro">
+        <span>María Fernanda Gil</span>
+        <span>1002458796</span>
+        <span>56023</span>
+        <span>2-305</span>
+        <span>2025-12-10</span>
+        <span>09:05</span>
+        <span>—</span>
+        <span>Ingreso con bicicleta</span>
+        <a href="#" class="btn-editar">Editar</a>
+    </div>
+
+    <div class="fila-registro">
+        <span>Juan Sebastián Rojas</span>
+        <span>1015987632</span>
+        <span>56024</span>
+        <span>4-102</span>
+        <span>2025-12-10</span>
+        <span>06:50</span>
+        <span>18:30</span>
+        <span>-</span>
+        <a href="#" class="btn-editar">Editar</a>
+    </div>
+
+    <div class="fila-registro">
+        <span>Paula Andrea Castro</span>
+        <span>1198765432</span>
+        <span>56025</span>
+        <span>5-401</span>
+        <span>2025-12-10</span>
+        <span>10:20</span>
+        <span>—</span>
+        <span>Ingreso con bicicleta</span>
+        <a href="#" class="btn-editar">Editar</a>
+    </div>
+
+    <div class="fila-registro">
+        <span>David Hernández Pineda</span>
+        <span>900456781</span>
+        <span>56026</span>
+        <span>2-110</span>
+        <span>2025-12-10</span>
+        <span>07:10</span>
+        <span>17:55</span>
+        <span>-</span>
+        <a href="#" class="btn-editar">Editar</a>
+    </div>
+
+    <div class="paginacion">
+        <a class="pagina anterior" href="#">‹ Página anterior</a>
+        <a class="pagina numero active" href="#">1</a>
+        <a class="pagina numero" href="#">2</a>
+        <a class="pagina numero" href="#">3</a>
+        <span class="puntos">...</span>
+        <a class="pagina numero" href="#">20</a>
+        <a class="pagina siguiente" href="#">Siguiente página ›</a>
+    </div>
+
+</div>
+{% endblock %}

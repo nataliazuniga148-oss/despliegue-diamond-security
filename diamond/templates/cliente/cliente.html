@@ -1,0 +1,32 @@
+{% extends 'baseaut.html' %}
+{% load static %}
+{% block estilos %}
+  <link rel="stylesheet" href="{% static 'css/cliente.css' %}">   
+{% endblock %}
+    
+{% block titulo %}Administrador{% endblock %}
+
+{% block contenido  %}
+<div class="menu">
+  <div class="admin">
+
+    <div class="titulo">
+      <h1>DIAMOND SECURITY</h1>
+    </div>
+
+    <p class="subtitulo">Panel de Administración</p>
+
+    <nav class="menu-principal">
+      <a href="{% url 'registroa' %}" class="boton-menu">👤 Registro de usuario</a>
+      <a href="{% url 'tarjetas' %}" class="boton-menu">💳 Registro de tarjetas</a>
+      <a href="{% url 'gestion' %}" class="boton-menu">📋 Registro de control acceso</a>
+      <a href="{% url 'puertas' %}" class="boton-menu">🚪 Abrir puertas</a>
+      <a href="{% url 'configuracion' %}" class="boton-menu">⚙️ Configuración general</a>
+    </nav>
+
+  </div>
+</div>
+
+    
+
+{% endblock contenido%}

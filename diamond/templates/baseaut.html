@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/admin.css' %}">
+    {% block estilos %}
+    
+    {% endblock %}
+    
+  
+    <title>{% block titulo %}{% endblock %}</title>
+    <header class="header">
+    <div class="logo">
+        <img src="{% static 'image/logo.png' %}" alt="Logo Diamond Security">
+        <span>DIAMOND SECURITY</span>
+    </div>
+
+    <h2 class="welcome">BIENVENIDO, ADMIN</h2>
+
+    <div class="right-section">
+        <a href="{% url 'cliente' %}" class="menu-icon">☰</a>
+        <img src="{% static 'image/ima.png' %}" alt="foto Diamond Security">
+    </div>
+</header>
+
+   
+    {% block contenido %}
+
+    {% endblock %}
+
+
+    <footer>
+        <div class="piedepagina">
+
+        </div>
+    </footer>
+</body>
+</html>
+
+
+
+
+

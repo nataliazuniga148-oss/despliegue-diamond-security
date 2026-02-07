@@ -1,0 +1,49 @@
+{% extends 'baseaut.html' %}
+{% load static %}
+
+{% block estilos %}
+<link rel="stylesheet" href="{% static 'css/informes.css' %}">
+{% endblock %}
+
+{% block titulo %}informes{% endblock %}
+
+{% block contenido %}
+<div class="contenedor-informes">
+
+    <h2 class="titulo-seccion">Filtrar por fecha</h2>
+
+    <div class="filtro-fecha">
+        <input type="date" />
+    </div>
+
+    <main class="tabla-informes">
+        <table>
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Tipo de informe</th>
+                    <th>Descargar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>16/08/2025</td>
+                    <td>Registro de usuario</td>
+                    <td><button class="btn-descargar">Descargar</button></td>
+                </tr>
+                <tr>
+                    <td>15/08/2025</td>
+                    <td>Informe de actividad</td>
+                    <td><button class="btn-descargar">Descargar</button></td>
+                </tr>
+                <tr>
+                    <td>14/08/2025</td>
+                    <td>Registro de ingreso</td>
+                    <td><button class="btn-descargar">Descargar</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
+
+</div>
+{% endblock %}

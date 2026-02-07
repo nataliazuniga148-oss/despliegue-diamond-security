@@ -1,0 +1,87 @@
+{% extends 'baseaut.html' %}
+{% load static %}
+{% block estilos %}
+     <link rel="stylesheet" href="{% static 'css/editaracc.css' %}">  
+{% endblock %}
+{% block titulo %}control{% endblock %}
+{% block contenido  %}
+<div class="contenedor">
+
+    <h2>Editar Accesos</h2>
+
+    <div class="encabezado-tabla">
+        <span>Puerta</span>
+        <span>Dirección IP</span>
+        <span>Activo</span>
+    </div>
+
+    <div class="fila-usuario">
+        <input type="text" value="Puerta Principal" class="dato">
+        <input type="text" value="192.168.0.10" class="ip">
+        <label class="switch">
+            <input type="checkbox" checked>
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <div class="fila-usuario">
+        <input type="text" value="Puerta Sótano" class="dato">
+        <input type="text" value="192.168.0.11" class="ip">
+        <label class="switch">
+            <input type="checkbox">
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <div class="fila-usuario">
+        <input type="text" value="Puerta de personas discapacitadas" class="dato">
+        <input type="text" value="192.168.0.16" class="ip">
+        <label class="switch">
+            <input type="checkbox" checked>
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <div class="fila-usuario">
+        <input type="text" value="Puerta Torre 1" class="dato">
+        <input type="text" value="192.168.0.12" class="ip">
+        <label class="switch">
+            <input type="checkbox">
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <div class="fila-usuario">
+        <input type="text" value="Puerta Torre 2" class="dato">
+        <input type="text" value="192.168.0.13" class="ip">
+        <label class="switch">
+            <input type="checkbox">
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <div class="fila-usuario">
+        <input type="text" value="Puerta Torre 3" class="dato">
+        <input type="text" value="192.168.0.14" class="ip">
+        <label class="switch">
+            <input type="checkbox">
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <div class="fila-usuario">
+        <input type="text" value="Puerta Torre 4" class="dato">
+        <input type="text" value="192.168.0.15" class="ip">
+        <label class="switch">
+            <input type="checkbox">
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <div class="botones-acciones-acceso">
+        <a href="{% url 'control' %}" class="cta-button btn-volver">Volver</a>
+        <a href="#" class="cta-button btn-guardar">Guardar Cambios</a>
+    </div>
+
+</div>
+{% endblock %}

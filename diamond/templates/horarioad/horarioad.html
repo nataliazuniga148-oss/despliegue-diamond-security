@@ -1,0 +1,73 @@
+{% extends 'baseaut.html' %}
+{% load static %}
+{% block estilos %}
+<link rel="stylesheet" href="{% static 'css/horarioad.css' %}">
+{% endblock %}
+{% block titulo %}Horario Admin{% endblock %}
+{% block contenido %}
+<div class="contenido">
+
+    <h2 style="titulo-tabla">Horario de trabajo</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Día</th>
+                <th>Hora de inicio</th>
+                <th>Hora de fin</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>Lunes</td>
+                <td>6:00 am</td>
+                <td>5:00 pm</td>
+                <td class="estado-activo">Activo</td>
+            </tr>
+            <tr>
+                <td>Martes</td>
+                <td>6:00 am</td>
+                <td>5:00 pm</td>
+                <td class="estado-activo">Activo</td>
+            </tr>
+            <tr>
+                <td>Miércoles</td>
+                <td>6:00 am</td>
+                <td>5:00 pm</td>
+                <td class="estado-activo">Activo</td>
+            </tr>
+            <tr>
+                <td>Jueves</td>
+                <td>6:00 am</td>
+                <td>5:00 pm</td>
+                <td class="estado-activo">Activo</td>
+            </tr>
+            <tr>
+                <td>Viernes</td>
+                <td>6:00 am</td>
+                <td>5:00 pm</td>
+                <td class="estado-activo">Activo</td>
+            </tr>
+            <tr>
+                <td>Sábado</td>
+                <td>6:00 am</td>
+                <td>1:00 pm</td>
+                <td class="estado-activo">Activo</td>
+            </tr>
+            <tr>
+                <td>Domingo</td>
+                <td>-</td>
+                <td>-</td>
+                <td class="estado-libre">Libre</td>
+            </tr>
+        </tbody>
+        
+    </table>
+    <div class="acciones">
+            <a href="{% url 'editarh' %}" class="btn-editar">Editar</a>
+        </div>
+
+</div>
+{% endblock %}

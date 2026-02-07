@@ -1,0 +1,20 @@
+{% extends 'baseaut.html' %}
+{% load static %}
+{% block estilos %}
+  <link rel="stylesheet" href="{% static 'css/gestion.css' %}">   
+{% endblock %}
+    
+{% block titulo %}Configuracion Gereral{% endblock %}
+
+{% block contenido  %}
+<body>
+    <div class="contenedor-menu">
+        <div class="menu-principal">
+            <h1 class="hero-titulo">Configuración Gereral</h1>
+            <a href="{% url 'control' %}" class="boton-menu">Direcciones Ip</a>
+            <a href="{% url 'ajustes' %}" class="boton-menu">Ajustes</a>
+        </div>
+    </div>
+</body>
+
+{% endblock contenido%}

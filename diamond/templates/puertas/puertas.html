@@ -1,0 +1,82 @@
+{% extends 'baseaut.html' %}
+{% load static %}
+{% block estilos %}
+<link rel="stylesheet" href="{% static 'css/puertas.css' %}">
+{% endblock %}
+{% block titulo %}puertas{% endblock %}
+{% block contenido %}
+
+<div class="diseño">
+
+    <h2>Control de Acceso</h2>
+
+    <div class="encabezado-tabla">
+        <span>Puerta</span>
+        <span>Activo</span>
+    </div>
+
+    <div class="fila-usuario">
+        <span class="dato">Puerta Principal</span>
+        <label class="switch">
+            <input type="checkbox" checked>
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <div class="fila-usuario">
+        <span class="dato">Puerta parqueadero</span>
+        <label class="switch">
+            <input type="checkbox">
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <div class="fila-usuario">
+        <span class="dato">Puerta de personas discapacitadas</span>
+        <label class="switch">
+            <input type="checkbox">
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <div class="fila-usuario">
+        <span class="dato">Puerta Torre 1</span>
+        <label class="switch">
+            <input type="checkbox">
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <div class="fila-usuario">
+        <span class="dato">Puerta Torre 2</span>
+        <label class="switch">
+            <input type="checkbox">
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <div class="fila-usuario">
+        <span class="dato">Puerta Torre 3</span>
+        <label class="switch">
+            <input type="checkbox">
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <div class="fila-usuario">
+        <span class="dato">Puerta Torre 4</span>
+        <label class="switch">
+            <input type="checkbox">
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <div class="botones-acciones-acceso">
+        <a href="#" class="botones btn-editar">Apertura</a>
+        <a href="#" class="botones btn-detener">Detener</a>
+        <a href="#" class="botones btn-cierre">Cerrar</a>
+
+    </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,123 @@
+{% extends 'baseaut.html' %}
+{% load static %}
+{% block estilos %}
+     <link rel="stylesheet" href="{% static 'css/buscar.css' %}">  
+{% endblock %}
+{% block titulo %}buscar{% endblock %}
+{% block contenido  %}
+<div class="registro-container">
+<a href="{% url 'tarjetas' %}" class="btn-volver-flecha">↩</a>
+
+    <h2>Listado de Accesos</h2>
+   
+    <div class="buscador">
+        <input type="text" placeholder="Buscar por número de documento o nombre">
+        <button class="btn-buscar">🔍</button>
+    </div>
+
+    <div class="encabezado-registro">
+        <span>Nombre Completo</span>
+        <span>Documento</span>
+        <span>Torre y Apto</span>
+        <span>N° Tarjeta</span>
+        <span>Acceso</span>
+        <span>Fecha</span>
+        <span>Hora Entrada</span>
+        <span>Hora Salida</span>
+    </div>
+
+
+    <div class="fila-registro">
+        <span>Juan David López</span>
+        <span>12345678</span>
+        <span>Torre 2 - Apt 305</span>
+        <span>A-5567</span>
+        <span>Puerta principal y torre 1</span>
+        <span>2025-12-08</span>
+        <span>07:10</span>
+        <span>—</span>
+    </div>
+
+    <div class="fila-registro">
+        <span>Laura Camila Salazar</span>
+        <span>98765432</span>
+        <span>Torre 1 - Apt 120</span>
+        <span>B-2211</span>
+        <span>Acceso torre 1</span>
+        <span>2025-12-08</span>
+        <span>06:55</span>
+        <span>14:20</span>
+    </div>
+
+
+    <div class="fila-registro">
+        <span>Dana Camila Lozano</span>
+        <span>44223311</span>
+        <span>Torre 2 - Apt 110</span>
+        <span>D-1122</span>
+        <span>Puerta movilidad reducida</span>
+        <span>2025-12-08</span>
+        <span>09:15</span>
+        <span>10:44</span>
+    </div>
+
+    
+    <div class="fila-registro">
+        <span>Andrés Felipe Páez</span>
+        <span>11223344</span>
+        <span>Torre 5 - Apt 510</span>
+        <span>E-1200</span>
+        <span>Puerta principal</span>
+        <span>2025-12-08</span>
+        <span>06:45</span>
+        <span>—</span>
+    </div>
+
+    <div class="fila-registro">
+        <span>Melissa Tatiana Gómez</span>
+        <span>77889900</span>
+        <span>Torre 1 - Apt 215</span>
+        <span>F-4421</span>
+        <span>Acceso torre 1</span>
+        <span>2025-12-08</span>
+        <span>07:20</span>
+        <span>—</span>
+    </div>
+
+    <div class="fila-registro ">
+        <span>Fernando Quintero</span>
+        <span>99887766</span>
+        <span>Torre 3 - Apt 305</span>
+        <span>G-0011</span>
+        <span>Sótano parqueaderos</span>
+        <span>2025-12-08</span>
+        <span>08:05</span>
+        <span>—</span>
+    </div>
+
+    <div class="fila-registro">
+        <span>Sara Valentina Acosta</span>
+        <span>22446688</span>
+        <span>Torre 4 - Apt 118</span>
+        <span>H-7833</span>
+        <span>Acceso torre 4</span>
+        <span>2025-12-08</span>
+        <span>09:10</span>
+        <span>12:40</span>
+    </div>
+
+    <div class="paginacion">
+        <a class="pagina anterior" href="#">‹ Página anterior</a>
+
+        <a class="pagina numero active" href="#">1</a>
+        <a class="pagina numero" href="#">2</a>
+        <a class="pagina numero" href="#">3</a>
+        <span class="puntos">...</span>
+        <a class="pagina numero" href="#">12</a>
+
+        <a class="pagina siguiente" href="#">Siguiente página ›</a>
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,321 @@
+.registro {
+    width: 1050px;
+    margin: 30px auto;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 0 18px rgba(0,0,0,0.15);
+    font-family: Arial, sans-serif;
+}
+
+.registro h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+    font-weight: bold;
+}
+
+.buscador {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 18px;
+}
+
+.buscador input {
+    width: 350px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid #aaa;
+    font-size: 0.95em;
+}
+
+.btn-buscar {
+    padding: 8px 14px;
+    background: #c5d3e0;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-weight: bold;
+}
+
+.btn-buscar:hover {
+    background: #333;
+}
+
+.encabezado-registro {
+    display: grid;
+    grid-template-columns: 
+        2fr      
+        1.2fr    
+        1fr      
+        1.2fr    
+        1fr      
+        0.8fr;   
+
+    background: #c5d3e0;
+    color: #131313;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.fila-registro {
+    display: grid;
+    grid-template-columns: 
+        2fr      
+        1.2fr    
+        1fr      
+        1.2fr    
+        1fr      
+        0.8fr;   
+
+    padding: 10px 12px;
+    border-bottom: 1px solid #ccc;
+    text-align: center;
+    align-items: center;
+}
+
+.acciones {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.fila-registro:hover {
+    background: #f1f7ff;
+}
+
+
+.fila-registro:nth-child(even) {
+    background: rgba(0,0,0,0.03);
+}
+
+.btn-volver {
+    text-decoration: none;      
+    text-align: center;         
+    line-height: 34px;
+    background-color: #ffffff;
+    border: 2px solid #333;
+    color: #333;
+    font-weight: bold;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    display: block;
+    width: 130px;
+    margin: 20px auto 0 auto;
+    font-size: 0.95em;
+    padding: 2px 10px;
+}
+
+.btn-volver:hover {
+    background-color: #333;
+    color: white;
+    transform: scale(1.05);
+}
+
+.paginacion {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: -10px;
+    padding: 12px 0;
+    font-family: Arial, sans-serif;
+}
+
+.paginacion .pagina,
+.paginacion .puntos {
+    padding: 8px 14px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 0.95em;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+
+.paginacion .numero {
+    background: #f2f2f2;
+    color: #333;
+    border: 1px solid #ccc;
+}
+
+.paginacion .numero:hover {
+    background: #dfe9ff;
+    border-color: #8fb3ff;
+    transform: translateY(-2px);
+}
+
+
+.paginacion .active {
+    background: #0e0e0e;
+    color: white;
+    border: 1px solid #141414;
+    box-shadow: 0 0 6px rgba(12, 12, 12, 0.4);
+}
+
+.paginacion .anterior,
+.paginacion .siguiente {
+    background: #ffffff;
+    border: 2px solid #0d0d0e;
+    color: #0d0d0d;
+    border-radius: 8px;
+    padding: 8px 14px;
+}
+
+.paginacion .anterior:hover,
+.paginacion .siguiente:hover {
+    background: #040404;
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+
+.paginacion .puntos {
+    background: transparent;
+    border: none;
+    color: #888;
+}
+
+html, body {
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.table-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+
+table {
+    margin: 0 auto;
+    width: 95%;   
+}
+.btn-volver-flecha {
+    text-decoration: none;
+    text-align: center;
+    line-height: 32px;
+    background-color: #c5d3e0;
+    border: 2px solid #c5d3e0;
+    color: #0c0c0c;
+    font-weight: bold;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    display: inline-block;
+    width: 40px;
+    height: 36px;
+    font-size: 1.2em;
+    padding: 0;
+    margin-bottom: 10px;
+}
+
+.btn-volver-flecha:hover {
+    background-color: #7fb1fb;
+    border-color: #88b7fd;
+    color: white;
+    transform: scale(1.05);
+}
+
+.btn-volver-flecha:active {
+    background-color: #79a9f1;
+    border-color: #7aacf8;
+    color: white;
+    transform: scale(0.95);
+}
+.acciones {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.btn-editar {
+    min-width: 110px;
+    text-align: center;
+    padding: 8px 0;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s ease;
+    text-decoration: none;
+}
+
+.btn-editar {
+    background-color: #fff;
+    border: 2px solid #333;
+    color: #333;
+}
+
+.btn-editar:hover {
+    background: #333;
+    color: white;
+    transform: scale(1.05);
+}
+
+.registro-container {
+    position: relative;
+}
+
+.menu-opciones {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    display: inline-block;
+}
+
+.btn-tres-puntos {
+    text-decoration: none;
+    font-size: 22px;
+    font-weight: bold;
+    color: #000;
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.opciones {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    min-width: 160px;
+    z-index: 10;
+}
+
+.opciones a {
+    display: block;
+    padding: 10px 14px;
+    text-decoration: none;
+    color: #000;
+    font-weight: 600;
+}
+
+.opciones a:hover {
+    background: #f2f2f2;
+}
+
+.menu-opciones:focus-within .opciones {
+    display: block;
+}
+
+
+

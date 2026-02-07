@@ -1,0 +1,55 @@
+{% extends 'baseaut.html' %}
+{% load static %}
+{% block estilos %}
+<link rel="stylesheet" href="{% static 'css/verdatosu.css' %}">
+{% endblock %}
+{% block titulo %}Editar paquete{% endblock %}
+{% block contenido %}
+<div class="contenedor-editar">
+    <h2>Editar Paquete</h2>
+
+    <form action="#" method="POST" class="form-editar">
+
+        <div class="fila">
+            <div class="campo">
+                <label for="nombre">Nombre completo</label>
+                <input type="text" id="nombre" name="nombre" value="Camila Lucia Rodríguez Pedraza">
+            </div>
+
+            <div class="campo">
+                <label for="numero_documento">Número de documento</label>
+                <input type="text" id="numero_documento" name="numero_documento" value="1090123476">
+            </div>
+        </div>
+
+        <div class="fila">
+            <div class="campo">
+                <label for="torre">Torre y apto</label>
+                <input type="text" id="torre" name="torre" value="T4-103">
+            </div>
+
+            <div class="campo">
+                <label for="paquete">Paquete</label>
+                <input type="text" id="paquete" name="paquete" value="FT7667">
+            </div>
+        </div>
+
+        <div class="fila">
+            <div class="campo campo-completo">
+                <label for="agencia_envio">Agencia de envío</label>
+                <input type="text" id="agencia_envio" name="agencia_envio" value="Servientrega">
+            </div>
+        </div>
+
+        <div class="botones-acciones">
+            <button type="submit" class="botones btn-guardar">
+                Guardar cambios
+            </button>
+            <a href="{% url 'paquetes' %}" class="botones btn-volver">
+                Volver
+            </a>
+        </div>
+
+    </form>
+</div>
+{% endblock %}

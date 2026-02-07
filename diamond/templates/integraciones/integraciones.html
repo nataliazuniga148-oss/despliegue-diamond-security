@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block estilos %}
+<link rel="stylesheet" href="{% static 'css/atencion.css' %}">
+{% endblock %}
+{% block titulo %}Atención al Cliente{% endblock %}
+{% block contenido %}
+<main class="fondo-atencion">
+    <section class="contenedor-atencion">
+        
+        <h2 class="titulo-atencion">Atención al Cliente</h2>
+        <p class="subtitulo-atencion">
+            Diligencia el siguiente formulario para realizar una solicitud, queja, reclamo o pregunta.
+        </p>
+
+        <form class="form-atencion" method="POST">
+            {% csrf_token %}
+
+            <div class="campo">
+                <label for="nombre">Nombre completo:</label>
+                <input type="text" id="nombre" name="nombre" required>
+            </div>
+
+            <div class="campo">
+                <label for="correo">Correo electrónico:</label>
+                <input type="email" id="correo" name="correo" required>
+            </div>
+
+            <div class="campo">
+                <label for="tipo">Tipo de solicitud:</label>
+                <select id="tipo" name="tipo" required>
+                    <option value="" disabled selected>Seleccione</option>
+                    <option value="pregunta">Pregunta</option>
+                    <option value="queja">Queja</option>
+                    <option value="reclamo">Reclamo</option>
+                    <option value="sugerencia">Sugerencia</option>
+                    <option value="soporte">Soporte</option>
+                </select>
+            </div>
+
+            <div class="campo">
+                <label for="mensaje">Descripción:</label>
+                <textarea id="mensaje" name="mensaje" rows="5" required></textarea>
+            </div>
+
+            <div class="btn-enviar">
+                <button type="submit">Enviar solicitud</button>
+            </div>
+        </form>
+
+    </section>
+</main>
+{% endblock %}

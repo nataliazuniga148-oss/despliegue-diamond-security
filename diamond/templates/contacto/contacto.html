@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block estilos %}
+  <link rel="stylesheet" href="{% static 'css/productos.css' %}">   
+{% endblock %}
+
+{% block titulo %}contacto{% endblock %}
+
+{% block contenido %}
+<main class="fondo-contacto">
+    <section class="contenedor-contacto">
+        <h2 class="titulo-contacto">Comunicate con nosotros</h2>
+        
+        <div class="tarjeta-contacto">
+
+            <a href="https://wa.me/573128901025" target="_blank" class="item-contacto">
+                <img src="{% static 'icons/whatsapp.png' %}" alt="WhatsApp Logo" class="icono-contacto">
+                <p>3128901025</p>
+            </a>
+
+            <div class="item-contacto">
+                <img src="{% static 'icons/facebook.png' %}" alt="Facebook Logo" class="icono-contacto">
+                <p>Diamond security</p>
+            </div>
+
+            <div class="item-contacto">
+                <img src="{% static 'icons/instagram.png' %}" alt="Instagram Logo" class="icono-contacto">
+                <p>Diamondsecurity.22</p>
+            </div>
+
+        </div>
+    </section>
+</main>
+{% endblock %}

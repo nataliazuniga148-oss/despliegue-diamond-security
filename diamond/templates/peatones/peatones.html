@@ -1,0 +1,119 @@
+{% extends 'baseaut.html' %}
+{% load static %}
+{% block estilos %}
+<link rel="stylesheet" href="{% static 'css/peatones.css' %}">
+{% endblock %}
+{% block titulo %}Registro puerta principal{% endblock %}
+{% block contenido %}
+
+<div class="registro">
+    <a href="{% url 'emergencia' %}" class="btn-volver-flecha">↩</a>
+
+    <div class="menu-opciones">
+        <a href="#" class="btn-tres-puntos">⋮</a>
+        <div class="opciones">
+            <a href="#">Exportar a PDF</a>
+            <a href="#">Imprimir</a>
+        </div>
+    </div>   
+
+    <h2>Registro puerta principal</h2>
+
+    <div class="encabezado-registro">
+        <span>Nombre Completo</span>
+        <span>Documento</span>
+        <span>N° de Tarjeta</span>
+        <span>Torre / Apto</span>
+        <span>Fecha</span>
+        <span>Hora Entrada</span>
+        <span>Apertura</span>
+        <span>Hora Salida</span>
+        <span>Cierre</span>
+    </div>
+
+    <div class="fila-registro">
+        <span>Noralba Rosio Díaz Palacios</span>
+        <span>1090123456</span>
+        <span>45879</span>
+        <span>4-103</span>
+        <span>2025-12-08</span>
+        <span>07:45</span>
+        <span>✔</span>
+        <span>18:10</span>
+        <span>✔</span>
+    </div>
+
+    <div class="fila-registro">
+        <span>Germán Gómez Nabarro</span>
+        <span>1020458796</span>
+        <span>45880</span>
+        <span>4-104</span>
+        <span>2025-12-08</span>
+        <span>08:05</span>
+        <span>✔</span>
+        <span>17:50</span>
+        <span>✔</span>
+    </div>
+
+    <div class="fila-registro">
+        <span>Laura Gómez Silva</span>
+        <span>1002987654</span>
+        <span>90123</span>
+        <span>1-103</span>
+        <span>2025-12-08</span>
+        <span>09:20</span>
+        <span>✔</span>
+        <span>—</span>
+        <span>✖</span>
+    </div>
+
+    <div class="fila-registro">
+        <span>Camilo Ríos Martínez</span>
+        <span>1012258963</span>
+        <span>45881</span>
+        <span>2-103</span>
+        <span>2025-12-08</span>
+        <span>06:55</span>
+        <span>✔</span>
+        <span>19:00</span>
+        <span>✔</span>
+    </div>
+
+    <div class="fila-registro">
+        <span>Sara Beltrán Mora</span>
+        <span>1190456231</span>
+        <span>90124</span>
+        <span>2-101</span>
+        <span>2025-12-08</span>
+        <span>10:10</span>
+        <span>✔</span>
+        <span>—</span>
+        <span>✖</span>
+    </div>
+
+    <div class="fila-registro">
+        <span>Julián Méndez Torres</span>
+        <span>980156324</span>
+        <span>45882</span>
+        <span>1-102</span>
+        <span>2025-12-08</span>
+        <span>07:30</span>
+        <span>✔</span>
+        <span>18:40</span>
+        <span>✔</span>
+    </div>
+
+    <div class="paginacion">
+        <a class="pagina anterior" href="#">‹ Página anterior</a>
+        <a class="pagina numero active" href="#">1</a>
+        <a class="pagina numero" href="#">2</a>
+        <a class="pagina numero" href="#">3</a>
+        <span class="puntos">...</span>
+        <a class="pagina numero" href="#">20</a>
+        <a class="pagina siguiente" href="#">Siguiente página ›</a>
+    </div>
+
+</div>
+
+{% endblock %}
+
