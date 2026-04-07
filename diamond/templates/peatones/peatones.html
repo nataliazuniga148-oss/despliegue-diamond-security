@@ -31,89 +31,41 @@
         <span>Cierre</span>
     </div>
 
+    {% for r in registros %}
     <div class="fila-registro">
-        <span>Noralba Rosio Díaz Palacios</span>
-        <span>1090123456</span>
-        <span>45879</span>
-        <span>4-103</span>
-        <span>2025-12-08</span>
-        <span>07:45</span>
+        <span>{{ r.persona.nombre }}</span>
+        <span>{{ r.persona.documento }}</span>
+        <span>{{ r.persona.tarjeta }}</span>
+        <span>{{ r.persona.torre }}</span>
+        <span>{{ r.fecha }}</span>
+        <span>{{ r.hora_entrada }}</span>
         <span>✔</span>
-        <span>18:10</span>
-        <span>✔</span>
+        <span>{% if r.hora_salida %}{{ r.hora_salida }}{% else %}—{% endif %}</span>
+        <span>{% if r.hora_salida %}✔{% else %}✖{% endif %}</span>
     </div>
-
+    {% empty %}
     <div class="fila-registro">
-        <span>Germán Gómez Nabarro</span>
-        <span>1020458796</span>
-        <span>45880</span>
-        <span>4-104</span>
-        <span>2025-12-08</span>
-        <span>08:05</span>
-        <span>✔</span>
-        <span>17:50</span>
-        <span>✔</span>
+        <span colspan="9">No hay registros</span>
     </div>
-
-    <div class="fila-registro">
-        <span>Laura Gómez Silva</span>
-        <span>1002987654</span>
-        <span>90123</span>
-        <span>1-103</span>
-        <span>2025-12-08</span>
-        <span>09:20</span>
-        <span>✔</span>
-        <span>—</span>
-        <span>✖</span>
-    </div>
-
-    <div class="fila-registro">
-        <span>Camilo Ríos Martínez</span>
-        <span>1012258963</span>
-        <span>45881</span>
-        <span>2-103</span>
-        <span>2025-12-08</span>
-        <span>06:55</span>
-        <span>✔</span>
-        <span>19:00</span>
-        <span>✔</span>
-    </div>
-
-    <div class="fila-registro">
-        <span>Sara Beltrán Mora</span>
-        <span>1190456231</span>
-        <span>90124</span>
-        <span>2-101</span>
-        <span>2025-12-08</span>
-        <span>10:10</span>
-        <span>✔</span>
-        <span>—</span>
-        <span>✖</span>
-    </div>
-
-    <div class="fila-registro">
-        <span>Julián Méndez Torres</span>
-        <span>980156324</span>
-        <span>45882</span>
-        <span>1-102</span>
-        <span>2025-12-08</span>
-        <span>07:30</span>
-        <span>✔</span>
-        <span>18:40</span>
-        <span>✔</span>
-    </div>
+    {% endfor %}
 
     <div class="paginacion">
-        <a class="pagina anterior" href="#">‹ Página anterior</a>
-        <a class="pagina numero active" href="#">1</a>
-        <a class="pagina numero" href="#">2</a>
-        <a class="pagina numero" href="#">3</a>
-        <span class="puntos">...</span>
-        <a class="pagina numero" href="#">20</a>
-        <a class="pagina siguiente" href="#">Siguiente página ›</a>
-    </div>
+        {% if registros.has_previous %}
+            <a class="pagina anterior" href="?page={{ registros.previous_page_number }}">‹ Página anterior</a>
+        {% endif %}
 
+        {% for num in registros.paginator.page_range %}
+            {% if registros.number == num %}
+                <a class="pagina numero active">{{ num }}</a>
+            {% else %}
+                <a class="pagina numero" href="?page={{ num }}">{{ num }}</a>
+            {% endif %}
+        {% endfor %}
+
+        {% if registros.has_next %}
+            <a class="pagina siguiente" href="?page={{ registros.next_page_number }}">Siguiente página ›</a>
+        {% endif %}
+    </div>
 </div>
 
 {% endblock %}
-

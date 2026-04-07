@@ -7,26 +7,82 @@
 {% block titulo %}Administrador{% endblock %}
 
 {% block contenido  %}
-<div class="menu">
-  <div class="admin">
+<div class="contenedor-panel-principal">
+  <div class="area-de-trabajo">
 
-    <div class="titulo">
-      <h1>DIAMOND SECURITY</h1>
+    <div class="rejilla-estadisticas">
+      <div class="tarjeta-stat">
+        <div class="icono-stat azul">👤</div>
+        <div class="info-stat">
+          <span class="etiqueta-stat">Usuarios</span>
+          <span class="valor-stat">{{ total_usuarios }}</span>
+          <span class="desc-stat">Registrados</span>
+        </div>
+      </div>
+      <div class="tarjeta-stat">
+        <div class="icono-stat azul-oscuro">📋</div>
+        <div class="info-stat">
+          <span class="etiqueta-stat">Accesos Hoy</span>
+          <span class="valor-stat">{{ accesos_hoy}}</span>
+          <span class="desc-stat">Entradas/Salidas</span>
+        </div>
+      </div>
+      <div class="tarjeta-stat">
+        <div class="icono-stat azul-marino">💳</div>
+        <div class="info-stat">
+          <span class="etiqueta-stat">Tarjetas</span>
+          <span class="valor-stat">{{ tarjetas_activas }}</span>
+          <span class="desc-stat">Activas</span>
+        </div>
+      </div>
     </div>
 
-    <p class="subtitulo">Panel de Administración</p>
+    <nav class="rejilla-modulos">
+      
+      <a href="{% url 'registroa' %}" class="tarjeta-modulo">
+        <div class="circulo-icono">👤</div>
+        <h3>Registro de Usuario</h3>
+        <p>Registrar y gestionar usuarios del sistema</p>
+        <div class="boton-modulo">Ir al módulo →</div>
+      </a>
 
-    <nav class="menu-principal">
-      <a href="{% url 'registroa' %}" class="boton-menu">👤 Registro de usuario</a>
-      <a href="{% url 'tarjetas' %}" class="boton-menu">💳 Registro de tarjetas</a>
-      <a href="{% url 'gestion' %}" class="boton-menu">📋 Registro de control acceso</a>
-      <a href="{% url 'puertas' %}" class="boton-menu">🚪 Abrir puertas</a>
-      <a href="{% url 'configuracion' %}" class="boton-menu">⚙️ Configuración general</a>
+      <a href="{% url 'recepcion' %}" class="tarjeta-modulo">
+        <div class="circulo-icono">🧾</div>
+        <h3>Registro de Recepción</h3>
+        <p>Gestión de ingresos en recepción</p>
+        <div class="boton-modulo">Ir al módulo →</div>
+      </a>
+
+      <a href="{% url 'tarjetas' %}" class="tarjeta-modulo">
+        <div class="circulo-icono">💳</div>
+        <h3>Gestión de Tarjetas</h3>
+        <p>Administrar tarjetas activas y asignaciones</p>
+        <div class="boton-modulo">Ir al módulo →</div>
+      </a>
+
+      <a href="{% url 'gestion' %}" class="tarjeta-modulo">
+        <div class="circulo-icono">📋</div>
+        <h3>Control de Acceso</h3>
+        <p>Registro detallado de entradas y salidas</p>
+        <div class="boton-modulo">Ir al módulo →</div>
+      </a>
+
+      <a href="{% url 'puertas' %}" class="tarjeta-modulo">
+        <div class="circulo-icono">🚪</div>
+        <h3>Abrir Puertas</h3>
+        <p>Control remoto de aperturas y seguridad</p>
+        <div class="boton-modulo">Ir al módulo →</div>
+      </a>
+
+      <a href="{% url 'configuracion' %}" class="tarjeta-modulo">
+        <div class="circulo-icono">⚙️</div>
+        <h3>Configuración General</h3>
+        <p>Ajustes del sistema y parámetros globales</p>
+        <div class="boton-modulo">Ir al módulo →</div>
+      </a>
+
     </nav>
-
   </div>
 </div>
-
-    
 
 {% endblock contenido%}

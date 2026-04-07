@@ -2,7 +2,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
     min-height: calc(100vh - 120px);
     padding-top: 120px;
 }
@@ -14,8 +13,9 @@
     padding: 40px 50px;
     border-radius: 20px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
 
-    
+.contenedor-formulario form {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 25px 40px;
@@ -50,7 +50,7 @@
 }
 
 .btn-registrar {
-    grid-column: span 2; 
+    grid-column: span 2;
     margin: 0 auto;
     padding: 12px 50px;
     font-size: 18px;

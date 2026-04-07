@@ -1,29 +1,40 @@
 {% extends 'base.html' %}
 {% load static %}
+
 {% block estilos %}
-    <link rel="stylesheet" href="{% static 'css/acceso.css' %}">
+<link rel="stylesheet" href="{% static 'css/acceso.css' %}">
 {% endblock %}
-{% block titulo %}acceso{% endblock %}
-{% block contenido  %}
-    <main class="fondo">
-        <section class="contenedor-login">
-            <h2>¡Bienvenido!</h2>
 
-            <form>
-                <div class="campo">
-                    <label for="usuario">Usuario</label>
-                    <input type="text" id="usuario" placeholder="Ingrese su usuario">
-                </div>
+{% block titulo %}Acceso{% endblock %}
 
-                <div class="campo">
-                    <label for="contrasena">Contraseña</label>
-                    <input type="password" id="contrasena" placeholder="Ingrese su contraseña">
-                </div>
+{% block contenido %}
+<main class="fondo">
+    <section class="contenedor-login">
+        <h2>¡Bienvenido!</h2>
 
-                <button type="submit" class="btn-aceptar">Aceptar</button>
+        {% if error %}
+            <p style="color: red; text-align:center;">{{ error }}</p>
+        {% endif %}
 
-                <a href="{% url 'recuperar' %}" class="link-olvide">¿Olvidó su contraseña?</a>
-            </form>
-        </section>
-    </main>
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="campo">
+                <label for="usuario">Usuario</label>
+                <input type="text" name="usuario" id="usuario" placeholder="Ingrese su usuario" required>
+            </div>
+
+            <div class="campo">
+                <label for="contrasena">Contraseña</label>
+                <input type="password" name="contrasena" id="contrasena" placeholder="Ingrese su contraseña" required>
+            </div>
+            
+
+            <button type="submit" class="btn-aceptar">Aceptar</button>
+
+            <a href="{% url 'recuperar' %}" class="link-olvide">¿Olvidó su contraseña?</a>
+        </form>
+    </section>
+</main>
 {% endblock %}
+

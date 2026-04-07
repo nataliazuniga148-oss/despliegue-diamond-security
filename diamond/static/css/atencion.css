@@ -100,3 +100,13 @@
         padding: 15px;
     }
 }
+.mensaje-exito {
+    background: #d4edda;
+    color: #155724;
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: bold;
+}
+

@@ -1,0 +1,84 @@
+{% extends 'baseaut.html' %}
+{% load static %}
+
+{% block estilos %}
+<link rel="stylesheet" href="{% static 'css/usuarios.css' %}">
+{% endblock %}
+
+{% block titulo %}usuarios{% endblock %}
+
+{% block contenido %}
+
+<div class="registro">
+    <a href="{% url 'registroa' %}" class="btn-volver-flecha">↩</a>
+
+    <h2>Registro de Usuarios</h2>
+
+    <div class="encabezado-registro">
+        <span>Tipo usuario</span>
+        <span>Nombre</span>
+        <span>Tipo documento</span>
+        <span>Documento</span>
+        <span>Teléfono</span>
+        <span>Email</span>
+        <span>Torre</span>
+        <span>Tarjeta</span>
+        <span>Parqueadero</span>
+        <span>Placa</span>
+        <span>Acciones</span>
+        <span>Observaciones</span>
+    </div>
+
+    {% for usuario in registros %}
+    <div class="fila-registro">
+        <span>{{ usuario.tipo_usuario }}</span>
+        <span>{{ usuario.nombre }}</span>
+        <span>{{ usuario.tipo_documento }}</span>
+        <span>{{ usuario.documento }}</span>
+        <span>{{ usuario.telefono}}</span>
+        <span>{{ usuario.email }}</span>
+        <span>{{ usuario.torre }}</span>
+        <span>{{ usuario.tarjeta }}</span>
+        <span>{{ usuario.parqueadero|default:"..."  }}</span>
+        <span>{{ usuario.placa|default:"..."  }}</span>
+        <span>{{ usuario.observaciones|default:"..."  }}</span>
+
+        <div class="acciones">
+            <a href="{% url 'verdatosu' usuario.id %}" class="btn-editar">
+                Editar
+            </a>
+        </div>
+    </div>
+    {% empty %}
+    <p>No hay registros guardados.</p>
+    {% endfor %}
+   <div class="paginacion">
+
+        {% if registros.has_previous %}
+            <a class="pagina anterior"
+               href="?page={{ registros.previous_page_number }}">
+               ‹ Página anterior
+            </a>
+        {% endif %}
+
+        {% for num in registros.paginator.page_range %}
+            {% if registros.number == num %}
+                <a class="pagina numero active">{{ num }}</a>
+            {% else %}
+                <a class="pagina numero"
+                   href="?page={{ num }}">{{ num }}</a>
+            {% endif %}
+        {% endfor %}
+
+        {% if registros.has_next %}
+            <a class="pagina siguiente"
+               href="?page={{ registros.next_page_number }}">
+               Siguiente página ›
+            </a>
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'baseaut.html' %}
+{% load static %}
+{% block estilos %}
+   <link rel="stylesheet" href="{% static 'css/ip.css' %}">
+{% endblock %}    
+{% block titulo %}{% endblock %}
+{% block contenido  %}
+<main class="formulario">
+    <section class="diseño">
+            <a href="{% url 'configuracion' %}" class="btn-volver-flecha">↩</a>
+        <h2>Registro IP</h2>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <div class="campo">
+                <label for="puerta">Tipo de puerta</label>
+                <input type="text" name="puerta" id="puerta" placeholder="Escribe el tipo de puerta" required>
+            </div>
+
+            <div class="campo">
+                <label for="ip">Dirección IP</label>
+                <input type="text" name="ip" id="ip" placeholder="Escribe la dirección ip correspondiente" required>
+            </div>
+
+            <div class="campo">
+                <label for="estado">Estado</label>
+                <select name="estado" id="estado" required>
+                    <option value="True">Activa</option>
+                    <option value="False">Inactiva</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn-guardar">Guardar</button>
+
+        </form>
+    </section>
+</main>
+{% endblock %}

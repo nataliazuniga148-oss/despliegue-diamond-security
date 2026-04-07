@@ -28,7 +28,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'diamond',  # nombre correcto de tu aplicación
+    'crispy_forms',          
+    'crispy_bootstrap5',
+    'rest_framework',
+    'diamond',# nombre correcto de tu aplicación
 ]
 
 MIDDLEWARE = [
@@ -100,6 +103,8 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'diamond' / 'static',
 ]
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

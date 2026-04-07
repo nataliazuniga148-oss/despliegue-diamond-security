@@ -1,0 +1,72 @@
+{% extends 'baseaut.html' %}
+{% load static %}
+
+{% block estilos %}
+<link rel="stylesheet" href="{% static 'css/peatones.css' %}">
+{% endblock %}
+
+{% block titulo %}Registro puerta principal{% endblock %}
+
+{% block contenido %}
+
+<div class="registro">
+    <a href="{% url 'gestion' %}" class="btn-volver-flecha">↩</a>
+
+    <div class="menu-opciones">
+        <a href="#" class="btn-tres-puntos">⋮</a>
+        <div class="opciones">
+            <a href="#">Exportar a PDF</a>
+            <a href="#">Imprimir</a>
+        </div>
+    </div>   
+
+    <h2>Registro puerta principal</h2>
+
+    <div class="encabezado-registro">
+        <span>Nombre Completo</span>
+        <span>Documento</span>
+        <span>N° de Tarjeta</span>
+        <span>Torre / Apto</span>
+        <span>Fecha</span>
+        <span>Hora Entrada</span>
+        <span>Hora Salida</span>
+        <span>Cierre</span>
+    </div>
+
+    {% for r in registros %}
+    <div class="fila-registro">
+        <span>{{ r.persona.nombre }}</span>
+        <span>{{ r.persona.documento }}</span>
+        <span>{{ r.persona.tarjeta|default:"—" }}</span>
+        <span>{{ r.persona.torre }}</span>
+        <span>{{ r.fecha }}</span>
+        <span>{{ r.hora_entrada }}</span>
+        <span>{% if r.hora_salida %}{{ r.hora_salida }}{% else %}—{% endif %}</span>
+        <span>{% if r.hora_salida %}✔{% else %}✖{% endif %}</span>
+    </div>
+    {% empty %}
+    <div class="fila-registro">
+        <span>No hay registros</span>
+    </div>
+    {% endfor %}
+
+    <div class="paginacion">
+        {% if registros.has_previous %}
+            <a class="pagina anterior" href="?page={{ registros.previous_page_number }}">‹ Página anterior</a>
+        {% endif %}
+
+        {% for num in registros.paginator.page_range %}
+            {% if registros.number == num %}
+                <a class="pagina numero active">{{ num }}</a>
+            {% else %}
+                <a class="pagina numero" href="?page={{ num }}">{{ num }}</a>
+            {% endif %}
+        {% endfor %}
+
+        {% if registros.has_next %}
+            <a class="pagina siguiente" href="?page={{ registros.next_page_number }}">Siguiente página ›</a>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

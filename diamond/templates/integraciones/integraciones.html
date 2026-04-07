@@ -12,6 +12,13 @@
         <p class="subtitulo-atencion">
             Diligencia el siguiente formulario para realizar una solicitud, queja, reclamo o pregunta.
         </p>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="mensaje-exito">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
 
         <form class="form-atencion" method="POST">
             {% csrf_token %}

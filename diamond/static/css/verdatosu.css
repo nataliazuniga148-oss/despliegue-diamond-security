@@ -1,9 +1,9 @@
 .contenedor-editar {
     width: 500px;
     background: rgba(255, 255, 255, 0.85);
-    padding: 60px 50px;
+    padding: 20px 50px;
     border-radius: 15px;
-    margin: 40px auto;
+    margin: 1px auto;
     box-shadow: 0 0 20px rgba(0,0,0,0.15);
     font-family: Arial, sans-serif;
     color: #333;

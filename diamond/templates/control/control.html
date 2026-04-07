@@ -14,69 +14,23 @@
         <span>Dirección IP</span>
         <span>Activo</span>
     </div>
+    {% if datos %}
+    {% for ip in datos %}
 
     <div class="fila-acceso">
-        <span class="dato-puerta">Puerta Principal</span>
-        <span class="direccion-ip">192.168.0.10</span>
+        <span class="dato-puerta">{{ ip.puerta }}</span>
+        <span class="direccion-ip">{{ ip.ip }}</span>
         <label class="interruptor">
-            <input type="checkbox" checked>
+            <input type="checkbox"{% if ip.estado == "activa" %}checked{% endif %}>
             <span class="deslizador"></span>
         </label>
     </div>
+    {%endfor%}
 
-    <div class="fila-acceso">
-        <span class="dato-puerta">Puerta parqueadero</span>
-        <span class="direccion-ip">192.168.0.11</span>
-        <label class="interruptor">
-            <input type="checkbox">
-            <span class="deslizador"></span>
-        </label>
-    </div>
+    {% else %}
+    <p style="text-align:center; margin-top:20px;">No hay registros</p>
+    {% endif %}
 
-    <div class="fila-acceso">
-        <span class="dato-puerta">Puerta de personas discapacitadas</span>
-        <span class="direccion-ip">192.168.0.16</span>
-        <label class="interruptor">
-            <input type="checkbox">
-            <span class="deslizador"></span>
-        </label>
-    </div>
-
-    <div class="fila-acceso">
-        <span class="dato-puerta">Puerta Torre 1</span>
-        <span class="direccion-ip">192.168.0.12</span>
-        <label class="interruptor">
-            <input type="checkbox">
-            <span class="deslizador"></span>
-        </label>
-    </div>
-
-    <div class="fila-acceso">
-        <span class="dato-puerta">Puerta Torre 2</span>
-        <span class="direccion-ip">192.168.0.13</span>
-        <label class="interruptor">
-            <input type="checkbox">
-            <span class="deslizador"></span>
-        </label>
-    </div>
-
-    <div class="fila-acceso">
-        <span class="dato-puerta">Puerta Torre 3</span>
-        <span class="direccion-ip">192.168.0.14</span>
-        <label class="interruptor">
-            <input type="checkbox">
-            <span class="deslizador"></span>
-        </label>
-    </div>
-
-    <div class="fila-acceso">
-        <span class="dato-puerta">Puerta Torre 4</span>
-        <span class="direccion-ip">192.168.0.15</span>
-        <label class="interruptor">
-            <input type="checkbox">
-            <span class="deslizador"></span>
-        </label>
-    </div>
 
     <div class="acciones-acceso">
         <a href="{% url 'editaracc' %}" class="boton-accion btn-editar">Editar</a>

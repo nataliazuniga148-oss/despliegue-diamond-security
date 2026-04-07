@@ -1,21 +1,23 @@
 {% extends 'baseaut.html' %}
 {% load static %}
+
 {% block estilos %}
 <link rel="stylesheet" href="{% static 'css/verusuario.css' %}">
 {% endblock %}
-{% block titulo %}ver usuario{% endblock %}
-{% block contenido %}
 
+{% block titulo %}ver usuario{% endblock %}
+
+{% block contenido %}
 <div class="registro">
     <a href="{% url 'registroa' %}" class="btn-volver-flecha">↩</a>
 
     <div class="menu-opciones">
-    <a href="#" class="btn-tres-puntos">⋮</a>
-    <div class="opciones">
-        <a href="#">Exportar a PDF</a>
-        <a href="#">Imprimir</a>
+        <a href="#" class="btn-tres-puntos">⋮</a>
+        <div class="opciones">
+            <a href="#">Exportar a PDF</a>
+            <a href="#">Imprimir</a>
+        </div>
     </div>
-</div>
 
     <h2>Listado de Accesos</h2>
 
@@ -25,141 +27,59 @@
     </div>
 
     <div class="encabezado-registro">
-        <span class="truncate" title="Tipo de usuario">Tipo de usuario</span>
-        <span class="truncate" title="Nombre Completo">Nombre Completo</span>
-        <span class="truncate" title="Tipo de documento">Tipo de documento</span>
-        <span class="truncate" title="Documento">Documento</span>
-        <span class="truncate" title="Número de telefono">Número de telefono</span>
-        <span class="truncate" title="Email">Email</span>
-        <span class="truncate" title="Torre y Apto">Torre y Apto</span>
-        <span class="truncate" title="N° Tarjeta">N° Tarjeta</span>
-        <span class="truncate" title="Numero de parqueadero">Numero de parqueadero</span>
-        <span class="truncate" title="Vehiculo">Vehiculo</span>
-        <span class="truncate" title="Fecha">Fecha</span>
-        <span class="truncate" title="Hora de ingreso">Hora ingreso</span>
-        <span class="truncate" title="Hora salida">Hora salida</span>
+        <span class="campo">Tipo de usuario</span>
+        <span class="campo">Nombre Completo</span>
+        <span class="campo">Tipo de documento</span>
+        <span class="campo">Documento</span>
+        <span class="campo">Número de telefono</span>
+        <span class="campo">Email</span>
+        <span class="campo">Torre y Apto</span>
+        <span class="campo">N° Tarjeta</span>
+        <span class="campo">Numero de parqueadero</span>
+        <span class="campo">Vehiculo</span>
+        <span class="campo">Fecha</span>
+        <span class="campo">Hora ingreso</span>
+        <span class="campo">Hora salida</span>
     </div>
 
-    <div class="fila-registro grid-accesos">
-        <span class="truncate" title="Residente">Residente</span>
-        <span class="truncate" title="Juan David López">Juan David López</span>
-        <span class="truncate" title="CC">CC</span>
-        <span class="truncate" title="12345678">12345678</span>
-        <span class="truncate" title="3124567890">3124567890</span>
-        <span class="truncate" title="juan.lopez@gmail.com">juan.lopez@gmail.com</span>
-        <span class="truncate" title="Torre 2 - Apt 305">Torre 2 - Apt 305</span>
-        <span class="truncate" title="A-5567">A-5567</span>
-        <span class="truncate" title="23">23</span>
-        <span class="truncate" title="Carro">Carro</span>
-        <span class="truncate" title="2025-12-08">2025-12-08</span>
-        <span class="truncate" title="07:10">07:10</span>
-        <span class="truncate" title="—">—</span>
+    {% for r in registros %}
+    <div class="fila-registro-accesos">
+        <span class="campo" title="{{ r.tipo_usuario }}">{{ r.tipo_usuario }}</span>
+        <span class="campo" title="{{ r.nombre }}">{{ r.nombre }}</span>
+        <span class="campo" title="{{ r.tipo_documento }}">{{ r.tipo_documento }}</span>
+        <span class="campo" title="{{ r.documento }}">{{ r.documento }}</span>
+        <span class="campo" title="{{ r.telefono }}">{{ r.telefono }}</span>
+        <span class="campo" title="{{ r.email }}">{{ r.email }}</span>
+        <span class="campo" title="{{ r.torre }}">{{ r.torre }}</span>
+        <span class="campo" title="{{ r.tarjeta }}">{{ r.tarjeta }}</span>
+        <span class="campo" title="{{ r.parqueadero }}">{{ r.parqueadero|default:"..." }}</span>
+        <span class="campo" title="{{ r.placa }}">{{ r.placa|default:"..." }}</span>
+        <span class="campo" title="{{ r.fecha }}">{{ r.fecha }}</span>
+        <span class="campo" title="{{ r.hora_ingreso }}">{{ r.hora_ingreso }}</span>
+        <span class="campo" title="{{ r.hora_salida }}">{{ r.hora_salida|default:"..." }}</span>
     </div>
-
-    <div class="fila-registro grid-accesos">
-        <span class="truncate" title="Residente">Residente</span>
-        <span class="truncate" title="Laura Camila Salazar">Laura Camila Salazar</span>
-        <span class="truncate" title="CC">CC</span>
-        <span class="truncate" title="98765432">98765432</span>
-        <span class="truncate" title="3109876543">3109876543</span>
-        <span class="truncate" title="laura.camila@gmail.com">laura.camila@gmail.com</span>
-        <span class="truncate" title="Torre 1 - Apt 120">Torre 1 - Apt 120</span>
-        <span class="truncate" title="B-2211">B-2211</span>
-        <span class="truncate" title="10">10</span>
-        <span class="truncate" title="Carro">Carro</span>
-        <span class="truncate" title="2025-12-08">2025-12-08</span>
-        <span class="truncate" title="06:55">06:55</span>
-        <span class="truncate" title="14:20">14:20</span>
+    {% empty %}
+    <div class="fila-registro-accesos">
+        <span>No hay registros</span>
     </div>
-
-    <div class="fila-registro grid-accesos">
-        <span class="truncate" title="Residente">Residente</span>
-        <span class="truncate" title="Dana Camila Lozano">Dana Camila Lozano</span>
-        <span class="truncate" title="CC">CC</span>
-        <span class="truncate" title="44223311">44223311</span>
-        <span class="truncate" title="3157890033">3157890033</span>
-        <span class="truncate" title="dana.lozano@gmail.com">dana.lozano@gmail.com</span>
-        <span class="truncate" title="Torre 2 - Apt 110">Torre 2 - Apt 110</span>
-        <span class="truncate" title="D-1122">D-1122</span>
-        <span class="truncate" title="15">15</span>
-        <span class="truncate" title="Moto">Moto</span>
-        <span class="truncate" title="2025-12-08">2025-12-08</span>
-        <span class="truncate" title="09:15">09:15</span>
-        <span class="truncate" title="10:44">10:44</span>
-    </div>
-
-    <div class="fila-registro grid-accesos">
-        <span class="truncate" title="Residente">Residente</span>
-        <span class="truncate" title="Andrés Felipe Páez">Andrés Felipe Páez</span>
-        <span class="truncate" title="CC">CC</span>
-        <span class="truncate" title="11223344">11223344</span>
-        <span class="truncate" title="3009988776">3009988776</span>
-        <span class="truncate" title="andres.paez@gmail.com">andres.paez@gmail.com</span>
-        <span class="truncate" title="Torre 5 - Apt 510">Torre 5 - Apt 510</span>
-        <span class="truncate" title="E-1200">E-1200</span>
-        <span class="truncate" title="5">5</span>
-        <span class="truncate" title="Carro">Carro</span>
-        <span class="truncate" title="2025-12-08">2025-12-08</span>
-        <span class="truncate" title="06:45">06:45</span>
-        <span class="truncate" title="—">—</span>
-    </div>
-
-    <div class="fila-registro grid-accesos">
-        <span class="truncate" title="Residente">Residente</span>
-        <span class="truncate" title="Melissa Tatiana Gómez">Melissa Tatiana Gómez</span>
-        <span class="truncate" title="CC">CC</span>
-        <span class="truncate" title="77889900">77889900</span>
-        <span class="truncate" title="3175543322">3175543322</span>
-        <span class="truncate" title="melissa.gomez@gmail.com">melissa.gomez@gmail.com</span>
-        <span class="truncate" title="Torre 1 - Apt 215">Torre 1 - Apt 215</span>
-        <span class="truncate" title="F-4421">F-4421</span>
-        <span class="truncate" title="9">9</span>
-        <span class="truncate" title="Carro">Carro</span>
-        <span class="truncate" title="2025-12-08">2025-12-08</span>
-        <span class="truncate" title="07:20">07:20</span>
-        <span class="truncate" title="—">—</span>
-    </div>
-
-    <div class="fila-registro grid-accesos">
-        <span class="truncate" title="Residente">Residente</span>
-        <span class="truncate" title="Fernando Quintero">Fernando Quintero</span>
-        <span class="truncate" title="CC">CC</span>
-        <span class="truncate" title="99887766">99887766</span>
-        <span class="truncate" title="3126654433">3126654433</span>
-        <span class="truncate" title="fernando.q@gmail.com">fernando.q@gmail.com</span>
-        <span class="truncate" title="Torre 3 - Apt 305">Torre 3 - Apt 305</span>
-        <span class="truncate" title="G-0011">G-0011</span>
-        <span class="truncate" title="18">18</span>
-        <span class="truncate" title="Carro">Carro</span>
-        <span class="truncate" title="2025-12-08">2025-12-08</span>
-        <span class="truncate" title="08:05">08:05</span>
-        <span class="truncate" title="—">—</span>
-    </div>
-
-    <div class="fila-registro grid-accesos">
-        <span class="truncate" title="Residente">Residente</span>
-        <span class="truncate" title="Sara Valentina Acosta">Sara Valentina Acosta</span>
-        <span class="truncate" title="CC">CC</span>
-        <span class="truncate" title="22446688">22446688</span>
-        <span class="truncate" title="3167788990">3167788990</span>
-        <span class="truncate" title="sara.valentina@gmail.com">sara.valentina@gmail.com</span>
-        <span class="truncate" title="Torre 4 - Apt 118">Torre 4 - Apt 118</span>
-        <span class="truncate" title="H-7833">H-7833</span>
-        <span class="truncate" title="20">20</span>
-        <span class="truncate" title="Moto">Moto</span>
-        <span class="truncate" title="2025-12-08">2025-12-08</span>
-        <span class="truncate" title="09:10">09:10</span>
-        <span class="truncate" title="12:40">12:40</span>
-    </div>
+    {% endfor %}
 
     <div class="paginacion">
-        <a class="pagina anterior" href="#">‹ Página anterior</a>
-        <a class="pagina numero active" href="#">1</a>
-        <a class="pagina numero" href="#">2</a>
-        <a class="pagina numero" href="#">3</a>
-        <span class="puntos">...</span>
-        <a class="pagina numero" href="#">12</a>
-        <a class="pagina siguiente" href="#">Siguiente página ›</a>
+        {% if registros.has_previous %}
+            <a class="pagina anterior" href="?page={{ registros.previous_page_number }}">‹ Página anterior</a>
+        {% endif %}
+
+        {% for num in registros.paginator.page_range %}
+            {% if registros.number == num %}
+                <a class="pagina numero active">{{ num }}</a>
+            {% else %}
+                <a class="pagina numero" href="?page={{ num }}">{{ num }}</a>
+            {% endif %}
+        {% endfor %}
+
+        {% if registros.has_next %}
+            <a class="pagina siguiente" href="?page={{ registros.next_page_number }}">Siguiente página ›</a>
+        {% endif %}
     </div>
 </div>
 {% endblock %}

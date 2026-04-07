@@ -1,47 +1,53 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block estilos %}
-  <link rel="stylesheet" href="{% static 'css/cotizar.css' %}">   
-{% endblock %}  
-{% block titulo %}cotizar{% endblock %}
-{% block contenido  %}
-   <main class="fondo">
-    <section class="contenedor-formulario">
+{% load crispy_forms_tags %}
 
+{% block estilos %}
+<link rel="stylesheet" href="{% static 'css/cotizar.css' %}">
+{% endblock %}
+
+{% block titulo %}Cotizar{% endblock %}
+
+{% block contenido %}
+<main class="fondo">
+    <section class="contenedor-formulario">
         <h2><em>INGRESE LOS SIGUIENTES DATOS</em></h2>
 
-        <div class="campo">
-            <label>Nombre completo:</label>
-            <input type="text" placeholder="Tu nombre completo">
-        </div>
+        <form method="POST" action="">
+            {% csrf_token %}
 
-        <div class="campo">
-            <label>Número de documento:</label>
-            <input type="text" placeholder="Escriba su número de documento">
-        </div>
+            <div class="campo">
+                <label for="nombre">Nombre completo</label>
+                <input type="text" name="nombre" id="nombre" placeholder="Su nombre completo" required>
+            </div>
 
-        <div class="campo">
-            <label>Número de teléfono:</label>
-            <input type="text" placeholder="Número de teléfono">
-        </div>
+            <div class="campo">
+                <label for="documento">Número de documento</label>
+                <input type="text" name="documento" id="documento" placeholder="Escribe tu número de documento" required>
+            </div>
 
-        <div class="campo">
-            <label>Correo electrónico:</label>
-            <input type="email" placeholder="Email">
-        </div>
+            <div class="campo">
+                <label for="telefono">Número de teléfono</label>
+                <input type="text" name="telefono" id="telefono" placeholder="Escribe tu número telefónico" required>
+            </div>
 
-        <div class="campo">
-            <label>Ciudad/Departamento:</label>
-            <input type="text" placeholder="Ciudad/Departamento">
-        </div>
+            <div class="campo">
+                <label for="email">Correo Electrónico</label>
+                <input type="email" name="email" id="email" placeholder="Escribe tu correo electrónico" required>
+            </div>
 
-        <div class="campo">
-            <label>Consulta:</label>
-            <input type="text" placeholder="Descripción">
-        </div>
+            <div class="campo">
+                <label for="ciudad">Ciudad/Apartamento</label>
+                <input type="text" name="ciudad" id="ciudad" placeholder="Escribe tu ciudad o apartamento de residencia" required>
+            </div>
 
-        <button type="submit" class="btn-registrar">Enviar</button>
+            <div class="campo">
+                <label for="consulta">Consulta</label>
+                <textarea name="consulta" id="consulta" placeholder="Escribe tu consulta" required></textarea>
+            </div>
 
+            <button type="submit" class="btn-registrar">Registrar</button>
+        </form>
     </section>
 </main>
 {% endblock %}

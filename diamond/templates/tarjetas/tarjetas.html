@@ -1,104 +1,149 @@
 {% extends 'baseaut.html' %}
 {% load static %}
+
 {% block estilos %}
 <link rel="stylesheet" href="{% static 'css/tarjetas.css' %}">
 {% endblock %}
-{% block titulo %}tarjetas{% endblock %}
+
 {% block contenido %}
 
-<div class="diseño">
+<div class="contenedor">
 
-    <h2>Registro de Tarjeta</h2>
-
-    <div class="formulario">
-
-        <div class="campo">
-            <label for="nombre_completo">Nombre completo</label>
-            <input type="text" id="nombre_completo" name="nombre_completo" placeholder="Ingrese nombre y apellido">
+    {% if messages %}
+        <div class="mensajes">
+            {% for message in messages %}
+                <div class="alerta">{{ message }}</div>
+            {% endfor %}
         </div>
-        
-        <div class="campo">
-            <label for="documento">Número de documento</label>
-            <input type="text" id="documento" name="documento" placeholder="Cédula o ID">
-        </div>
-        
-        <div class="campo">
-            <label for="torre_apto">Torre / Apartamento</label>
-            <input type="text" id="torre_apto" name="torre_apto" placeholder="Ej: Torre 1, Apto 302">
-        </div>
+    {% endif %}
 
-        <div class="campo">
-            <label for="n_tarjeta">N° Tarjeta</label>
-            <input type="text" id="n_tarjeta" name="n_tarjeta" placeholder="Ej: 123456789">
+    <form method="GET" class="buscador">
+        <input type="text" name="q" placeholder="Buscar..." value="{{ query }}">
+        <button type="submit">🔍</button>
+    </form>
+
+    {% for r in registros %}
+    <div class="fila">
+
+        <div class="info">
+            <strong>{{ r.nombre }}</strong>
+            <span>{{ r.documento }}</span>
         </div>
 
-    </div>
+        <div class="tarjeta-box">
 
-    <div class="encabezado-tabla">
-        <span>Acceso</span>
-        <span>Activo</span>
-    </div>
+            {% if r.tarjeta %}
 
-    <div class="fila-usuario">
-        <span class="dato">Acceso puerta principal</span>
-        <label class="switch">
-            <input type="checkbox" checked>
-            <span class="slider"></span>
-        </label>
-    </div>
+                <form method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="tarjeta_id" value="{{ r.tarjeta.id }}">
+                    <input type="hidden" name="accion" value="toggle">
 
-    <div class="fila-usuario">
-        <span class="dato">Acceso puerta al parqueadero</span>
-        <label class="switch">
-            <input type="checkbox">
-            <span class="slider"></span>
-        </label>
-    </div>
+                    <label class="switch">
+                        <input type="checkbox"
+                               onchange="this.form.submit()"
+                               {% if r.tarjeta.activa %}checked{% endif %}>
+                        <span class="slider"></span>
+                    </label>
+                </form>
 
-    <div class="fila-usuario">
-        <span class="dato">Acceso puerta personas con movilidad reducida</span>
-        <label class="switch">
-            <input type="checkbox" checked>
-            <span class="slider"></span>
-        </label>
-    </div>
+                <form method="POST" class="editar">
+                    {% csrf_token %}
+                    <input type="hidden" name="tarjeta_id" value="{{ r.tarjeta.id }}">
 
-    <div class="fila-usuario">
-        <span class="dato">Acceso torre 1</span>
-        <label class="switch">
-            <input type="checkbox">
-            <span class="slider"></span>
-        </label>
-    </div>
+                    <input type="text"
+                           name="nuevo_numero"
+                           value="{{ r.tarjeta.numero }}"
+                           class="input-numero"
+                           required>
 
-    <div class="fila-usuario">
-        <span class="dato">Acceso torre 2</span>
-        <label class="switch">
-            <input type="checkbox">
-            <span class="slider"></span>
-        </label>
-    </div>
+                    <button type="submit" name="accion" value="editar_numero">
+                        Guardar
+                    </button>
+                </form>
 
-    <div class="fila-usuario">
-        <span class="dato">Acceso torre 3</span>
-        <label class="switch">
-            <input type="checkbox">
-            <span class="slider"></span>
-        </label>
-    </div>
+                <form method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="tarjeta_id" value="{{ r.tarjeta.id }}">
+                    <input type="hidden" name="accion" value="cambiar_tarjeta">
 
-    <div class="fila-usuario">
-        <span class="dato">Acceso torre 4</span>
-        <label class="switch">
-            <input type="checkbox">
-            <span class="slider"></span>
-        </label>
-    </div>
+                    <button type="submit">
+                        Cambiar tarjeta
+                    </button>
+                </form>
 
-    <div class="botones-acciones-acceso">
-        <a href="{% url 'buscar' %}" class="botones btn-guardar">Guardar</a>
-        <a href="{% url 'registro' %}" class="botones btn-editar">Editar</a>
+                <div class="historial">
+                    <strong>Historial:</strong>
+                    <ul>
+                        {% for h in r.historialtarjeta_set.all %}
+                            <li>
+                                {{ h.tarjeta.numero }} -
+                                {{ h.fecha|date:"d/m/Y H:i" }} -
+                                {% if h.tarjeta.activa %}
+                                    Activa
+                                {% else %}
+                                    Inactiva
+                                {% endif %}
+                            </li>
+                        {% empty %}
+                            <li>Sin historial</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+            {% else %}
+
+                <form method="POST" class="asignar-form">
+                    {% csrf_token %}
+                    <input type="hidden" name="registro_id" value="{{ r.id }}">
+
+                    <input type="text"
+                           name="nuevo_numero"
+                           placeholder="Asignar tarjeta"
+                           class="input-numero"
+                           required>
+
+                    <button type="submit" name="accion" value="asignar">
+                        Asignar
+                    </button>
+                </form>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+    {% empty %}
+        <p>No hay registros</p>
+    {% endfor %}
+
+    <div class="paginacion">
+
+        {% if registros.has_previous %}
+            <a class="pagina anterior"
+               href="?page={{ registros.previous_page_number }}&q={{ query }}">
+               ‹ Página anterior
+            </a>
+        {% endif %}
+
+        {% for num in registros.paginator.page_range %}
+            {% if registros.number == num %}
+                <a class="pagina numero active">{{ num }}</a>
+            {% else %}
+                <a class="pagina numero"
+                   href="?page={{ num }}&q={{ query }}">{{ num }}</a>
+            {% endif %}
+        {% endfor %}
+
+        {% if registros.has_next %}
+            <a class="pagina siguiente"
+               href="?page={{ registros.next_page_number }}&q={{ query }}">
+               Siguiente página ›
+            </a>
+        {% endif %}
+
     </div>
 
 </div>
+
 {% endblock %}

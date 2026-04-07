@@ -6,6 +6,7 @@
     border-radius: 15px;
     box-shadow: 0 0 18px rgba(0, 0, 0, 0.18);
     font-family: Arial, sans-serif;
+    position: relative;
 }
 
 .registro h2 {
@@ -47,7 +48,7 @@
 }
 
 .encabezado-registro,
-.fila-registro {
+.fila-registro-accesos {
     display: grid;
     grid-template-columns: 1.4fr 0.9fr 1fr 0.9fr 1fr 0.8fr 0.8fr 0.8fr 0.8fr 0.8fr 0.8fr 0.8fr 0.8fr;
     text-align: center;
@@ -63,7 +64,7 @@
     border-radius: 8px 8px 0 0;
 }
 
-.fila-registro span {
+.fila-registro-accesos span {
     display: block;
     width: 100%;
     overflow: hidden;
@@ -71,9 +72,13 @@
     white-space: nowrap;
     position: relative;
     cursor: default;
+    padding: 8px 10px;
+    font-size: 14px;
+    height: 32px;
+    line-height: 20px;
 }
 
-.fila-registro span:hover::after {
+.fila-registro-accesos span:hover::after {
     content: attr(title);
     position: absolute;
     left: 0;
@@ -89,11 +94,11 @@
     word-wrap: break-word;
 }
 
-.fila-registro:hover {
+.fila-registro-accesos:hover {
     background: #eef4ff;
 }
 
-.fila-registro:nth-child(even) {
+.fila-registro-accesos:nth-child(even) {
     background: rgba(185, 73, 73, 0.03);
 }
 
@@ -187,39 +192,11 @@ html, body {
     width: 100%;
     overflow-x: auto;
 }
-.tabla-registro td {
-    max-width: 220px;     
-    padding: 10px;         
-    font-size: 15px;
-}
-
-.tabla-registro td.truncate {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.fila-registro span {
-    display: block;
-    width: 100%;
-    padding: 8px 10px;
-    font-size: 14px;
-    height: 32px;
-    line-height: 20px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    position: relative;
-    cursor: default;
-}
-.registro-container {
-    position: relative;
-}
 
 .menu-opciones {
     position: absolute;
-    top: 15px;
-    right: 15px;
+    top: 10px;
+    right: 10px;
     display: inline-block;
 }
 
@@ -258,7 +235,7 @@ html, body {
     background: #f2f2f2;
 }
 
-.menu-opciones:focus-within .opciones {
+.menu-opciones:focus-within .opciones,
+.menu-opciones:hover .opciones {
     display: block;
 }
-

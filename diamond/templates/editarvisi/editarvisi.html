@@ -1,43 +1,68 @@
 {% extends 'baseaut.html' %}
 {% load static %}
 {% block estilos %}
-<link rel="stylesheet" href="{% static 'css/verdatosu.css' %}">
+<link rel="stylesheet" href="{% static 'css/editarpa.css' %}">
 {% endblock %}
 {% block titulo %}Editar visitante{% endblock %}
 {% block contenido %}
 <div class="contenedor-editar">
-    <h2>Editar Visitante</h2>
+    <h2>Editar visitante</h2>
 
-    <form action="#" method="POST" class="editar">
+    <form method="POST" class="form-editar">
+        {% csrf_token %}
 
         <div class="fila">
             <div class="campo">
-                <label for="nombre">Nombre completo</label>
-                <input type="text" id="nombre" name="nombre" value="Andre Lopez Martines">
+                <label>Tipo de usuario</label>
+                {{ form.tipo_usuario }}
             </div>
-
             <div class="campo">
-                <label for="numero_documento">Número de documento</label>
-                <input type="text" id="numero_documento" name="numero_documento" value="1023456789">
+                <label>Nombre completo</label>
+                {{ form.nombre }}
             </div>
         </div>
 
         <div class="fila">
             <div class="campo">
-                <label for="torre">Torre y apto</label>
-                <input type="text" id="torre" name="torre" value="3-204">
+                <label>Tipo de documento</label>
+                {{ form.tipo_documento }}
             </div>
-
             <div class="campo">
-                <label for="registro_tarjeta">N° de tarjeta</label>
-                <input type="text" id="registro_tarjeta" name="registro_tarjeta" value="5602">
+                <label>Número de documento</label>
+                {{ form.documento }}
             </div>
         </div>
 
         <div class="fila">
-            <div class="campo campo-completo">
-                <label for="observaciones">Observaciones</label>
-                <input type="text" id="observaciones" name="observaciones" value="Ingreso con bicicleta">
+            <div class="campo">
+                <label>Número de teléfono</label>
+                {{ form.telefono }}
+            </div>
+            <div class="campo">
+                <label>Correo electrónico</label>
+                {{ form.email }}
+            </div>
+        </div>
+
+        <div class="fila">
+            <div class="campo">
+                <label>Torre de apartamento</label>
+                {{ form.torre }}
+            </div>
+            <div class="campo">
+                <label>Tarjeta</label>
+                {{ form.tarjeta }}
+            </div>
+        </div>
+
+        <div class="fila">
+            <div class="campo">
+                <label>Número de parqueadero</label>
+                {{ form.parqueadero }}
+            </div>
+            <div class="campo">
+                <label>Placa</label>
+                {{ form.placa }}
             </div>
         </div>
 
@@ -45,7 +70,8 @@
             <button type="submit" class="botones btn-guardar">
                 Guardar cambios
             </button>
-            <a href="{% url 'visitantes' %}" class="botones btn-volver">
+
+            <a href="{% url 'usuarios' %}" class="botones btn-volver">
                 Volver
             </a>
         </div>

@@ -1,43 +1,76 @@
 {% extends 'baseaut.html' %}
 {% load static %}
+
 {% block estilos %}
-<link rel="stylesheet" href="{% static 'css/verdatosu.css' %}">
+<link rel="stylesheet" href="{% static 'css/editarpa.css' %}">
 {% endblock %}
+
 {% block titulo %}Editar paquete{% endblock %}
+
 {% block contenido %}
 <div class="contenedor-editar">
     <h2>Editar Paquete</h2>
 
-    <form action="#" method="POST" class="form-editar">
+    <form method="POST" class="form-editar">
+        {% csrf_token %}
 
         <div class="fila">
             <div class="campo">
-                <label for="nombre">Nombre completo</label>
-                <input type="text" id="nombre" name="nombre" value="Camila Lucia Rodríguez Pedraza">
+                <label>Nombre completo</label>
+                {{ form.destinatario }}
             </div>
 
             <div class="campo">
-                <label for="numero_documento">Número de documento</label>
-                <input type="text" id="numero_documento" name="numero_documento" value="1090123476">
+                <label>Número de documento</label>
+                {{ form.documento }}
             </div>
         </div>
 
         <div class="fila">
             <div class="campo">
-                <label for="torre">Torre y apto</label>
-                <input type="text" id="torre" name="torre" value="T4-103">
+                <label>Nombre del que recibe</label>
+                {{ form.nombre_recibe }}
             </div>
 
             <div class="campo">
-                <label for="paquete">Paquete</label>
-                <input type="text" id="paquete" name="paquete" value="FT7667">
+                <label>Torre y apto</label>
+                {{ form.torre }}
             </div>
         </div>
 
         <div class="fila">
-            <div class="campo campo-completo">
-                <label for="agencia_envio">Agencia de envío</label>
-                <input type="text" id="agencia_envio" name="agencia_envio" value="Servientrega">
+            <div class="campo">
+                <label>Paquete</label>
+                {{ form.paquete }}
+            </div>
+
+            <div class="campo">
+                <label>Agencia de envío</label>
+                {{ form.agencia }}
+            </div>
+        </div>
+
+        <div class="fila">
+            <div class="campo">
+                <label>Fecha</label>
+                {{ form.fecha }}
+            </div>
+
+            <div class="campo">
+                <label>Hora ingreso</label>
+                {{ form.hora_ingreso }}
+            </div>
+        </div>
+
+        <div class="fila">
+            <div class="campo">
+                <label>Hora entrega</label>
+                {{ form.hora_entrega }}
+            </div>
+
+            <div class="campo">
+                <label>Observaciones</label>
+                {{ form.observaciones }}
             </div>
         </div>
 

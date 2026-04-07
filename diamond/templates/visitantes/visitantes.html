@@ -1,118 +1,91 @@
 {% extends 'baseaut.html' %}
 {% load static %}
+
 {% block estilos %}
 <link rel="stylesheet" href="{% static 'css/visitantes.css' %}">
 {% endblock %}
-{% block titulo %}Registro visitantes{% endblock %}
+
+{% block titulo %}Visitantes{% endblock %}
+
 {% block contenido %}
 
 <div class="registro">
-
     <a href="{% url 'recepcion' %}" class="btn-volver-flecha">↩</a>
 
-    <div class="menu-opciones">
-        <a href="#" class="btn-tres-puntos">⋮</a>
-        <div class="opciones">
-            <a href="#">Exportar a PDF</a>
-            <a href="#">Imprimir</a>
-        </div>
-    </div>
-
-    <h2>Registro de visitantes</h2>
+    <h2>Registro de Visitantes</h2>
 
     <div class="encabezado-registro">
-        <span>Nombre Completo</span>
+        <span>Tipo usuario</span>
+        <span>Nombre</span>
+        <span>Tipo documento</span>
         <span>Documento</span>
-        <span>N° de Tarjeta</span>
-        <span>Torre / Apto</span>
+        <span>Teléfono</span>
+        <span>Email</span>
+        <span>Torre</span>
+        <span>Tarjeta</span>
+        <span>Parqueadero</span>
+        <span>Placa</span>
         <span>Fecha</span>
-        <span>Hora Entrada</span>
-        <span>Hora Salida</span>
+        <span>Hora ingreso</span>
+        <span>Hora salida</span>
         <span>Observaciones</span>
-        <span>Editar</span>
+        <span>Acciones</span>
     </div>
 
+    {% for usuario in registros %}
     <div class="fila-registro">
-        <span>Andrea López Martínez</span>
-        <span>1023456789</span>
-        <span>56021</span>
-        <span>3-204</span>
-        <span>2025-12-10</span>
-        <span>07:30</span>
-        <span>18:00</span>
-        <span>Ingreso con bicicleta</span>
-        <a href="{% url 'editarvisi' %}" class="btn-editar">Editar</a>
-    </div>
+        <span>{{ usuario.tipo_usuario }}</span>
+        <span>{{ usuario.nombre }}</span>
+        <span>{{ usuario.tipo_documento }}</span>
+        <span>{{ usuario.documento }}</span>
+        <span>{{ usuario.telefono }}</span>
+        <span>{{ usuario.email|default:"..." }}</span>
+        <span>{{ usuario.torre }}</span>
+        <span>{{ usuario.tarjeta.numero|default:"..." }}</span>
+        <span>{{ usuario.parqueadero|default:"..." }}</span>
+        <span>{{ usuario.placa|default:"..." }}</span>
+        <span>{{ usuario.fecha }}</span>
+        <span>{{ usuario.hora_ingreso }}</span>
+        <span>{{ usuario.hora_salida|default:"..." }}</span>
+        <span>{{ usuario.observaciones|default:"..." }}</span>
 
-    <div class="fila-registro">
-        <span>Carlos Méndez Ruiz</span>
-        <span>987654321</span>
-        <span>56022</span>
-        <span>1-101</span>
-        <span>2025-12-10</span>
-        <span>08:15</span>
-        <span>17:45</span>
-        <span>-</span>
-        <a href="#" class="btn-editar">Editar</a>
+        <div class="acciones">
+            <a href="{% url 'editarvisi' usuario.id %}" class="btn-editar">
+                Editar
+            </a>
+        </div>
     </div>
-
-    <div class="fila-registro">
-        <span>María Fernanda Gil</span>
-        <span>1002458796</span>
-        <span>56023</span>
-        <span>2-305</span>
-        <span>2025-12-10</span>
-        <span>09:05</span>
-        <span>—</span>
-        <span>Ingreso con bicicleta</span>
-        <a href="#" class="btn-editar">Editar</a>
-    </div>
-
-    <div class="fila-registro">
-        <span>Juan Sebastián Rojas</span>
-        <span>1015987632</span>
-        <span>56024</span>
-        <span>4-102</span>
-        <span>2025-12-10</span>
-        <span>06:50</span>
-        <span>18:30</span>
-        <span>-</span>
-        <a href="#" class="btn-editar">Editar</a>
-    </div>
-
-    <div class="fila-registro">
-        <span>Paula Andrea Castro</span>
-        <span>1198765432</span>
-        <span>56025</span>
-        <span>5-401</span>
-        <span>2025-12-10</span>
-        <span>10:20</span>
-        <span>—</span>
-        <span>Ingreso con bicicleta</span>
-        <a href="#" class="btn-editar">Editar</a>
-    </div>
-
-    <div class="fila-registro">
-        <span>David Hernández Pineda</span>
-        <span>900456781</span>
-        <span>56026</span>
-        <span>2-110</span>
-        <span>2025-12-10</span>
-        <span>07:10</span>
-        <span>17:55</span>
-        <span>-</span>
-        <a href="#" class="btn-editar">Editar</a>
-    </div>
+    {% empty %}
+    <p>No hay visitantes registrados.</p>
+    {% endfor %}
 
     <div class="paginacion">
-        <a class="pagina anterior" href="#">‹ Página anterior</a>
-        <a class="pagina numero active" href="#">1</a>
-        <a class="pagina numero" href="#">2</a>
-        <a class="pagina numero" href="#">3</a>
-        <span class="puntos">...</span>
-        <a class="pagina numero" href="#">20</a>
-        <a class="pagina siguiente" href="#">Siguiente página ›</a>
+
+        {% if registros.has_previous %}
+            <a class="pagina anterior"
+               href="?page={{ registros.previous_page_number }}">
+               ‹ Página anterior
+            </a>
+        {% endif %}
+
+        {% for num in registros.paginator.page_range %}
+            {% if registros.number == num %}
+                <a class="pagina numero active">{{ num }}</a>
+            {% else %}
+                <a class="pagina numero"
+                   href="?page={{ num }}">{{ num }}</a>
+            {% endif %}
+        {% endfor %}
+
+        {% if registros.has_next %}
+            <a class="pagina siguiente"
+               href="?page={{ registros.next_page_number }}">
+               Siguiente página ›
+            </a>
+        {% endif %}
+
     </div>
 
 </div>
+
 {% endblock %}

@@ -131,3 +131,25 @@ body {
     justify-content: center;
     align-items: center;
 }
+.campo input,
+.campo select,
+.campo textarea {
+    height: 34px;
+    padding: 0 10px;
+    border-radius: 6px;
+    border: 1px solid #c5d3e0;
+    background-color: #c5d3e0;
+    font-size: 0.85em;
+    outline: none;
+    width: 100%;
+    box-sizing: border-box;
+    color: #333;
+    font-family: Arial, sans-serif;
+}
+
+.campo textarea {
+    line-height: 34px;   
+    padding-top: 0;
+    padding-bottom: 0;
+    resize: none;
+}

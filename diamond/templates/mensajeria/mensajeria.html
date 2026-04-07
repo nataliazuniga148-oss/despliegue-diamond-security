@@ -1,0 +1,102 @@
+{% extends 'baseaut.html' %}
+{% load static %}
+
+{% block estilos %}
+<link rel="stylesheet" href="{% static 'css/registroa.css' %}">
+{% endblock %}
+
+{% block titulo %}Registro de paquetes{% endblock %}
+
+{% block contenido %}
+
+<div class="panel-registro">  
+    <main class="fondo">
+        <section class="contenedor-formulario">
+            
+            <h2><em>REGISTRO DE PAQUETES</em></h2>
+
+            {% if error %}
+                <div class="error">{{ error }}</div>
+            {% endif %}
+
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="success">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+
+            <form method="POST">
+                {% csrf_token %}
+
+                <div class="fila">
+                    <div class="campo">
+                        <label>Documento</label>
+                        <input type="text" name="documento" placeholder="Digite el número de documento" required>
+                    </div>
+
+                    <div class="campo">
+                        <label>Destinatario</label>
+                        <input type="text" name="destinatario" placeholder="Dijite el nombre del destinatario">
+                    </div>
+                </div>
+
+                <div class="fila">
+                    <div class="campo">
+                        <label>Nombre del que recibe</label>
+                        <input type="text" name="nombre_recibe" placeholder="Digite quién recibe el paquete" required>
+                    </div>
+
+                    <div class="campo">
+                        <label>Torre y apartamento</label>
+                        <input type="text" name="torre" placeholder="Ej: Torre 2 - Apto 301">
+                    </div>
+                </div>
+
+                <div class="fila">
+                    <div class="campo">
+                        <label>Paquete</label>
+                        <input type="text" name="paquete" placeholder="Tipo de paquete" required>
+                    </div>
+
+                    <div class="campo">
+                        <label>Agencia de envío</label>
+                        <input type="text" name="agencia" placeholder="Ej: Servientrega" required>
+                    </div>
+                </div>
+
+                <div class="fila">
+                    <div class="campo">
+                        <label>Fecha</label>
+                        <input type="date" name="fecha" required>
+                    </div>
+
+                    <div class="campo">
+                        <label>Hora de ingreso</label>
+                        <input type="time" name="hora_ingreso" required>
+                    </div>
+                </div>
+
+                <div class="fila">
+                    <div class="campo">
+                        <label>Hora de entrega</label>
+                        <input type="time" name="hora_entrega">
+                    </div>
+
+                    <div class="campo">
+                        <label>Observaciones</label>
+                        <textarea name="observaciones" placeholder="Dijite alguna observación"></textarea>
+                    </div>
+                </div>
+
+                <div class="fila centrar">
+                    <button type="submit" class="btn-registrar">Registrar</button>
+                    <a href="{% url 'paquetes' %}" class="btn-ver">Ver registro</a>
+                </div>
+
+            </form>
+
+        </section>
+    </main>
+</div>
+
+{% endblock %}
