@@ -104,10 +104,17 @@ input:checked + .slider:before {
     text-align: center;
 }
 
+
+.btn-editar:hover {
+    background: #c81f00 !important;
+    color: #fff !important;
+    transform: scale(1.05);
+}
 .botones:hover {
     background: black;
     color: white;
 }
+
 .acciones {
     display: flex;
     justify-content: center;
@@ -130,7 +137,7 @@ input:checked + .slider:before {
 }
 
 .btn-registrar:hover {
-    background: #2ecc71;
+    background: #f02c05;
     color: #fff;
     transform: scale(1.05);
 }
@@ -142,11 +149,10 @@ input:checked + .slider:before {
 }
 
 .btn-cierre:hover {
-    background: #f02c05;
+    background: #2ecc71;
     color: #fff;
     transform: scale(1.05);
 }
-
 
 html, body {
     height: 100%;
@@ -192,3 +198,18 @@ body {
     transform: scale(0.95);
 }
 
+.msg-rojo {
+    color: #fff;
+    background: #e53935;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
+
+.msg-verde {
+    color: #fff;
+    background: #43a047;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+}

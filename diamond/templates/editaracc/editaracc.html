@@ -27,12 +27,12 @@
 
     <input type="hidden" name="id" value="{{ ip.id }}">
 
-    <input type="text" name="puerta" value="{{ ip.puerta }}" class="dato">
+    <input type="text" name="puerta_{{ ip.id }}" value="{{ ip.puerta.nombre }}" class="dato">
 
-    <input type="text" name="ip" value="{{ ip.ip }}" class="ip">
+    <input type="text" name="ip_{{ ip.id }}" value="{{ ip.ip }}" class="ip">
 
     <label class="switch">
-        <input type="checkbox" name="estado" {% if ip.estado == "activa" %}checked{% endif %}>
+        <input type="checkbox" name="estado_{{ ip.id }}" {% if ip.estado == "activo" %}checked{% endif %}>
         <span class="slider"></span>
     </label>
 

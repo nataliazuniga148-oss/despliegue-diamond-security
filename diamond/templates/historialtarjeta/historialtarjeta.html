@@ -1,0 +1,94 @@
+{% extends 'baseaut.html' %}
+{% load static %}
+
+{% block estilos %}
+<link rel="stylesheet" href="{% static 'css/historialtarjeta.css' %}">
+{% endblock %}
+
+{% block contenido %}
+
+<div class="contenedor-historial">
+
+    <h2 class="titulo-historial">Historial de Tarjetas</h2>
+
+    <div class="tabla-contenedor">
+        <table class="tabla-historial">
+
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Tarjeta</th>
+                    <th>Estado</th>
+                    <th>Fecha</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for h in historial %}
+                <tr class="fila-tabla">
+
+                    <td>
+                        {% if h.registro %}
+                            {{ h.registro.nombre }}
+                        {% else %}
+                            Usuario no disponible
+                        {% endif %}
+                    </td>
+
+                    <td>
+                        {% if h.tarjeta %}
+                            {{ h.tarjeta.numero }}
+                        {% else %}
+                            Sin tarjeta
+                        {% endif %}
+                    </td>
+
+                    <td>
+                        {{ h.estado_legible }}
+                    </td>
+
+                    <td>
+                        {{ h.fecha|date:"d/m/Y H:i" }}
+                    </td>
+
+                </tr>
+
+                {% empty %}
+                <tr>
+                    <td colspan="4" class="sin-registros">
+                        No hay historial
+                    </td>
+                </tr>
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+    </div>
+
+    <div class="paginacion">
+
+        {% if historial.has_previous %}
+            <a class="pagina anterior" href="?page=1">«</a>
+            <a class="pagina anterior" href="?page={{ historial.previous_page_number }}">‹</a>
+        {% endif %}
+
+        {% for num in historial.paginator.page_range %}
+            {% if historial.number == num %}
+                <span class="pagina numero active">{{ num }}</span>
+            {% else %}
+                <a class="pagina numero" href="?page={{ num }}">{{ num }}</a>
+            {% endif %}
+        {% endfor %}
+
+        {% if historial.has_next %}
+            <a class="pagina siguiente" href="?page={{ historial.next_page_number }}">›</a>
+            <a class="pagina siguiente" href="?page={{ historial.paginator.num_pages }}">»</a>
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -82,3 +82,86 @@ form input {
 .volver:hover {
     text-decoration: underline;
 }
+.mensaje-exito {
+    margin-top: 15px;
+    padding: 12px;
+    background-color: #e8f5e9;
+    color: #2e7d32;
+    border: 1px solid #a5d6a7;
+    border-radius: 8px;
+    font-size: 14px;
+    text-align: center;
+}
+
+
+.animacion-mensaje {
+    animation: aparecer 0.6s ease-out;
+}
+
+@keyframes aparecer {
+    0% {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.mensaje-exito {
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #dff6e3, #f4fff6);
+    border: 2px solid #8fd19e;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.icono-check {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 12px auto;
+    border-radius: 50%;
+    background: #4CAF50;
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: pulse 1.5s infinite;
+}
+
+.mensaje-exito h3 {
+    color: #2e7d32;
+    margin-bottom: 10px;
+    font-size: 22px;
+}
+
+.mensaje-exito p {
+    color: #444;
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+.animacion-mensaje {
+    animation: aparecerMensaje 0.7s ease;
+}
+
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.5);
+    }
+
+    70% {
+        transform: scale(1.08);
+        box-shadow: 0 0 0 15px rgba(76, 175, 80, 0);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}

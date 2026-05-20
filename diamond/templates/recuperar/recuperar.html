@@ -1,27 +1,82 @@
 {% extends 'base.html' %}
 {% load static %}
+
 {% block estilos %}
-    <link rel="stylesheet" href="{% static 'css/recuperar.css' %}">  
-{% endblock %}   
-{% block titulo %}recuperar{% endblock %}
-{% block contenido  %}
+<link rel="stylesheet" href="{% static 'css/recuperar.css' %}">
+{% endblock %}
+
+{% block titulo %}
+Recuperar contraseña
+{% endblock %}
+
+{% block contenido %}
 
 <div class="fondo">
+
     <div class="contenedor-formulario">
+
         <h1>Recuperar Contraseña</h1>
 
         <p class="descripcion">
-            Ingrese su correo electrónico registrado y le enviaremos instrucciones para restablecer su contraseña.
+            Ingrese su correo electrónico registrado y le enviaremos un enlace
+            para restablecer su contraseña.
         </p>
 
-        <form>
-            <label for="correo">Correo electrónico</label>
-            <input type="email" id="correo" placeholder="Ingrese su correo" required>
+        <form method="POST">
+            {% csrf_token %}
 
-            <button type="submit" class="btn-aceptar">Enviar correo</button>
+            <label for="correo">
+                Correo electrónico
+            </label>
+
+            <input
+                type="email"
+                id="correo"
+                name="email"
+                placeholder="Ingrese su correo"
+                required
+            >
+
+            <button type="submit" class="btn-aceptar">
+                Enviar correo
+            </button>
         </form>
 
+        {% if mensaje %}
+            <div class="mensaje-exito animacion-mensaje">
+
+                <div class="icono-check">
+                    ✓
+                </div>
+
+                <h3>Correo enviado correctamente</h3>
+
+                <p>
+                    Hemos enviado un enlace para restablecer su contraseña.
+                    Revise su bandeja de entrada o la carpeta de spam.
+                </p>
+
+            </div>
+        {% endif %}
+
+        {% if error %}
+            <div class="mensaje-error">
+
+                <div class="icono-error">
+                    !
+                </div>
+
+                <h3>Error</h3>
+
+                <p>{{ error }}</p>
+
+            </div>
+        {% endif %}
+
         <a href="{% url 'acceso' %}" class="volver">Volver al inicio de sesión</a>
+
     </div>
+
 </div>
+
 {% endblock %}

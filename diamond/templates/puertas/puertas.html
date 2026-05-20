@@ -1,38 +1,164 @@
 {% extends 'baseaut.html' %}
 {% load static %}
+
 {% block estilos %}
 <link rel="stylesheet" href="{% static 'css/puertas.css' %}">
 {% endblock %}
-{% block titulo %}puertas{% endblock %}
+
+{% block titulo %}
+Puertas
+{% endblock %}
+
 {% block contenido %}
 
 <div class="diseño">
 
-    <h2>Control de Acceso</h2>
+    <h2>
+        Control de Acceso
+    </h2>
+
+    {% if hay_emergencia %}
+
+    <div class="alerta-emergencia-general">
+
+        <h3>
+            🚨 MODO EMERGENCIA ACTIVADO 🚨
+        </h3>
+
+        <p>
+            Las puertas del conjunto se encuentran liberadas para evacuación segura.
+        </p>
+
+    </div>
+
+    {% endif %}
+
+    {% if messages %}
+
+        <div class="mensajes">
+
+            {% for message in messages %}
+
+                <div class="
+                    {% if message.level_tag == 'warning' %}
+                        alerta-roja
+                    {% elif message.level_tag == 'success' %}
+                        alerta-verde
+                    {% elif message.level_tag == 'info' %}
+                        alerta-verde
+                    {% else %}
+                        alerta
+                    {% endif %}
+                ">
+
+                    {{ message }}
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% endif %}
 
     <div class="encabezado-tabla">
-        <span>Puerta</span>
-        <span>Activo</span>
+
+        <span>
+            Puerta
+        </span>
+
+        <span>
+            Estado
+        </span>
+
     </div>
+
     {% for puerta in puertas %}
 
     <div class="fila-usuario">
-        <span class="dato">{{ puerta.puerta }}</span>
-        <label class="switch">
-            <input type="checkbox" checked>
-            <span class="slider"></span>
-        </label>
+
+        <span class="dato">
+
+            {{ puerta.nombre }}
+
+            {% if puerta.emergencia %}
+
+                <span class="estado-emergencia">
+                    🚨 LIBERADA POR EMERGENCIA
+                </span>
+
+            {% endif %}
+
+        </span>
+
+        <form method="POST" action="{% url 'cambiar_puerta' puerta.id %}">
+
+            {% csrf_token %}
+
+            <label class="switch">
+
+                <input
+                    type="checkbox"
+                    onchange="this.form.submit()"
+                    {% if puerta.estado %}checked{% endif %}
+                >
+
+                <span class="slider"></span>
+
+            </label>
+
+        </form>
+
     </div>
+
+    {% empty %}
+
+        <p>
+            No hay puertas registradas
+        </p>
+
     {% endfor %}
 
-    
-
     <div class="botones-acciones-acceso">
-        <a href="#" class="botones btn-editar">Apertura</a>
-        <a href="#" class="botones btn-detener">Detener</a>
-        <a href="#" class="botones btn-cierre">Cerrar</a>
+
+        <form method="POST" action="{% url 'apertura_emergencia' %}">
+
+            {% csrf_token %}
+
+            <button type="submit" class="botones btn-editar">
+
+                🚨 Activar emergencia
+
+            </button>
+
+        </form>
+
+        <form method="POST" action="{% url 'detener_emergencia' %}">
+
+            {% csrf_token %}
+
+            <button type="submit" class="botones btn-detener">
+
+                ⛔ Finalizar emergencia
+
+            </button>
+
+        </form>
+
+        <form method="POST" action="{% url 'cerrar_puertas' %}">
+
+            {% csrf_token %}
+
+            <button type="submit" class="botones btn-cierre">
+
+                🔒 Cerrar puertas
+
+            </button>
+
+        </form>
 
     </div>
 
 </div>
+
 {% endblock %}

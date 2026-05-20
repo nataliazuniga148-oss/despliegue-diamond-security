@@ -1,0 +1,286 @@
+.contenedor-historial{
+    width: 1200px;
+    margin: 30px auto;
+    background: rgba(255, 255, 255, 0.92);
+    padding: 20px 40px;
+    border-radius: 15px;
+    box-shadow: 0 0 18px rgba(0,0,0,0.18);
+    font-family: Arial, sans-serif;
+    position: relative;
+    color: #333;
+}
+
+.encabezado-historial{
+    position: relative;
+    margin-bottom: 25px;
+}
+
+.titulo-historial{
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    margin: 0;
+}
+
+
+.menu-opciones{
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.btn-tres-puntos{
+    background: transparent;
+    border: none;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 4px 12px;
+    border-radius: 8px;
+    transition: 0.3s;
+    line-height: 1;
+    color: #000;
+}
+
+.btn-tres-puntos:hover{
+    background: #f2f2f2;
+}
+
+.opciones{
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: white;
+    min-width: 180px;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid #ddd;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    z-index: 1000;
+}
+
+.opciones a{
+    display: block;
+    padding: 12px 15px;
+    text-decoration: none;
+    color: #222;
+    font-size: 14px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.opciones a:hover{
+    background: #f5f5f5;
+}
+
+.menu-opciones:hover .opciones{
+    display: block;
+}
+
+/* FILTROS */
+
+.filtro-form{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.filtro-form input{
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #bbb;
+    font-size: 14px;
+    width: 220px;
+}
+
+.filtro-form button{
+    padding: 10px 18px;
+    border: none;
+    border-radius: 8px;
+    background: #c5d3e0;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.filtro-form button:hover{
+    background: #222;
+    color: white;
+}
+
+.filtro-form a{
+    padding: 10px 18px;
+    border-radius: 8px;
+    text-decoration: none;
+    background: #ececec;
+    color: #222;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.filtro-form a:hover{
+    background: #dcdcdc;
+}
+
+/* TABLA */
+
+.tabla-contenedor{
+    overflow-x: auto;
+}
+
+.tabla-historial{
+    width: 100%;
+    border-collapse: collapse;
+    background: rgba(255,255,255,0.4);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.encabezado-tabla{
+    background: rgba(197, 211, 224, 0.8);
+}
+
+.encabezado-tabla th{
+    padding: 14px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.tabla-historial td{
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    font-size: 14px;
+}
+
+.fila-tabla:hover{
+    background: #f5f9ff;
+}
+
+.sin-salida{
+    color: red;
+    font-weight: bold;
+}
+
+.sin-registros{
+    text-align: center;
+    padding: 20px;
+}
+
+
+
+.paginacion{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.pagina{
+    padding: 8px 14px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.numero{
+    background: #f3f3f3;
+    border: 1px solid #bbb;
+    color: #333;
+}
+
+.numero:hover{
+    background: #dce7ff;
+}
+
+.active{
+    background: #000;
+    color: white;
+    border: 1px solid #000;
+}
+
+.anterior,
+.siguiente{
+    background: #fff;
+    border: 2px solid #222;
+    color: #222;
+}
+
+.anterior:hover,
+.siguiente:hover{
+    background: #222;
+    color: white;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 768px){
+
+    .contenedor-historial{
+        width: 95%;
+        padding: 20px;
+    }
+
+    .titulo-historial{
+        font-size: 24px;
+    }
+
+    .tabla-historial th,
+    .tabla-historial td{
+        font-size: 12px;
+        padding: 8px;
+    }
+
+}
+.menu-opciones {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: inline-block;
+}
+
+.btn-tres-puntos {
+    text-decoration: none;
+    font-size: 22px;
+    font-weight: bold;
+    color: #000;
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.opciones {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    min-width: 160px;
+    z-index: 10;
+}
+
+.opciones a {
+    display: block;
+    padding: 10px 14px;
+    text-decoration: none;
+    color: #000;
+    font-weight: 600;
+}
+
+.opciones a:hover {
+    background: #f2f2f2;
+}
+
+.menu-opciones:focus-within .opciones,
+.menu-opciones:hover .opciones {
+    display: block;
+}

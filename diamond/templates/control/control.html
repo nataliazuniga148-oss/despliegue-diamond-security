@@ -1,10 +1,13 @@
 {% extends 'baseaut.html' %}
 {% load static %}
+
 {% block estilos %}
-     <link rel="stylesheet" href="{% static 'css/control.css' %}">  
+<link rel="stylesheet" href="{% static 'css/control.css' %}">  
 {% endblock %}
+
 {% block titulo %}control{% endblock %}
-{% block contenido  %}
+
+{% block contenido %}
 <div class="contenedor-acceso">
     <a href="{% url 'configuracion' %}" class="btn-volver-flecha">↩</a>
     <h2>Control de Acceso</h2>
@@ -14,30 +17,25 @@
         <span>Dirección IP</span>
         <span>Activo</span>
     </div>
+
     {% if datos %}
-    {% for ip in datos %}
-
-    <div class="fila-acceso">
-        <span class="dato-puerta">{{ ip.puerta }}</span>
-        <span class="direccion-ip">{{ ip.ip }}</span>
-        <label class="interruptor">
-            <input type="checkbox"{% if ip.estado == "activa" %}checked{% endif %}>
-            <span class="deslizador"></span>
-        </label>
-    </div>
-    {%endfor%}
-
+        {% for ip in datos %}
+        <div class="fila-acceso">
+            <span class="dato-puerta">{{ ip.puerta }}</span>
+            <span class="direccion-ip">{{ ip.ip }}</span>
+            <label class="interruptor">
+                <input type="checkbox" {% if ip.estado == "activo" %}checked{% endif %} disabled>
+                <span class="deslizador"></span>
+            </label>
+        </div>
+        {% endfor %}
     {% else %}
-    <p style="text-align:center; margin-top:20px;">No hay registros</p>
+        <p style="text-align:center; margin-top:20px;">No hay registros</p>
     {% endif %}
-
 
     <div class="acciones-acceso">
         <a href="{% url 'editaracc' %}" class="boton-accion btn-editar">Editar</a>
         <a href="#" class="boton-accion btn-guardar">Guardar</a>
     </div>
 </div>
-
-
-
 {% endblock %}

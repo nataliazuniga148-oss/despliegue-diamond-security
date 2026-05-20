@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block estilos %}
+<link rel="stylesheet" href="{% static 'css/restablecer.css' %}">
+{% endblock %}
+
+{% block contenido %}
+
+<main class="fondo">
+    <section class="contenedor-formulario">
+
+        <h2><em>Restablecer contraseña</em></h2>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            {% if error %}
+                <div class="alerta alerta-error">
+                    {{ error }}
+                </div>
+            {% endif %}
+
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alerta alerta-success">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <div class="campo">
+                <label for="password1">Nueva contraseña</label>
+                <input 
+                    type="password"
+                    name="password1"
+                    id="password1"
+                    placeholder="Escriba su nueva contraseña"
+                    required
+                >
+            </div>
+
+            <div class="campo">
+                <label for="password2">Confirmar contraseña</label>
+                <input 
+                    type="password"
+                    name="password2"
+                    id="password2"
+                    placeholder="Escriba nuevamente su contraseña"
+                    required
+                >
+            </div>
+
+            <button type="submit" class="btn-cambiar">
+                Cambiar contraseña
+            </button>
+
+        </form>
+
+    </section>
+</main>
+
+{% endblock %}

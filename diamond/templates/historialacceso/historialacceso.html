@@ -1,0 +1,281 @@
+{% extends 'baseaut.html' %}
+{% load static %}
+
+{% block estilos %}
+<link rel="stylesheet" href="{% static 'css/historialacceso.css' %}">
+{% endblock %}
+
+{% block titulo %}
+Historial acceso
+{% endblock %}
+
+{% block contenido %}
+
+<div class="contenedor-historial">
+
+    <div class="encabezado-historial">
+
+        <h2 class="titulo-historial">
+            Historial de accesos
+        </h2>
+
+        <div class="menu-opciones">
+
+            <button type="button" class="btn-tres-puntos">
+                ⋮
+            </button>
+
+            <div class="opciones">
+
+    <a href="{% url 'reporte_historial_pdf' %}?persona={{ persona }}&torre={{ torre }}&fecha={{ fecha }}&puerta={{ puerta }}">
+        Exportar a PDF
+    </a>
+
+    <a href="{% url 'imprimir' %}?persona={{ persona }}&torre={{ torre }}&fecha={{ fecha }}&puerta={{ puerta }}"
+       target="_blank">
+        Imprimir
+    </a>
+
+    <form action="{% url 'reporte_historial_pdf' %}" method="GET">
+        <input type="hidden" name="persona" value="{{ persona }}">
+        <input type="hidden" name="torre" value="{{ torre }}">
+        <input type="hidden" name="fecha" value="{{ fecha }}">
+        <input type="hidden" name="puerta" value="{{ puerta }}">
+        <input
+            type="email"
+            name="email"
+            placeholder="Correo electrónico"
+            required
+        >
+
+        <button type="submit">
+            Enviar PDF
+        </button>
+
+    </form>
+
+</div>
+
+        </div>
+
+    </div>
+
+    <form method="GET" class="filtro-form">
+
+        <input type="text" name="persona" placeholder="Buscar documento o nombre" value="{{ persona|default:'' }}">
+
+        <input type="text" name="torre" placeholder="Torre" value="{{ torre|default:'' }}">
+
+        <input type="date" name="fecha" value="{{ fecha|default:'' }}">
+
+        <input type="text" name="puerta" placeholder="Puerta" value="{{ puerta|default:'' }}">
+
+        <button type="submit">
+            Buscar
+        </button>
+
+        <a href="{% url 'historialacceso' %}" class="btn-limpiar">
+            Limpiar
+        </a>
+
+    </form>
+
+    <div class="tabla-contenedor">
+
+        <table class="tabla-historial">
+
+            <thead class="encabezado-tabla">
+
+                <tr>
+
+                    <th>Nombre</th>
+
+                    <th>Documento</th>
+
+                    <th>Tipo</th>
+
+                    <th>Ubicación</th>
+
+                    <th>Fecha</th>
+
+                    <th>Entrada</th>
+
+                    <th>Salida</th>
+
+                    <th>Estado</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for r in registros %}
+
+                <tr class="fila-tabla">
+
+                    <td>
+                        {% if r.persona %}
+                            {{ r.persona.nombre }}
+                        {% else %}
+                            No identificado
+                        {% endif %}
+                    </td>
+
+                    <td>
+                        {% if r.persona %}
+                            {{ r.persona.documento }}
+                        {% else %}
+                            ---
+                        {% endif %}
+                    </td>
+
+                    <td>
+                        {{ r.get_tipo_acceso_display }}
+                    </td>
+
+                    <td>
+
+                        {% if r.tipo_acceso == "conjunto" %}
+
+                            {% if r.puerta %}
+                                {{ r.puerta }}
+                            {% else %}
+                                Desconocida
+                            {% endif %}
+
+                        {% elif r.tipo_acceso == "parqueadero" %}
+
+                            {% if r.persona.parqueadero %}
+                                Parqueadero {{ r.persona.parqueadero }}
+                            {% else %}
+                                Parqueadero no asignado
+                            {% endif %}
+
+                        {% else %}
+
+                            {% if r.torre %}
+                                {{ r.torre }}
+                            {% else %}
+                                Desconocida
+                            {% endif %}
+
+                        {% endif %}
+
+                    </td>
+
+                    <td>
+                        {{ r.fecha }}
+                    </td>
+
+                    <td>
+                        {{ r.hora_entrada }}
+                    </td>
+
+                    <td>
+
+                        {% if r.hora_salida %}
+
+                            {{ r.hora_salida }}
+
+                        {% else %}
+
+                            <span class="sin-salida">
+                                Sin salida
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+                    <td>
+
+                        {% if r.estado == "permitido" %}
+
+                            <span class="badge bg-success">
+                                Permitido
+                            </span>
+
+                        {% elif r.estado == "denegado" %}
+
+                            <span class="badge bg-danger">
+                                Denegado
+                            </span>
+
+                        {% elif r.estado == "emergencia" %}
+
+                            <span class="badge bg-warning text-dark">
+                                Emergencia
+                            </span>
+
+                        {% else %}
+
+                            <span class="badge bg-secondary">
+                                {{ r.estado }}
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+                </tr>
+
+                {% empty %}
+
+                <tr>
+
+                    <td colspan="8" class="sin-registros">
+                        No hay registros
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <div class="paginacion">
+
+        {% if registros.has_previous %}
+
+            <a class="pagina anterior" href="?page={{ registros.previous_page_number }}&persona={{ persona }}&torre={{ torre }}&fecha={{ fecha }}&puerta={{ puerta }}">
+                ‹ Página anterior
+            </a>
+
+        {% endif %}
+
+        {% for num in registros.paginator.page_range %}
+
+            {% if registros.number == num %}
+
+                <span class="pagina numero active">
+                    {{ num }}
+                </span>
+
+            {% else %}
+
+                <a class="pagina numero" href="?page={{ num }}&persona={{ persona }}&torre={{ torre }}&fecha={{ fecha }}&puerta={{ puerta }}">
+                    {{ num }}
+                </a>
+
+            {% endif %}
+
+        {% endfor %}
+
+        {% if registros.has_next %}
+
+            <a class="pagina siguiente" href="?page={{ registros.next_page_number }}&persona={{ persona }}&torre={{ torre }}&fecha={{ fecha }}&puerta={{ puerta }}">
+                Siguiente página ›
+            </a>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

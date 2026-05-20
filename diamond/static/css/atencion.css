@@ -2,7 +2,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    min-height: 115vh;
     padding-top: 20px;
     padding-bottom: 50px;
 }
@@ -108,5 +108,9 @@
     border-radius: 8px;
     text-align: center;
     font-weight: bold;
+}
+html, body {
+    height: 100%;
+    overflow: hidden;
 }
 

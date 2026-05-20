@@ -18,7 +18,7 @@
     {% endif %}
 
     <form method="GET" class="buscador">
-        <input type="text" name="q" placeholder="Buscar..." value="{{ query }}">
+        <input type="text" name="buscar" placeholder="Buscar..." value="{{ query }}">
         <button type="submit">🔍</button>
     </form>
 
@@ -37,7 +37,7 @@
                 <form method="POST">
                     {% csrf_token %}
                     <input type="hidden" name="tarjeta_id" value="{{ r.tarjeta.id }}">
-                    <input type="hidden" name="accion" value="toggle">
+                    <input type="hidden" name="accion" value="cambiar_estado">
 
                     <label class="switch">
                         <input type="checkbox"
@@ -45,11 +45,18 @@
                                {% if r.tarjeta.activa %}checked{% endif %}>
                         <span class="slider"></span>
                     </label>
+
+                    {% if r.tarjeta.activa %}
+                        <span style="color:green;">Tarjeta activa</span>
+                    {% else %}
+                        <span style="color:red;">Tarjeta desactivada</span>
+                    {% endif %}
                 </form>
 
                 <form method="POST" class="editar">
                     {% csrf_token %}
                     <input type="hidden" name="tarjeta_id" value="{{ r.tarjeta.id }}">
+                    <input type="hidden" name="accion" value="editar_numero">
 
                     <input type="text"
                            name="nuevo_numero"
@@ -57,9 +64,7 @@
                            class="input-numero"
                            required>
 
-                    <button type="submit" name="accion" value="editar_numero">
-                        Guardar
-                    </button>
+                    <button type="submit">Guardar</button>
                 </form>
 
                 <form method="POST">
@@ -67,47 +72,24 @@
                     <input type="hidden" name="tarjeta_id" value="{{ r.tarjeta.id }}">
                     <input type="hidden" name="accion" value="cambiar_tarjeta">
 
-                    <button type="submit">
-                        Cambiar tarjeta
-                    </button>
-                </form>
-
-                <div class="historial">
-                    <strong>Historial:</strong>
-                    <ul>
-                        {% for h in r.historialtarjeta_set.all %}
-                            <li>
-                                {{ h.tarjeta.numero }} -
-                                {{ h.fecha|date:"d/m/Y H:i" }} -
-                                {% if h.tarjeta.activa %}
-                                    Activa
-                                {% else %}
-                                    Inactiva
-                                {% endif %}
-                            </li>
-                        {% empty %}
-                            <li>Sin historial</li>
+                    <div class="puertas">
+                        {% for p in puertas %}
+                            <label class="puerta-item">
+                                <span>{{ p.nombre }}</span>
+                                <input type="checkbox"
+                                       name="puertas"
+                                       value="{{ p.id }}"
+                                       {% if p in r.tarjeta.puertas.all %}checked{% endif %}>
+                                <span class="slider"></span>
+                            </label>
                         {% endfor %}
-                    </ul>
-                </div>
+                    </div>
+
+                    <button type="submit">Actualizar puertas</button>
+                </form>
 
             {% else %}
-
-                <form method="POST" class="asignar-form">
-                    {% csrf_token %}
-                    <input type="hidden" name="registro_id" value="{{ r.id }}">
-
-                    <input type="text"
-                           name="nuevo_numero"
-                           placeholder="Asignar tarjeta"
-                           class="input-numero"
-                           required>
-
-                    <button type="submit" name="accion" value="asignar">
-                        Asignar
-                    </button>
-                </form>
-
+                <span class="sin-tarjeta">Sin tarjeta asignada</span>
             {% endif %}
 
         </div>
@@ -121,7 +103,7 @@
 
         {% if registros.has_previous %}
             <a class="pagina anterior"
-               href="?page={{ registros.previous_page_number }}&q={{ query }}">
+               href="?page={{ registros.previous_page_number }}&buscar={{ query }}">
                ‹ Página anterior
             </a>
         {% endif %}
@@ -131,13 +113,13 @@
                 <a class="pagina numero active">{{ num }}</a>
             {% else %}
                 <a class="pagina numero"
-                   href="?page={{ num }}&q={{ query }}">{{ num }}</a>
+                   href="?page={{ num }}&buscar={{ query }}">{{ num }}</a>
             {% endif %}
         {% endfor %}
 
         {% if registros.has_next %}
             <a class="pagina siguiente"
-               href="?page={{ registros.next_page_number }}&q={{ query }}">
+               href="?page={{ registros.next_page_number }}&buscar={{ query }}">
                Siguiente página ›
             </a>
         {% endif %}

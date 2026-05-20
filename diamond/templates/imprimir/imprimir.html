@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Documento para imprimir</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .contenedor {
+            width: 100%;
+            max-width: 800px;
+            margin: auto;
+            border: 1px solid #ccc;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 2px solid black;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .info {
+            margin-bottom: 15px;
+        }
+
+        .titulo {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .boton {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        button {
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        /* SOLO IMPRESIÓN */
+        @media print {
+            button {
+                display: none;
+            }
+
+            body {
+                margin: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="contenedor">
+
+        <div class="header">
+            <div class="titulo">FACTURA / DOCUMENTO</div>
+        </div>
+
+        <div class="info">
+            <p><strong>Nombre:</strong> Juan Pérez</p>
+            <p><strong>Documento:</strong> 123456789</p>
+            <p><strong>Fecha:</strong> 16/05/2026</p>
+        </div>
+
+        <div class="info">
+            <p><strong>Detalle:</strong></p>
+            <p>Este es el contenido que se va a imprimir.</p>
+        </div>
+
+        <div class="boton">
+            <button onclick="window.print()">Imprimir manualmente</button>
+        </div>
+
+    </div>
+
+    <!-- JAVASCRIPT CORRECTO -->
+    <script>
+        window.onload = function () {
+            setTimeout(() => {
+                window.print();
+            }, 300);
+        };
+    </script>
+
+</body>
+</html>

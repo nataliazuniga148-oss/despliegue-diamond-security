@@ -1,0 +1,194 @@
+.registro {
+    width: 1200px;
+    margin: 30px auto;
+    background: rgba(255, 255, 255, 0.92);
+    padding: 10px;
+    border-radius: 15px;
+    box-shadow: 0 0 18px rgba(0, 0, 0, 0.18);
+    font-family: Arial, sans-serif;
+    position: relative;
+}
+
+.registro h2 {
+    text-align: center;
+    margin-bottom: 18px;
+    font-size: 1.6em;
+    color: #222;
+    font-weight: bold;
+}
+
+.buscador {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 18px;
+}
+
+.buscador input {
+    width: 350px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid #aaa;
+    font-size: 0.95em;
+}
+
+.btn-buscar {
+    padding: 8px 14px;
+    background: #c5d3e0;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-weight: bold;
+}
+
+.btn-buscar:hover {
+    background: #333;
+}
+
+.encabezado-registro,
+.fila-registro-accesos {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 1.2fr 2fr;
+    text-align: center;
+}
+
+.encabezado-registro {
+    background: #c5d3e0;
+    color: #0e0e0e;
+    padding: 12px 0;
+    font-weight: bold;
+    font-size: 0.9em;
+    border-radius: 8px 8px 0 0;
+}
+
+.encabezado-registro span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+
+.fila-registro-accesos {
+    align-items: flex-start; /* 🔥 clave */
+    padding: 10px 0;
+}
+
+.fila-registro-accesos span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+
+.fila-registro-accesos:hover {
+    background: #eef4ff;
+}
+
+.fila-registro-accesos:nth-child(even) {
+    background: rgba(0, 0, 0, 0.02);
+}
+
+/* 🔥 FORMULARIO ORDENADO */
+.fila-registro-accesos form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+/* 🔥 SCROLL EN PUERTAS */
+.fila-registro-accesos form div {
+    max-height: 70px;
+    overflow-y: auto;
+    width: 100%;
+    text-align: left;
+}
+
+.fila-registro-accesos input[type="text"] {
+    width: 130px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: 1px solid #aaa;
+    font-size: 12px;
+}
+
+.fila-registro-accesos label {
+    font-size: 12px;
+    display: block;
+}
+
+/* 🔥 BOTÓN SIEMPRE ABAJO */
+.fila-registro-accesos button {
+    margin-top: auto;
+}
+
+.btn-asignar {
+    padding: 6px 10px;
+    border-radius: 8px;
+    font-size: 0.85em;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    background: #c5d3e0;
+    color: #000;
+    transition: 0.3s;
+}
+
+.btn-asignar:hover {
+    background: #333;
+    color: #fff;
+}
+
+.paginacion {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 15px;
+    padding: 10px 0;
+}
+
+.paginacion .pagina {
+    padding: 6px 12px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 0.9em;
+    font-weight: 600;
+}
+
+.paginacion .numero {
+    background: #f3f3f3;
+    border: 1px solid #bbb;
+    color: #333;
+}
+
+.paginacion .numero:hover {
+    background: #dce7ff;
+}
+
+.paginacion .active {
+    background: #000;
+    color: #fff;
+    border: 1px solid #000;
+}
+
+.paginacion .anterior,
+.paginacion .siguiente {
+    background: #fff;
+    border: 2px solid #222;
+    color: #222;
+}
+
+.paginacion .anterior:hover,
+.paginacion .siguiente:hover {
+    background: #222;
+    color: #fff;
+}
+
+html, body {
+    width: 100%;
+    overflow-x: auto;
+}

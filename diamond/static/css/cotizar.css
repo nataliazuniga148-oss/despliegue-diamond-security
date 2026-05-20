@@ -40,13 +40,22 @@
     margin-bottom: 5px;
 }
 
-.campo input {
+.campo input,
+.campo textarea {
     padding: 12px;
     border-radius: 8px;
     border: 1px solid #c5d3e0;
     background-color: #c5d3e0;
     font-size: 15px;
     outline: none;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: inherit;
+}
+
+.campo textarea {
+    height: 44px;
+    resize: none;
 }
 
 .btn-registrar {
@@ -65,3 +74,5 @@
     background: #333;
     color: white;
 }
+
+

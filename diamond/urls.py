@@ -9,6 +9,7 @@ router.register(r'atencion', AtencionClienteViewSet)
 
 
 
+
 urlpatterns = [
     path('api/acceso/', registrar_acceso, name='api_acceso'),
     
@@ -20,6 +21,7 @@ urlpatterns = [
     path('nosotros/', views.nosotros, name='nosotros'),
     path('integraciones/', views.integraciones, name='integraciones'),
     path('recuperar/', views.recuperar, name='recuperar'),
+    path("restablecer/<uuid:token>/", views.restablecer, name="restablecer"),
     path('cotizar/', views.cotizar, name='cotizar'),
     path('admin/', views.admin, name='admin'),
     path('horarioad/', views.horarioad, name='horarioad'),
@@ -54,6 +56,15 @@ urlpatterns = [
     path('ip/', views.ip, name='ip'),
     path('torres/', views.torres, name='torres'),
     path('mensajeria/', views.mensajeria, name='mensajeria'),
+    path('historialtarjeta/', views.historialtarjeta, name='historialtarjeta'),
+    path('asignartarjeta/', views.asignartarjeta, name='asignartarjeta'),
+    path('historialacceso/', views.historialacceso, name='historialacceso'),
+    path('apertura/', views.apertura_emergencia, name='apertura_emergencia'),
+    path('detener/', views.detener_emergencia, name='detener_emergencia'),
+    path('cerrar/', views.cerrar_puertas, name='cerrar_puertas'),
+    path('puerta/<int:id>/', views.cambiar_estado_puerta, name='cambiar_puerta'),
+    path('reporte-historial-pdf/', views.reporte_historial_pdf, name='reporte_historial_pdf'),
+    path('imprimir/', views.imprimir, name='imprimir')
 ]
 urlpatterns += router.urls
 

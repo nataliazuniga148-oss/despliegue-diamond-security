@@ -1,24 +1,26 @@
 {% extends 'baseaut.html' %}
 {% load static %}
 {% block estilos %}
-   <link rel="stylesheet" href="{% static 'css/registroa.css' %}">
-{% endblock %}    
+<link rel="stylesheet" href="{% static 'css/registroa.css' %}">
+{% endblock %}
 {% block titulo %}{% endblock %}
-{% block contenido  %}
+{% block contenido %}
 
-<div class="panel-registro">  
+<div class="panel-registro">
     <main class="fondo">
         <section class="contenedor-formulario">
-            
+
             <h2><em>INGRESE LOS SIGUIENTES DATOS</em></h2>
+
             {% if error %}
-                <div style="color: red; font-weight: bold; margin-bottom: 10px;">
-                    {{ error }}
-                </div>
+            <div style="color: red; font-weight: bold; margin-bottom: 10px;">
+                {{ error }}
+            </div>
             {% endif %}
 
             <form method="POST">
                 {% csrf_token %}
+
                 <div class="fila">
                     <div class="campo">
                         <label for="tipo_usuario">Tipo de usuario:</label>
@@ -72,55 +74,51 @@
                     </div>
 
                     <div class="campo">
-                        <label for="registro_tarjeta">Registro de tarjeta:</label>
-                        <input type="text" name="tarjeta" id="tarjeta" placeholder="Número de tarjeta" required>
+                        <label for="parqueadero">Número de parqueadero:</label>
+                        <input type="text" name="parqueadero" id="parqueadero" placeholder="Parqueadero">
                     </div>
                 </div>
 
                 <div class="fila">
-                    <div class="campo">
-                        <label for="parqueadero">Número de parqueadero:</label>
-                        <input type="text" name="parqueadero" id="parqueadero" placeholder="Parqueadero" >
-                    </div>
-
                     <div class="campo">
                         <label for="placa">Vehículo:</label>
                         <input type="text" name="placa" id="placa" placeholder="Descripción del vehículo">
                     </div>
-                </div>
 
-                <div class="fila">
                     <div class="campo">
                         <label for="fecha">Fecha:</label>
                         <input type="date" name="fecha" id="fecha" required>
                     </div>
+                </div>
 
+                <div class="fila">
                     <div class="campo">
                         <label for="hora_ingreso">Hora de ingreso:</label>
-                        <input type="time"name="hora_ingreso" id="hora_ingreso" required>
+                        <input type="time" name="hora_ingreso" id="hora_ingreso" required>
                     </div>
 
                     <div class="campo">
                         <label for="hora_salida">Hora de salida:</label>
                         <input type="time" name="hora_salida" id="hora_salida">
                     </div>
+                </div>
 
+                <div class="fila">
                     <div class="campo">
                         <label for="observaciones">Observaciones</label>
-                        <input type="text" name="observaciones" id="observaciones" placeholder="Dijite la observacion correspondiente">
+                        <input type="text" name="observaciones" id="observaciones" placeholder="Digite la observación correspondiente">
                     </div>
                 </div>
 
                 <div class="fila centrar">
                     <button type="submit" class="btn-registrar">Registrar</button>
-                    <a href="{% url 'verusuario' %}" class="btn-ver">Ver registro</a>
+                    <a href="{% url 'usuarios' %}" class="btn-ver">Ver registro</a>
                 </div>
-                
-                
 
             </form>
 
         </section>
     </main>
 </div>
+
 {% endblock %}

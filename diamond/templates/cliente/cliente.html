@@ -1,88 +1,169 @@
 {% extends 'baseaut.html' %}
 {% load static %}
+
 {% block estilos %}
-  <link rel="stylesheet" href="{% static 'css/cliente.css' %}">   
+<link rel="stylesheet" href="{% static 'css/cliente.css' %}">   
 {% endblock %}
-    
+
 {% block titulo %}Administrador{% endblock %}
 
-{% block contenido  %}
-<div class="contenedor-panel-principal">
-  <div class="area-de-trabajo">
+{% block contenido %}
 
-    <div class="rejilla-estadisticas">
-      <div class="tarjeta-stat">
-        <div class="icono-stat azul">👤</div>
-        <div class="info-stat">
-          <span class="etiqueta-stat">Usuarios</span>
-          <span class="valor-stat">{{ total_usuarios }}</span>
-          <span class="desc-stat">Registrados</span>
-        </div>
-      </div>
-      <div class="tarjeta-stat">
-        <div class="icono-stat azul-oscuro">📋</div>
-        <div class="info-stat">
-          <span class="etiqueta-stat">Accesos Hoy</span>
-          <span class="valor-stat">{{ accesos_hoy}}</span>
-          <span class="desc-stat">Entradas/Salidas</span>
-        </div>
-      </div>
-      <div class="tarjeta-stat">
-        <div class="icono-stat azul-marino">💳</div>
-        <div class="info-stat">
-          <span class="etiqueta-stat">Tarjetas</span>
-          <span class="valor-stat">{{ tarjetas_activas }}</span>
-          <span class="desc-stat">Activas</span>
-        </div>
-      </div>
+<div class="layout">
+
+  <aside class="sidebar">
+    <div class="logo">
+      <h2>Admin</h2>
     </div>
 
-    <nav class="rejilla-modulos">
-      
-      <a href="{% url 'registroa' %}" class="tarjeta-modulo">
-        <div class="circulo-icono">👤</div>
-        <h3>Registro de Usuario</h3>
-        <p>Registrar y gestionar usuarios del sistema</p>
-        <div class="boton-modulo">Ir al módulo →</div>
-      </a>
+    <nav class="menu">
+      <a href="#" class="item" onclick="abrirConfirmacion(event)">
+    🚪 Salir
+</a>
 
-      <a href="{% url 'recepcion' %}" class="tarjeta-modulo">
-        <div class="circulo-icono">🧾</div>
-        <h3>Registro de Recepción</h3>
-        <p>Gestión de ingresos en recepción</p>
-        <div class="boton-modulo">Ir al módulo →</div>
-      </a>
+<div id="modalSalir" class="fondo-confirmacion" style="display: none;">
 
-      <a href="{% url 'tarjetas' %}" class="tarjeta-modulo">
-        <div class="circulo-icono">💳</div>
-        <h3>Gestión de Tarjetas</h3>
-        <p>Administrar tarjetas activas y asignaciones</p>
-        <div class="boton-modulo">Ir al módulo →</div>
-      </a>
+    <div class="confirmacion-salir">
 
-      <a href="{% url 'gestion' %}" class="tarjeta-modulo">
-        <div class="circulo-icono">📋</div>
-        <h3>Control de Acceso</h3>
-        <p>Registro detallado de entradas y salidas</p>
-        <div class="boton-modulo">Ir al módulo →</div>
-      </a>
+        <h3>Cerrar sesión</h3>
 
-      <a href="{% url 'puertas' %}" class="tarjeta-modulo">
-        <div class="circulo-icono">🚪</div>
-        <h3>Abrir Puertas</h3>
-        <p>Control remoto de aperturas y seguridad</p>
-        <div class="boton-modulo">Ir al módulo →</div>
-      </a>
+        <p>
+            ¿Seguro que quieres salir?
+        </p>
 
-      <a href="{% url 'configuracion' %}" class="tarjeta-modulo">
-        <div class="circulo-icono">⚙️</div>
-        <h3>Configuración General</h3>
-        <p>Ajustes del sistema y parámetros globales</p>
-        <div class="boton-modulo">Ir al módulo →</div>
-      </a>
+        <div class="botones-confirmacion">
 
-    </nav>
-  </div>
+            <button class="btn-confirmar" onclick="salirSistema()">
+                Sí, salir
+            </button>
+
+            <button class="btn-cancelar" onclick="cerrarConfirmacion()">
+                Cancelar
+            </button>
+
+        </div>
+
+    </div>
+
 </div>
 
-{% endblock contenido%}
+<script>
+
+function abrirConfirmacion(event){
+
+    event.preventDefault();
+
+    document.getElementById("modalSalir").style.display = "flex";
+
+}
+
+function cerrarConfirmacion(){
+
+    document.getElementById("modalSalir").style.display = "none";
+
+}
+
+function salirSistema(){
+
+    window.location.href = "{% url 'principal' %}";
+
+}
+
+</script>
+      <a href="{% url 'verusuario' %}" class="item">👤 Usuarios</a>
+      <a href="{% url 'visitantes' %}" class="item">👤 Visitantes</a>
+      <a href="{% url 'usuarios' %}" class="item">👤 Residentes</a>
+      <a href="{% url 'historialacceso' %}" class="item">📋 Accesos</a>
+      <a href="{% url 'tarjetas' %}" class="item">💳 Gestión de tarjetas</a>
+      <a href="{% url 'historialtarjeta' %}" class="item">💳 Historial de tarjetas</a>
+      <a href="{% url 'control' %}" class="item">🌐 Direcciones Ip</a>
+      <a href="{% url 'ajustes' %}" class="item">⚙️ Configuración</a>
+    </nav>
+  </aside>
+
+  <div class="contenido-panel">
+    <div class="contenedor-panel-principal">
+      <div class="area-de-trabajo">
+
+        <div class="rejilla-estadisticas">
+          <div class="tarjeta-stat">
+            <div class="icono-stat azul">👤</div>
+            <div class="info-stat">
+              <span class="etiqueta-stat">Usuarios</span>
+              <span class="valor-stat">{{ total_usuarios }}</span>
+              <span class="desc-stat">Registrados</span>
+            </div>
+          </div>
+
+          <div class="tarjeta-stat">
+            <div class="icono-stat azul-oscuro">📋</div>
+            <div class="info-stat">
+              <span class="etiqueta-stat">Accesos Hoy</span>
+              <span class="valor-stat">{{ accesos_hoy}}</span>
+              <span class="desc-stat">Entradas/Salidas</span>
+            </div>
+          </div>
+
+          <div class="tarjeta-stat">
+            <div class="icono-stat azul-marino">💳</div>
+            <div class="info-stat">
+              <span class="etiqueta-stat">Tarjetas</span>
+              <span class="valor-stat">{{ tarjetas_activas }}</span>
+              <span class="desc-stat">Activas</span>
+            </div>
+          </div>
+        </div>
+
+        <nav class="rejilla-modulos">
+
+          <a href="{% url 'registroa' %}" class="tarjeta-modulo">
+            <div class="circulo-icono">👤</div>
+            <h3>Registro de Usuario</h3>
+            <p>Registrar y gestionar usuarios del sistema</p>
+            <div class="boton-modulo">Ir al módulo →</div>
+          </a>
+
+          <a href="{% url 'recepcion' %}" class="tarjeta-modulo">
+            <div class="circulo-icono">🧾</div>
+            <h3>Registro de Recepción</h3>
+            <p>Gestión de ingresos en recepción</p>
+            <div class="boton-modulo">Ir al módulo →</div>
+          </a>
+
+          <a href="{% url 'asignartarjeta' %}" class="tarjeta-modulo">
+            <div class="circulo-icono">💳</div>
+            <h3>Asignación de tarjetas</h3>
+            <p>Asigna tarjetas a usuarios del sistema</p>
+            <div class="boton-modulo">Ir al módulo →</div>
+          </a>
+
+          <a href="{% url 'gestion' %}" class="tarjeta-modulo">
+            <div class="circulo-icono">📋</div>
+            <h3>Control de Acceso</h3>
+            <p>Registro detallado de entradas y salidas</p>
+            <div class="boton-modulo">Ir al módulo →</div>
+          </a>
+
+          <a href="{% url 'puertas' %}" class="tarjeta-modulo">
+            <div class="circulo-icono">🚨</div>
+            <h3>Apertura de emergencia</h3>
+            <p>Control remoto de aperturas y seguridad</p>
+            <div class="boton-modulo">Ir al módulo →</div>
+          </a>
+
+          <a href="{% url 'ip' %}" class="tarjeta-modulo">
+            <div class="circulo-icono">🚪</div>
+            <h3>Registro de puertas</h3>
+            <p>Registra direcciones IP y define puertas</p>
+            <div class="boton-modulo">Ir al módulo →</div>
+          </a>
+
+        </nav>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}
