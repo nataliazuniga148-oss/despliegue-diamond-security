@@ -1,0 +1,110 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+main, .contenido, .contenedor-principal {
+    min-height: calc(100vh - 120px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.contenedor-menu {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.panel-acceso {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+    padding: 50px 40px 60px;
+    background: rgba(255, 255, 255, 0.78);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    width: 100%;
+    max-width: 420px;
+    text-align: center;
+
+    transform: translateY(150px); 
+}
+
+.btn-volver-flecha {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    text-decoration: none;
+    text-align: center;
+    line-height: 32px;
+    background-color: #c5d3e0;
+    border: 2px solid #c5d3e0;
+    color: #0c0c0c;
+    font-weight: bold;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    width: 40px;
+    height: 36px;
+    font-size: 1.2em;
+}
+
+.btn-volver-flecha:hover {
+    background-color: #7fb1fb;
+    border-color: #88b7fd;
+    color: #fff;
+    transform: scale(1.05);
+}
+
+.seleccion-puerta {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.btn-puerta {
+    background-color: #b6c7dd;
+    color: black;
+    font-weight: bold;
+    border: none;
+    border-radius: 12px;
+    padding: 15px 0;
+    width: 100%;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    font-size: 1.1rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.btn-puerta:hover {
+    transform: translateY(-6px) scale(1.05);
+    background: linear-gradient(135deg, #99c2ff, #66a3ff);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.45);
+    color: white;
+}
+
+h2 {
+    margin: 0;
+    font-size: 26px;
+}
+
+@media (max-width: 480px) {
+    .panel-acceso {
+        padding: 40px 20px 50px;
+        transform: translateY(20px);
+    }
+
+    .btn-puerta {
+        font-size: 1rem;
+        padding: 14px 0;
+    }
+}
