@@ -1,0 +1,364 @@
+.registro {
+    width: 100%;
+    max-width: 1600px;
+    margin: 30px auto;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 18px rgba(0,0,0,0.15);
+    font-family: Arial, sans-serif;
+    position: relative;
+    overflow-x: auto;
+}
+
+.registro h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+    font-weight: bold;
+}
+
+.encabezado-registro,
+.fila-registro {
+    display: grid;
+
+    grid-template-columns:
+        0.8fr
+        1.5fr
+        0.8fr
+        1fr
+        1fr
+        1.5fr
+        1fr
+        0.8fr
+        0.8fr
+        0.8fr
+        1fr
+        0.8fr
+        1fr;
+
+    width: 100%;
+    align-items: center;
+    text-align: center;
+    gap: 5px;
+}
+
+.encabezado-registro {
+    background: #c5d3e0;
+    padding: 12px;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 0.78em;
+    color: #111;
+}
+
+.fila-registro {
+    padding: 10px 8px;
+    border-bottom: 1px solid #ccc;
+    font-size: 0.76em;
+}
+
+.fila-registro:hover {
+    background: #f1f7ff;
+}
+
+.fila-registro:nth-child(even) {
+    background: rgba(0,0,0,0.03);
+}
+
+.fila-registro span {
+    word-break: break-word;
+}
+
+.acciones {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    align-items: center;
+}
+
+.btn-editar{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 120px;
+    height: 48px;
+
+    padding: 0 10px;
+
+    border-radius: 12px;
+    font-weight: bold;
+    font-size: 13px;
+
+    text-decoration: none;
+
+    border: 2px solid #333;
+    background: #fff;
+    color: #333;
+
+    transition: 0.3s;
+    box-sizing: border-box;
+
+    text-align: center;
+
+    line-height: 1.2;
+}
+
+.btn-editar:hover{
+    background: #333;
+    color: #fff;
+}
+
+.paginacion {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 18px;
+    flex-wrap: wrap;
+}
+
+.paginacion .pagina {
+    padding: 8px 14px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 0.85em;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.paginacion .numero {
+    background: #f2f2f2;
+    color: #111;
+    border: 1px solid #ccc;
+}
+
+.paginacion .numero:hover {
+    background: #dfe9ff;
+}
+
+.paginacion .active {
+    background: #0e0e0e;
+    color: #fff;
+}
+
+.paginacion .anterior,
+.paginacion .siguiente {
+    background: #fff;
+    border: 2px solid #111;
+    color: #111;
+}
+
+.paginacion .anterior:hover,
+.paginacion .siguiente:hover {
+    background: #000;
+    color: #fff;
+}
+
+.btn-volver-flecha {
+    text-decoration: none;
+    background-color: #c5d3e0;
+    border: 2px solid #c5d3e0;
+    color: #0c0c0c;
+    font-weight: bold;
+    border-radius: 10px;
+    display: inline-block;
+    width: 40px;
+    height: 36px;
+    text-align: center;
+    line-height: 32px;
+    margin-bottom: 10px;
+    transition: 0.3s;
+}
+
+.btn-volver-flecha:hover {
+    background-color: #7fb1fb;
+    border-color: #88b7fd;
+    color: white;
+}
+
+.buscador {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.buscador form {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.buscador input,
+.buscador select {
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1px solid #bbb;
+    font-size: 14px;
+    outline: none;
+    transition: 0.3s;
+}
+
+.buscador input {
+    width: 300px;
+}
+
+.buscador input:focus,
+.buscador select:focus {
+    border-color: #7fb1fb;
+    box-shadow: 0 0 0 3px rgba(127, 177, 251, 0.2);
+}
+
+.buscador select {
+    background: white;
+    cursor: pointer;
+    min-width: 170px;
+    font-weight: 600;
+    color: #333;
+}
+
+.botones-busqueda {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.btn-buscar,
+.btn-limpiar {
+    height: 42px;
+    padding: 0 18px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    border: none;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    box-sizing: border-box;
+}
+
+.btn-buscar {
+    background: #c5d3e0;
+    color: #111;
+}
+
+.btn-buscar:hover {
+    background: #000;
+    color: #fff;
+}
+
+.btn-limpiar {
+    background: #e5e7eb;
+    color: #111;
+}
+
+.btn-limpiar:hover {
+    background: #000;
+    color: #fff;
+}
+
+.menu-opciones {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+
+.btn-tres-puntos {
+    text-decoration: none;
+    font-size: 22px;
+    font-weight: bold;
+    color: #000;
+    padding: 6px 10px;
+    border-radius: 6px;
+}
+
+.opciones {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    min-width: 220px;
+    z-index: 10;
+    overflow: hidden;
+}
+
+.opciones a {
+    display: block;
+    padding: 12px 14px;
+    text-decoration: none;
+    color: #000;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.opciones a:hover {
+    background: #f2f2f2;
+}
+
+.menu-opciones:focus-within .opciones {
+    display: block;
+}
+
+.opciones form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px;
+    border-top: 1px solid #e5e5e5;
+}
+
+.opciones input[type="email"] {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 13px;
+    outline: none;
+    transition: 0.3s;
+    box-sizing: border-box;
+}
+
+.opciones input[type="email"]:focus {
+    border-color: #7fb1fb;
+    box-shadow: 0 0 0 3px rgba(127, 177, 251, 0.2);
+}
+
+.opciones button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    background: #c5d3e0;
+    color: #111;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.opciones button:hover {
+    background: #000;
+    color: #fff;
+}
+
+.badge{
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    display: inline-block;
+    text-align: center;
+    min-width: 95px;
+}

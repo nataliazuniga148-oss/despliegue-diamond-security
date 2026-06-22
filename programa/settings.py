@@ -17,7 +17,11 @@ SECRET_KEY = os.environ.get(
 
 DEBUG = os.environ.get("DEBUG", "True") == "True"
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = [
+    "localhost",
+    "127.0.0.1",
+    ".onrender.com"
+]
 
 
 # APPLICATIONS
@@ -85,28 +89,22 @@ WSGI_APPLICATION = 'programa.wsgi.application'
 
 # DATABASES
 
-if os.environ.get("RENDER"):
+if os.environ.get("DATABASE_URL"):
+    import dj_database_url
     DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': os.environ.get('DB_NAME'),
-            'USER': os.environ.get('DB_USER'),
-            'PASSWORD': os.environ.get('DB_PASSWORD'),
-            'HOST': os.environ.get('DB_HOST'),
-            'PORT': os.environ.get('DB_PORT'),
-        }
+        "default": dj_database_url.config(default=os.environ.get("DATABASE_URL"))
     }
 else:
     DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'diamon_security',
-            'USER': 'root',
-            'PASSWORD': 'TU_CONTRASEÑA_MYSQL',
-            'HOST': '127.0.0.1',
-            'PORT': '3306',
-            'OPTIONS': {
-                'charset': 'utf8mb4',
+        "default": {
+            "ENGINE": "django.db.backends.mysql",
+            "NAME": "diamon_security",
+            "USER": "root",
+            "PASSWORD": "TU_CONTRASEÑA_MYSQL",
+            "HOST": "127.0.0.1",
+            "PORT": "3306",
+            "OPTIONS": {
+                "charset": "utf8mb4",
             },
         }
     }
@@ -158,9 +156,14 @@ STATICFILES_DIRS = [
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-STATICFILES_STORAGE = (
-    'whitenoise.storage.CompressedManifestStaticFilesStorage'
-)
+STORAGES = {
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+}
 
 
 # MEDIA FILES

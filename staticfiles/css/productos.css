@@ -1,0 +1,53 @@
+.fondo-contacto {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 40px 0;
+}
+
+.contenedor-contacto {
+    width: 420px;
+    background: rgba(255, 255, 255, 0.20);
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.15);
+    text-align: center;
+    backdrop-filter: blur(6px);
+}
+
+.titulo-contacto {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #141414;
+}
+
+.tarjeta-contacto {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.item-contacto {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: rgba(255, 255, 255, 0.25);
+    padding: 12px 15px;
+    border-radius: 10px;
+    backdrop-filter: blur(4px);
+    transition: transform 0.2s ease;
+    text-decoration: none;
+    color: #141414;
+}
+
+.item-contacto:hover {
+    transform: scale(1.03);
+    cursor: pointer;
+}
+
+.icono-contacto {
+    width: 32px;
+    height: 32px;
+}

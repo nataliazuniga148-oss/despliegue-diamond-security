@@ -1,0 +1,167 @@
+.fondo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding-top: 100px;
+    padding-bottom: 50px;
+}
+
+.contenedor-formulario {
+    background-color: rgba(255, 255, 255, 0.92);
+    width: 100%;
+    max-width: 420px;
+    padding: 40px 45px;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(185, 204, 220, 0.25);
+    text-align: center;
+}
+
+.contenedor-formulario h1 {
+    font-size: 26px;
+    margin-bottom: 15px;
+    color: #101010;
+    font-weight: bold;
+}
+
+.descripcion {
+    font-size: 15px;
+    color: #333;
+    margin-bottom: 25px;
+    line-height: 1.4;
+}
+
+form label {
+    display: block;
+    text-align: left;
+    margin-bottom: 6px;
+    font-size: 14px;
+    color: #090909;
+    font-weight: 600;
+}
+
+form input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #bfd3e6;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    outline: none;
+    font-size: 15px;
+    background-color: #bfd3e6; 
+    transition: 0.3s;
+}
+
+.btn-aceptar {
+    width: 100%;
+    padding: 12px;
+    background: white;
+    color: black;
+    font-size: 16px;
+    font-weight: bold;
+    border: 2px solid black;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-aceptar:hover {
+    background: black;
+    color: white;
+}
+
+.volver {
+    display: inline-block;
+    margin-top: 20px;
+    color: #001c33;
+    font-size: 14px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.volver:hover {
+    text-decoration: underline;
+}
+.mensaje-exito {
+    margin-top: 15px;
+    padding: 12px;
+    background-color: #e8f5e9;
+    color: #2e7d32;
+    border: 1px solid #a5d6a7;
+    border-radius: 8px;
+    font-size: 14px;
+    text-align: center;
+}
+
+
+.animacion-mensaje {
+    animation: aparecer 0.6s ease-out;
+}
+
+@keyframes aparecer {
+    0% {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.mensaje-exito {
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #dff6e3, #f4fff6);
+    border: 2px solid #8fd19e;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.icono-check {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 12px auto;
+    border-radius: 50%;
+    background: #4CAF50;
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: pulse 1.5s infinite;
+}
+
+.mensaje-exito h3 {
+    color: #2e7d32;
+    margin-bottom: 10px;
+    font-size: 22px;
+}
+
+.mensaje-exito p {
+    color: #444;
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+.animacion-mensaje {
+    animation: aparecerMensaje 0.7s ease;
+}
+
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.5);
+    }
+
+    70% {
+        transform: scale(1.08);
+        box-shadow: 0 0 0 15px rgba(76, 175, 80, 0);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
