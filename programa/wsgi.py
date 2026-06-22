@@ -1,5 +1,5 @@
 """
-WSGI config for diamond_security project.
+WSGI config for programa project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
