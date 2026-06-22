@@ -53,12 +53,12 @@
 
                     <td>
 
-                        <!-- EDITAR -->
+                        
                         <a href="{% url 'editar_usuario' usuario.id %}">
                             Editar
                         </a>
 
-                        <!-- SWITCH CORREGIDO -->
+                        
                         <label class="switch">
                             <input type="checkbox"
                                    {% if usuario.is_active %}checked{% endif %}
@@ -110,10 +110,9 @@
 
 </main>
 
-<!-- SWEETALERT -->
+
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<!-- ALERTAS BONITAS -->
 {% if messages %}
 <script>
     {% for message in messages %}
@@ -136,11 +135,11 @@
 </script>
 {% endif %}
 
-<!-- CONFIRMAR CAMBIO (FIX DEL BUG 🔥) -->
+
 <script>
 function confirmarCambio(event, checkbox, url) {
 
-    // 🚫 evita que cambie el switch
+    
     event.preventDefault();
 
     let activo = checkbox.checked;
@@ -161,7 +160,7 @@ function confirmarCambio(event, checkbox, url) {
             window.location.href = url;
         }
 
-        // si cancela → no cambia nada (FIX ✔)
+        
     });
 }
 </script>
