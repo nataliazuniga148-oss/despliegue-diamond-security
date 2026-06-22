@@ -1,9 +1,9 @@
 .contenedor-editar {
     width: 500px;
     background: rgba(255, 255, 255, 0.85);
-    padding: 60px 20px;
+    padding: 35px 20px;
     border-radius: 15px;
-    margin: 50px auto;
+    margin: 1px auto;
     box-shadow: 0 0 20px rgba(0,0,0,0.15);
     font-family: Arial, sans-serif;
     color: #333;
@@ -20,6 +20,7 @@
     gap: 20px 25px;
     margin-bottom: 18px;
 }
+
 
 .campo {
     display: flex;
@@ -102,4 +103,7 @@
         width: 100%;
     }
 }
-
+html, body {
+    height: 100%;
+    overflow: hidden;
+}

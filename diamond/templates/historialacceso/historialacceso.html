@@ -18,6 +18,7 @@ Historial acceso
         <h2 class="titulo-historial">
             Historial de accesos
         </h2>
+        {% if request.user.groups.all.0.name == "Administrador" or request.user.groups.all.0.name == "Supervisor" %}
 
         <div class="menu-opciones">
 
@@ -27,55 +28,72 @@ Historial acceso
 
             <div class="opciones">
 
-    <a href="{% url 'reporte_historial_pdf' %}?persona={{ persona }}&torre={{ torre }}&fecha={{ fecha }}&puerta={{ puerta }}">
-        Exportar a PDF
-    </a>
+                <a href="{% url 'reporte_historial_pdf' %}?persona={{ persona }}&torre={{ torre }}&fecha={{ fecha }}&puerta={{ puerta }}">
+                    Exportar a PDF
+                </a>
 
-    <a href="{% url 'imprimir' %}?persona={{ persona }}&torre={{ torre }}&fecha={{ fecha }}&puerta={{ puerta }}"
-       target="_blank">
-        Imprimir
-    </a>
+                <form action="{% url 'reporte_historial_pdf' %}" method="GET">
 
-    <form action="{% url 'reporte_historial_pdf' %}" method="GET">
-        <input type="hidden" name="persona" value="{{ persona }}">
-        <input type="hidden" name="torre" value="{{ torre }}">
-        <input type="hidden" name="fecha" value="{{ fecha }}">
-        <input type="hidden" name="puerta" value="{{ puerta }}">
-        <input
-            type="email"
-            name="email"
-            placeholder="Correo electrónico"
-            required
-        >
+                    <input type="hidden" name="persona" value="{{ persona }}">
+                    <input type="hidden" name="torre" value="{{ torre }}">
+                    <input type="hidden" name="fecha" value="{{ fecha }}">
+                    <input type="hidden" name="puerta" value="{{ puerta }}">
 
-        <button type="submit">
-            Enviar PDF
-        </button>
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="Correo electrónico"
+                        required
+                    >
 
-    </form>
+                    <button type="submit">
+                        Enviar PDF
+                    </button>
 
-</div>
+                </form>
+
+            </div>
 
         </div>
+        {% endif %}
 
     </div>
 
     <form method="GET" class="filtro-form">
 
-        <input type="text" name="persona" placeholder="Buscar documento o nombre" value="{{ persona|default:'' }}">
+        <input
+            type="text"
+            name="persona"
+            placeholder="Buscar documento o nombre"
+            value="{{ persona|default:'' }}"
+        >
 
-        <input type="text" name="torre" placeholder="Torre" value="{{ torre|default:'' }}">
+        <input
+            type="text"
+            name="torre"
+            placeholder="Torre"
+            value="{{ torre|default:'' }}"
+        >
 
-        <input type="date" name="fecha" value="{{ fecha|default:'' }}">
+        <input
+            type="date"
+            name="fecha"
+            value="{{ fecha|default:'' }}"
+        >
 
-        <input type="text" name="puerta" placeholder="Puerta" value="{{ puerta|default:'' }}">
+        <input
+            type="text"
+            name="puerta"
+            placeholder="Puerta"
+            value="{{ puerta|default:'' }}"
+        >
 
         <button type="submit">
-            Buscar
+            🔍 Buscar
         </button>
 
         <a href="{% url 'historialacceso' %}" class="btn-limpiar">
-            Limpiar
+            ⟲ Limpiar
         </a>
 
     </form>
@@ -89,19 +107,12 @@ Historial acceso
                 <tr>
 
                     <th>Nombre</th>
-
                     <th>Documento</th>
-
                     <th>Tipo</th>
-
                     <th>Ubicación</th>
-
                     <th>Fecha</th>
-
                     <th>Entrada</th>
-
                     <th>Salida</th>
-
                     <th>Estado</th>
 
                 </tr>
@@ -115,19 +126,23 @@ Historial acceso
                 <tr class="fila-tabla">
 
                     <td>
+
                         {% if r.persona %}
-                            {{ r.persona.nombre }}
+                            👤 {{ r.persona.nombre }}
                         {% else %}
                             No identificado
                         {% endif %}
+
                     </td>
 
                     <td>
+
                         {% if r.persona %}
                             {{ r.persona.documento }}
                         {% else %}
                             ---
                         {% endif %}
+
                     </td>
 
                     <td>
@@ -190,7 +205,19 @@ Historial acceso
 
                     <td>
 
-                        {% if r.estado == "permitido" %}
+                        {% if r.motivo == "Tarjeta inexistente" %}
+
+                            <span class="badge-tarjeta-no-registrada">
+                                Tarjeta no registrada
+                            </span>
+
+                        {% elif r.motivo == "Tarjeta bloqueada" %}
+
+                            <span class="badge-tarjeta-bloqueada">
+                                Tarjeta bloqueada
+                            </span>
+
+                        {% elif r.estado == "permitido" %}
 
                             <span class="badge bg-success">
                                 Permitido
@@ -238,41 +265,50 @@ Historial acceso
 
     </div>
 
-    <div class="paginacion">
+<div class="paginacion">
 
-        {% if registros.has_previous %}
+    {% if registros.has_previous %}
+        <a
+            class="pagina anterior"
+            href="?page={{ registros.previous_page_number }}&persona={{ persona }}&torre={{ torre }}&fecha={{ fecha }}&puerta={{ puerta }}"
+        >
+            ‹ Anterior
+        </a>
+    {% endif %}
 
-            <a class="pagina anterior" href="?page={{ registros.previous_page_number }}&persona={{ persona }}&torre={{ torre }}&fecha={{ fecha }}&puerta={{ puerta }}">
-                ‹ Página anterior
+    {% for num in paginas %}
+
+        {% if registros.number == num %}
+
+            <span class="pagina numero active">
+                {{ num }}
+            </span>
+
+        {% else %}
+
+            <a
+                class="pagina numero"
+                href="?page={{ num }}&persona={{ persona }}&torre={{ torre }}&fecha={{ fecha }}&puerta={{ puerta }}"
+            >
+                {{ num }}
             </a>
 
         {% endif %}
 
-        {% for num in registros.paginator.page_range %}
+    {% endfor %}
 
-            {% if registros.number == num %}
+    {% if registros.has_next %}
+        <a
+            class="pagina siguiente"
+            href="?page={{ registros.next_page_number }}&persona={{ persona }}&torre={{ torre }}&fecha={{ fecha }}&puerta={{ puerta }}"
+        >
+            Siguiente ›
+        </a>
+    {% endif %}
 
-                <span class="pagina numero active">
-                    {{ num }}
-                </span>
 
-            {% else %}
 
-                <a class="pagina numero" href="?page={{ num }}&persona={{ persona }}&torre={{ torre }}&fecha={{ fecha }}&puerta={{ puerta }}">
-                    {{ num }}
-                </a>
 
-            {% endif %}
-
-        {% endfor %}
-
-        {% if registros.has_next %}
-
-            <a class="pagina siguiente" href="?page={{ registros.next_page_number }}&persona={{ persona }}&torre={{ torre }}&fecha={{ fecha }}&puerta={{ puerta }}">
-                Siguiente página ›
-            </a>
-
-        {% endif %}
 
     </div>
 

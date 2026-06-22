@@ -5,80 +5,290 @@
 <link rel="stylesheet" href="{% static 'css/paquetes.css' %}">
 {% endblock %}
 
-{% block titulo %}Registro entrada de paquetes{% endblock %}
+{% block titulo %}
+Registro entrada de paquetes
+{% endblock %}
 
 {% block contenido %}
 
 <div class="registro">
 
-    <a href="{% url 'recepcion' %}" class="btn-volver-flecha">↩</a>
+    {% if request.user.groups.all.0.name == "Administrador" or request.user.groups.all.0.name == "Supervisor" %}
 
     <div class="menu-opciones">
-        <a href="#" class="btn-tres-puntos">⋮</a>
+
+        <a href="#" class="btn-tres-puntos">
+            ⋮
+        </a>
+
         <div class="opciones">
-            <a href="#">Exportar a PDF</a>
-            <a href="#">Imprimir</a>
+
+            <a href="{% url 'pdfpaquetes' %}">
+                Descargar PDF
+            </a>
+
+            <form action="{% url 'pdfpaquetes' %}" method="GET">
+
+                <input
+                    type="email"
+                    name="email"
+                    placeholder="Correo electrónico"
+                    required
+                >
+
+                <button type="submit">
+                    Enviar PDF
+                </button>
+
+            </form>
+
         </div>
+
+    </div>
+    {% endif %}
+
+    <h2>
+        Registro entrada de paquetes
+    </h2>
+
+    <div class="buscador">
+
+        <form method="GET">
+
+            <input
+                type="text"
+                name="q"
+                value="{{ query }}"
+                placeholder="Buscar por nombre, documento, paquete o agencia"
+            >
+
+            <input
+                type="date"
+                name="fecha"
+                value="{{ fecha }}"
+            >
+
+            <select name="estado">
+
+                <option value="">
+                    Todos los estados
+                </option>
+
+                <option value="Pendiente"
+                    {% if estado == "Pendiente" %}selected{% endif %}>
+
+                    Pendiente
+
+                </option>
+
+                <option value="Entregado"
+                    {% if estado == "Entregado" %}selected{% endif %}>
+
+                    Entregado
+
+                </option>
+
+            </select>
+
+            <div class="botones-busqueda">
+
+                <button
+                    type="submit"
+                    class="btn-buscar"
+                >
+                    🔍 Buscar
+                </button>
+
+                <a
+                    href="{% url 'paquetes' %}"
+                    class="btn-limpiar"
+                >
+                    ⟲ Limpiar
+                </a>
+
+            </div>
+
+        </form>
+
     </div>
 
-    <h2>Registro entrada de paquetes</h2>
-
     <div class="encabezado-registro">
+
         <span>Nombre Completo</span>
+
         <span>Documento</span>
+
         <span>Recibe</span>
+
         <span>Torre / Apto</span>
+
         <span>Paquete</span>
-        <span>Agencia de envío</span>
+
+        <span>Agencia</span>
+
         <span>Fecha</span>
+
         <span>Hora ingreso</span>
+
         <span>Hora entrega</span>
+
+        <span>Estado</span>
+
+        <span>Entregado por</span>
+
         <span>Observaciones</span>
+
         <span>Acciones</span>
+
     </div>
 
     {% for paquete in paquetes %}
-    <div class="fila-registro">       
-        <span>{{ paquete.destinatario }}</span>
-        <span>{{ paquete.documento }}</span>
-        <span>{{ paquete.nombre_recibe }}</span>
-        <span>{{ paquete.torre }}</span>
-        <span>{{ paquete.paquete }}</span>
-        <span>{{ paquete.agencia }}</span>
-        <span>{{ paquete.fecha }}</span>
-        <span>{{ paquete.hora_ingreso|default:"..." }}</span>
-        <span>{{ paquete.hora_entrega|default:"..." }}</span>
-        <span>{{ paquete.observaciones|default:"..." }}</span>
-        <a href="{% url 'editarpa' paquete.id %}" class="btn-editar">Editar</a>
+
+    <div class="fila-registro">
+
+        <span>
+            {{ paquete.destinatario }}
+        </span>
+
+        <span>
+            {{ paquete.documento }}
+        </span>
+
+        <span>
+            {{ paquete.nombre_recibe }}
+        </span>
+
+        <span>
+            {{ paquete.torre }}
+        </span>
+
+        <span>
+            {{ paquete.paquete }}
+        </span>
+
+        <span>
+            {{ paquete.agencia }}
+        </span>
+
+        <span>
+            {{ paquete.fecha }}
+        </span>
+
+        <span>
+            {{ paquete.hora_ingreso|default:"..." }}
+        </span>
+
+        <span>
+            {{ paquete.hora_entrega|default:"..." }}
+        </span>
+
+        <span>
+            {{ paquete.estado }}
+        </span>
+
+        <span>
+
+            {% if paquete.entregado_por %}
+
+                {{ paquete.entregado_por.username }}
+
+            {% else %}
+
+                ...
+
+            {% endif %}
+
+        </span>
+
+        <span>
+            {{ paquete.observaciones|default:"..." }}
+        </span>
+
+        <div class="acciones">
+
+            {% if paquete.estado == "Pendiente" %}
+
+                <a
+                    href="{% url 'registrar_entrega' paquete.id %}"
+                    class="btn-editar"
+                >
+                    Registrar entrega
+                </a>
+                {% if request.user.groups.all.0.name == "Administrador" or request.user.groups.all.0.name == "Supervisor" %}
+
+                <a
+                    href="{% url 'editarpa' paquete.id %}"
+                    class="btn-editar"
+                >
+                    Editar
+                </a>
+                {% endif %}
+
+            {% else %}
+
+                <span>
+                    Entregado
+                </span>
+
+            {% endif %}
+
+        </div>
+
     </div>
 
     {% empty %}
-    <p>No hay registros guardados.</p>
+
+    <p>
+        No hay registros guardados.
+    </p>
+
     {% endfor %}
 
     <div class="paginacion">
 
         {% if paquetes.has_previous %}
-            <a class="pagina anterior"
-               href="?page={{ paquetes.previous_page_number }}">
-               ‹ Página anterior
+
+            <a
+                class="pagina anterior"
+                href="?q={{ query }}&fecha={{ fecha }}&estado={{ estado }}&page={{ paquetes.previous_page_number }}"
+            >
+                ‹ Página anterior
             </a>
+
         {% endif %}
 
         {% for num in paquetes.paginator.page_range %}
+
             {% if paquetes.number == num %}
-                <a class="pagina numero active">{{ num }}</a>
+
+                <a class="pagina numero active">
+
+                    {{ num }}
+
+                </a>
+
             {% else %}
-                <a class="pagina numero"
-                   href="?page={{ num }}">{{ num }}</a>
+
+                <a
+                    class="pagina numero"
+                    href="?q={{ query }}&fecha={{ fecha }}&estado={{ estado }}&page={{ num }}"
+                >
+                    {{ num }}
+                </a>
+
             {% endif %}
+
         {% endfor %}
 
         {% if paquetes.has_next %}
-            <a class="pagina siguiente"
-               href="?page={{ paquetes.next_page_number }}">
-               Siguiente página ›
+
+            <a
+                class="pagina siguiente"
+                href="?q={{ query }}&fecha={{ fecha }}&estado={{ estado }}&page={{ paquetes.next_page_number }}"
+            >
+                Siguiente página ›
             </a>
+
         {% endif %}
 
     </div>

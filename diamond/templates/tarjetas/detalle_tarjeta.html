@@ -1,0 +1,173 @@
+{% extends 'baseaut.html' %}
+{% load static %}
+
+{% block estilos %}
+<link rel="stylesheet" href="{% static 'css/detalle_tarjeta.css' %}">
+{% endblock %}
+
+{% block titulo %}
+Detalle tarjeta
+{% endblock %}
+
+{% block contenido %}
+
+<div class="contenedor-detalle">
+
+    <div class="header-detalle">
+
+        <div>
+            <h2>
+                Detalle de tarjeta
+            </h2>
+
+            <p>
+                Información completa de la tarjeta asignada
+            </p>
+        </div>
+
+        <a href="{% url 'tarjetas' %}" class="btn-volver">
+            ← Volver
+        </a>
+
+    </div>
+
+    <div class="card-detalle">
+
+        <!-- USUARIO -->
+
+        <div class="seccion">
+
+            <h3>
+                Usuario
+            </h3>
+
+            <div class="usuario-box">
+
+                <div class="avatar">
+                    {{ registro.nombre|slice:":1" }}
+                </div>
+
+                <div class="datos-usuario">
+
+                    <h4>
+                        {{ registro.nombre }}
+                    </h4>
+
+                    <span>
+                        Documento:
+                        {{ registro.documento }}
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- TARJETA -->
+
+        <div class="seccion">
+
+            <h3>
+                Información de tarjeta
+            </h3>
+
+            {% if registro.tarjeta %}
+
+            <div class="info-grid">
+
+                <div class="info-item">
+
+                    <label>
+                        Número tarjeta
+                    </label>
+
+                    <p>
+                        {{ registro.tarjeta.numero }}
+                    </p>
+
+                </div>
+
+                <div class="info-item">
+
+                    <label>
+                        Estado
+                    </label>
+
+                    <p>
+
+                        {% if registro.tarjeta.activa %}
+
+                            <span class="badge activa">
+                                Activa
+                            </span>
+
+                        {% else %}
+
+                            <span class="badge inactiva">
+                                Inactiva
+                            </span>
+
+                        {% endif %}
+
+                    </p>
+
+                </div>
+
+            </div>
+
+            {% else %}
+
+                <div class="sin-tarjeta">
+                    Este usuario no tiene tarjeta asignada
+                </div>
+
+            {% endif %}
+
+        </div>
+
+        <!-- PUERTAS -->
+
+        <div class="seccion">
+
+            <h3>
+                Puertas asignadas
+            </h3>
+
+            {% if registro.tarjeta.puertas.all %}
+
+                <div class="puertas-grid">
+
+                    {% for p in registro.tarjeta.puertas.all %}
+
+                        <div class="puerta-card">
+
+                            <span class="icono-puerta">
+                                🚪
+                            </span>
+
+                            <span>
+                                {{ p.nombre }}
+                            </span>
+
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            {% else %}
+
+                <div class="sin-puertas">
+                    No tiene puertas asignadas
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,142 @@
+{% extends 'baseaut.html' %}
+{% load static %}
+
+{% block estilos %}
+<link rel="stylesheet" href="{% static 'css/registroa.css' %}">
+{% endblock %}
+
+{% block titulo %}
+Registro de ingreso visitantes temporales
+{% endblock %}
+
+{% block contenido %}
+
+<div class="panel-registro">
+
+    <main class="fondo">
+
+        <section class="contenedor-formulario">
+
+            <h2><em>REGISTRO DE INGRESO DE VISISTANTES TEMPORALES</em></h2>
+
+            {% if error %}
+            <div style="color: red; font-weight: bold; margin-bottom: 10px;">
+                {{ error }}
+            </div>
+            {% endif %}
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+                <div class="fila">
+
+                    <div class="campo">
+                        <label for="tipo_ingreso">Tipo de ingreso:</label>
+                        <select name="tipo_ingreso" id="tipo_ingreso" required>
+                            <option value="" disabled selected>Seleccione</option>
+                            <option value="visitante_temporal">Visitante temporal</option>
+                            <option value="proveedor">Proveedor</option>
+                            <option value="domiciliario">Domiciliario</option>
+                        </select>
+                    </div>
+
+                    <div class="campo">
+                        <label>Nombre completo:</label>
+                        <input type="text" name="nombre" required>
+                    </div>
+
+                </div>
+
+                <div class="fila">
+
+                    <div class="campo">
+                        <label>Tipo documento:</label>
+                        <select name="tipo_documento" required>
+                            <option value="" disabled selected>Seleccione</option>
+                            <option value="cc">Cédula de ciudadanía</option>
+                            <option value="ce">Cédula de extranjería</option>
+                            <option value="pasaporte">Pasaporte</option>
+                            <option value="ti">Tarjeta de identidad</option>
+                        </select>
+                    </div>
+
+                    <div class="campo">
+                        <label>Número de documento:</label>
+                        <input type="text" name="documento" required>
+                    </div>
+
+                </div>
+
+                <div class="fila">
+
+                    <div class="campo">
+                        <label>Persona o apartamento que visita:</label>
+                        <input type="text" name="visita_a" required>
+                    </div>
+
+                    <div class="campo">
+                        <label>Placa del vehículo:</label>
+                        <input type="text" name="placa">
+                    </div>
+
+                </div>
+
+                <div class="fila">
+
+                    <div class="campo">
+                        <label>Empresa:</label>
+                        <input type="text" name="empresa">
+                    </div>
+
+                    <div class="campo">
+                        <label>Fecha:</label>
+                        <input type="date" name="fecha">
+                    </div>
+
+                </div>
+
+                <div class="fila">
+
+                    <div class="campo">
+                        <label>Hora de ingreso:</label>
+                        <input type="time" name="hora_ingreso" required>
+                    </div>
+
+                    <div class="campo">
+                        <label>Estado:</label>
+                        <input type="text" value="Dentro" readonly>
+                    </div>
+
+                </div>
+
+                <div class="fila">
+
+                    <div class="campo">
+                        <label>Observaciones:</label>
+                        <input type="text" name="observaciones">
+                    </div>
+
+                </div>
+
+                <div class="fila centrar">
+
+                    <button type="submit" class="btn-registrar">
+                        Registrar
+                    </button>
+
+                    <a href="{% url 'listaingresos' %}" class="btn-ver">
+                        Ver registros
+                    </a>
+
+                </div>
+
+            </form>
+
+        </section>
+
+    </main>
+
+</div>
+
+{% endblock %}

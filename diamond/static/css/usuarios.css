@@ -175,3 +175,38 @@ html, body {
     margin: 0;
     background-color: #f4f4f4;
 }
+.buscador {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 18px;
+}
+
+.buscador input {
+    width: 350px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid #aaa;
+    font-size: 0.95em;
+}
+
+.btn-buscar {
+    padding: 8px 14px;
+    background: #c5d3e0;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-weight: bold;
+}
+
+.btn-buscar:hover {
+    background: #333;
+}
+.btn-buscar {
+    text-decoration: none;
+}
+.btn-buscar {
+    text-decoration: none;
+}

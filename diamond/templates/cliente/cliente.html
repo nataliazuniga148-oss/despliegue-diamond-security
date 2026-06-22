@@ -71,12 +71,13 @@ function salirSistema(){
 
 </script>
       <a href="{% url 'verusuario' %}" class="item">👤 Usuarios</a>
-      <a href="{% url 'visitantes' %}" class="item">👤 Visitantes</a>
       <a href="{% url 'usuarios' %}" class="item">👤 Residentes</a>
-      <a href="{% url 'historialacceso' %}" class="item">📋 Accesos</a>
+      <a href="{% url 'visitantes' %}" class="item">👤 Visitantes</a>
+      <a href="{% url 'paquetes' %}" class="item">📦 Gestión de paquetería</a>
       <a href="{% url 'tarjetas' %}" class="item">💳 Gestión de tarjetas</a>
       <a href="{% url 'historialtarjeta' %}" class="item">💳 Historial de tarjetas</a>
       <a href="{% url 'control' %}" class="item">🌐 Direcciones Ip</a>
+      <a href="{% url 'monitoreo' %}" class="item">🔴 Centro de Monitoreo</a>
       <a href="{% url 'ajustes' %}" class="item">⚙️ Configuración</a>
     </nav>
   </aside>
@@ -124,7 +125,7 @@ function salirSistema(){
           </a>
 
           <a href="{% url 'recepcion' %}" class="tarjeta-modulo">
-            <div class="circulo-icono">🧾</div>
+            <div class="circulo-icono">👤</div>
             <h3>Registro de Recepción</h3>
             <p>Gestión de ingresos en recepción</p>
             <div class="boton-modulo">Ir al módulo →</div>
@@ -137,7 +138,7 @@ function salirSistema(){
             <div class="boton-modulo">Ir al módulo →</div>
           </a>
 
-          <a href="{% url 'gestion' %}" class="tarjeta-modulo">
+          <a href="{% url 'historialacceso' %}" class="tarjeta-modulo">
             <div class="circulo-icono">📋</div>
             <h3>Control de Acceso</h3>
             <p>Registro detallado de entradas y salidas</p>

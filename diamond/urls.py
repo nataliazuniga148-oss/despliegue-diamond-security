@@ -5,6 +5,7 @@ from .views import AtencionClienteViewSet
 from .views import registrar_acceso
 router = DefaultRouter()
 router.register(r'atencion', AtencionClienteViewSet)
+from .views import cambiar_foto
 
 
 
@@ -12,9 +13,14 @@ router.register(r'atencion', AtencionClienteViewSet)
 
 urlpatterns = [
     path('api/acceso/', registrar_acceso, name='api_acceso'),
+    path('cambiar-foto/', cambiar_foto, name='cambiar_foto'),
+    path(
+    "crear_usuario/",
+    views.crear_usuario,
+    name="crear_usuario"
+),
     
     path('', views.principal, name='principal'),
-    path('logeo/', views.logeo, name='logeo'),
     path('acceso/', views.acceso, name='acceso'),
     path('contacto/', views.contacto, name='contacto'),
     path('registro/', views.registro, name='registro'),
@@ -64,7 +70,30 @@ urlpatterns = [
     path('cerrar/', views.cerrar_puertas, name='cerrar_puertas'),
     path('puerta/<int:id>/', views.cambiar_estado_puerta, name='cambiar_puerta'),
     path('reporte-historial-pdf/', views.reporte_historial_pdf, name='reporte_historial_pdf'),
-    path('imprimir/', views.imprimir, name='imprimir')
+    path('imprimir/', views.imprimir, name='imprimir'),
+    path('pdfusuarios/', views.pdfusuarios, name='pdfusuarios'),
+    path('pdfpaquetes/', views.pdfpaquetes, name='pdfpaquetes'),
+    path('pdfhistorialtarjeta/', views.pdfhistorialtarjeta, name='pdfhistorialtarjeta'),
+    path('visitantestem/', views.visitantestem, name='visitantestem'),
+    path('registrar_salida/<int:id>/',views.registrar_salida,name='registrar_salida'),
+    path('listaingresos',views.listaingresos,name='listaingresos'),
+    path('cambiar_foto',views.cambiar_foto,name='cambiar_foto'),
+    path('pdfingresos',views.pdfingresos,name='pdfingresos'),
+    path('editar_ingreso/<int:id>/', views.editar_ingreso, name='editar_ingreso'),
+    path('registrar-entrega/<int:id>/',views.registrar_entrega,name='registrar_entrega'),
+    path("detalle-tarjeta/<int:id>/",views.detalle_tarjeta,name="detalle_tarjeta"),
+    path("reporte_tarjetas_pdf",views.reporte_tarjetas_pdf,name="reporte_tarjetas_pdf"),
+    path("monitoreo/", views.monitoreo, name="monitoreo"),
+    path("api/alertas/", views.alertas_api, name="alertas_api"),
+    path('logout/', views.cerrar_sesion, name='logout'),
+    path("ver_usuarios/",views.ver_usuarios,name="ver_usuarios"),
+    path('usuarios/estado/<int:id>/',views.cambiar_estado,name='cambiar_estado'),
+    path('usuarios/editar/<int:id>/',views.editar_usuario,name='editar_usuario'),
+ 
+
+
+
+    
 ]
 urlpatterns += router.urls
 

@@ -1,83 +1,580 @@
 {% extends 'baseaut.html' %}
 {% load static %}
+
 {% block estilos %}
-   <link rel="stylesheet" href="{% static 'css/ajustes.css' %}">
+<link rel="stylesheet" href="{% static 'css/ajustes.css' %}">
 {% endblock %}
 
-{% block titulo %}ajustes{% endblock %}
+{% block titulo %}Configuración{% endblock %}
 
 {% block contenido %}
-<div class="contenedor">
-<a href="{% url 'configuracion' %}" class="btn-volver-flecha">↩</a>
-    <h2>Ajustes</h2>
-    <div class="encabezado-tabla">
-        <span>Horarios permitidos</span>
+
+<div class="contenedor-config">
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        <!-- ENCABEZADO -->
+        <div class="top-config">
+
+            <div class="info-top">
+
+                <a href="{% url 'cliente' %}" class="btn-back">
+                    ←
+                </a>
+
+                <div>
+                    <h1>Configuración del sistema</h1>
+
+                    <p>
+                        Administra la seguridad, usuarios, monitoreo y preferencias
+                        generales de la plataforma.
+                    </p>
+                </div>
+
+            </div>
+
+            <button type="submit" class="btn-guardar-top">
+                Guardar cambios
+            </button>
+
+        </div>
+
+
+        <!-- MENSAJES -->
+
+        {% if messages %}
+
+            {% for message in messages %}
+
+                <div class="mensaje-exito">
+                    {{ message }}
+                </div>
+
+            {% endfor %}
+
+        {% endif %}
+
+
+        <!-- GRID -->
+        <div class="grid-config">
+
+
+            <!-- SEGURIDAD -->
+            <div class="card-config">
+
+                <div class="header-card">
+
+                    <div class="icono-card seguridad">
+                        🔐
+                    </div>
+
+                    <div>
+                        <h3>Seguridad</h3>
+                        <span>Control de acceso y protección</span>
+                    </div>
+
+                </div>
+
+
+                <div class="contenido-card">
+
+                    <!-- BLOQUEO -->
+
+                    <div class="item-config">
+
+                        <div class="textos-item">
+
+                            <h4>Bloqueo automático</h4>
+
+                            <p>
+                                Bloquear temporalmente usuarios tras múltiples intentos fallidos.
+                            </p>
+
+                        </div>
+
+                        <label class="switch">
+
+                            <input
+                                type="checkbox"
+                                name="bloqueo_automatico"
+
+                                {% if configuracion.bloqueo_automatico %}
+                                    checked
+                                {% endif %}
+                            >
+
+                            <span class="slider"></span>
+
+                        </label>
+
+                    </div>
+
+
+                    <!-- CIERRE -->
+
+                    <div class="item-config">
+
+                        <div class="textos-item">
+
+                            <h4>Cierre automático</h4>
+
+                            <p>
+                                Cerrar sesión automáticamente por inactividad.
+                            </p>
+
+                        </div>
+
+                        <select name="cierre_automatico">
+
+                            <option
+                                value="5 minutos"
+
+                                {% if configuracion.cierre_automatico == '5 minutos' %}
+                                    selected
+                                {% endif %}
+                            >
+                                5 minutos
+                            </option>
+
+                            <option
+                                value="10 minutos"
+
+                                {% if configuracion.cierre_automatico == '10 minutos' %}
+                                    selected
+                                {% endif %}
+                            >
+                                10 minutos
+                            </option>
+
+                            <option
+                                value="30 minutos"
+
+                                {% if configuracion.cierre_automatico == '30 minutos' %}
+                                    selected
+                                {% endif %}
+                            >
+                                30 minutos
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- VERIFICACION -->
+
+                    <div class="item-config">
+
+                        <div class="textos-item">
+
+                            <h4>Verificación adicional</h4>
+
+                            <p>
+                                Solicitar validación extra en accesos administrativos.
+                            </p>
+
+                        </div>
+
+                        <label class="switch">
+
+                            <input
+                                type="checkbox"
+                                name="verificacion_adicional"
+
+                                {% if configuracion.verificacion_adicional %}
+                                    checked
+                                {% endif %}
+                            >
+
+                            <span class="slider"></span>
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- USUARIOS -->
+           <!-- USUARIOS -->
+<div class="card-config">
+
+    <div class="header-card">
+
+        <div class="icono-card usuarios">
+            👥
+        </div>
+
+        <div>
+            <h3>Usuarios y permisos</h3>
+            <span>Administración de cuentas</span>
+        </div>
+
     </div>
 
-    <div class="fila-usuario">
-        <span>Hora de apertura:</span>
-        <input type="time" value="06:00">
-    </div>
+    <div class="contenido-card">
 
-    <div class="fila-usuario">
-        <span>Hora de cierre:</span>
-        <input type="time" value="22:00">
-    </div>
+        <!-- DESCRIPCIÓN -->
+        <div class="descripcion-usuarios">
+            <p>
+                Gestiona los usuarios del sistema, crea nuevas cuentas y
+                administra los permisos de acceso de forma rápida y segura.
+            </p>
+        </div>
 
+        <!-- BOTONES -->
+        <div class="botones-usuarios">
 
-    <div class="encabezado-tabla" style="margin-top:20px;">
-        <span>Definición de roles</span>
-    </div>
+            <a href="{% url 'crear_usuario' %}" class="btn-registrar">
+                Crear usuario
+            </a>
 
-    <div class="fila-usuario">
-        <span>Rol asignado:</span>
-        <select>
-            <option>Administrador</option>
-            <option>Seguridad</option>
-        </select>
-    </div>
+            <a href="{% url 'ver_usuarios' %}" class="btn-ver">
+                Ver usuarios
+            </a>
 
+        </div>
 
-  
-    <div class="encabezado-tabla" style="margin-top:20px;">
-        <span>Configuración de alertas</span>
-    </div>
-
-    <div class="fila-usuario">
-        <span>Alertas por correo:</span>
-        <label class="switch">
-            <input type="checkbox" checked>
-            <span class="slider"></span>
-        </label>
-    </div>
-
-    <div class="fila-usuario">
-        <span>Alertas por sonido:</span>
-        <label class="switch">
-            <input type="checkbox">
-            <span class="slider"></span>
-        </label>
-    </div>
-    
-    <div class="encabezado-tabla" style="margin-top:20px;">
-        <span>Actualización del software</span>
-    </div>
-
-    <div class="fila-usuario">
-        <span>Versión actual:</span>
-        <input type="text" value="v1.0.3" readonly>
-    </div>
-
-    <div class="fila-usuario">
-        <span>Buscar actualizaciones:</span>
-        <a class="cta-button btn-guardar" style="width:140px;">Buscar</a>
-    </div>
-
-
-    <div class="botones-acciones-acceso" style="margin-top:25px;">
-        <a href="#" class="boton btn-volver">Volver</a>
-        <a href="#" class="boton btn-guardar">Guardar</a>
     </div>
 
 </div>
+            <!-- ALERTAS -->
+            <div class="card-config">
+
+                <div class="header-card">
+
+                    <div class="icono-card alertas">
+                        🔔
+                    </div>
+
+                    <div>
+                        <h3>Alertas y monitoreo</h3>
+                        <span>Notificaciones y actividad del sistema</span>
+                    </div>
+
+                </div>
+
+
+                <div class="contenido-card">
+
+
+                    <!-- CORREO -->
+
+                    <div class="item-config">
+
+                        <div class="textos-item">
+
+                            <h4>Alertas por correo</h4>
+
+                            <p>
+                                Enviar notificaciones de eventos importantes.
+                            </p>
+
+                        </div>
+
+                        <label class="switch">
+
+                            <input
+                                type="checkbox"
+                                name="alertas_correo"
+
+                                {% if configuracion.alertas_correo %}
+                                    checked
+                                {% endif %}
+                            >
+
+                            <span class="slider"></span>
+
+                        </label>
+
+                    </div>
+
+
+
+                    <!-- SONIDO -->
+
+                    <div class="item-config">
+
+                        <div class="textos-item">
+
+                            <h4>Alertas sonoras</h4>
+
+                            <p>
+                                Emitir sonidos cuando ocurra una incidencia.
+                            </p>
+
+                        </div>
+
+                        <label class="switch">
+
+                            <input
+                                type="checkbox"
+                                name="alertas_sonoras"
+
+                                {% if configuracion.alertas_sonoras %}
+                                    checked
+                                {% endif %}
+                            >
+
+                            <span class="slider"></span>
+
+                        </label>
+
+                    </div>
+
+
+
+                    <!-- SOSPECHOSA -->
+
+                    <div class="item-config">
+
+                        <div class="textos-item">
+
+                            <h4>Actividad sospechosa</h4>
+
+                            <p>
+                                Detectar intentos inusuales o accesos repetitivos.
+                            </p>
+
+                        </div>
+
+                        <label class="switch">
+
+                            <input
+                                type="checkbox"
+                                name="actividad_sospechosa"
+
+                                {% if configuracion.actividad_sospechosa %}
+                                    checked
+                                {% endif %}
+                            >
+
+                            <span class="slider"></span>
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- REGISTRO -->
+            <div class="card-config">
+
+                <div class="header-card">
+
+                    <div class="icono-card monitoreo">
+                        📊
+                    </div>
+
+                    <div>
+                        <h3>Registro de actividad</h3>
+                        <span>Seguimiento de eventos y accesos</span>
+                    </div>
+
+                </div>
+
+
+                <div class="contenido-card">
+
+
+
+
+
+                    <!-- NOCTURNA -->
+
+                    <div class="item-config">
+
+                        <div class="textos-item">
+
+                            <h4>Registrar actividad nocturna</h4>
+
+                            <p>
+                                Marcar accesos realizados en horarios inusuales.
+                            </p>
+
+                        </div>
+
+                        <label class="switch">
+
+                            <input
+                                type="checkbox"
+                                name="actividad_nocturna"
+
+                                {% if configuracion.actividad_nocturna %}
+                                    checked
+                                {% endif %}
+                            >
+
+                            <span class="slider"></span>
+
+                        </label>
+
+                    </div>
+
+
+
+                    <!-- TIEMPO -->
+
+                    <div class="item-config">
+
+                        <div class="textos-item">
+
+                            <h4>Tiempo de almacenamiento</h4>
+
+                            <p>
+                                Tiempo que se conservarán los registros.
+                            </p>
+
+                        </div>
+<select name="tiempo_almacenamiento">
+
+    <option value="3 meses"
+        {% if configuracion.tiempo_almacenamiento == '3 meses' %}selected{% endif %}>
+        3 meses
+    </option>
+
+    <option value="6 meses"
+        {% if configuracion.tiempo_almacenamiento == '6 meses' %}selected{% endif %}>
+        6 meses
+    </option>
+
+    <option value="1 año"
+        {% if configuracion.tiempo_almacenamiento == '1 año' %}selected{% endif %}>
+        1 año
+    </option>
+
+</select>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- SISTEMA -->
+            <div class="card-config">
+
+                <div class="header-card">
+
+                    <div class="icono-card sistema">
+                        ⚙️
+                    </div>
+
+                    <div>
+                        <h3>Sistema</h3>
+                        <span>Configuración general de la plataforma</span>
+                    </div>
+
+                </div>
+
+
+                <div class="contenido-card">
+
+    <!-- VERSION -->
+
+    <div class="item-config">
+
+        <div class="textos-item">
+
+            <h4>Versión actual</h4>
+
+            <p>
+                Información de la versión instalada.
+            </p>
+
+        </div>
+
+        <span style="font-weight:bold;">
+            {{ configuracion.version }}
+        </span>
+
+    </div>
+
+    <!-- ESTADO -->
+
+    <div class="item-config">
+
+        <div class="textos-item">
+
+            <h4>Estado del sistema</h4>
+
+            <p>
+                Estado operativo actual de la plataforma.
+            </p>
+
+        </div>
+
+        <span style="font-weight:bold;color:green;">
+            ● Activo
+        </span>
+
+    </div>
+
+    <!-- ACTUALIZACIONES -->
+
+    <div class="item-config">
+
+        <div class="textos-item">
+
+            <h4>Actualizaciones</h4>
+
+            <p>
+                Las actualizaciones estarán disponibles en futuras versiones del sistema.
+            </p>
+
+        </div>
+
+        <span style="font-weight:600;color:#64748b;">
+            Próximamente
+        </span>
+
+    </div>
+
+    <!-- MODO OSCURO -->
+
+    <div class="item-config">
+
+        <div class="textos-item">
+
+            <h4>Modo oscuro</h4>
+
+            <p>
+                Funcionalidad disponible para futuras versiones.
+            </p>
+
+        </div>
+
+        <span style="font-weight:600;color:#64748b;">
+            Próximamente
+        </span>
+
+    </div>
+
+</div>
+                        </label>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </form>
+
+</div>
+
+
 {% endblock %}

@@ -1,0 +1,53 @@
+{% extends 'baseaut.html' %}
+{% load static %}
+
+{% block estilos %}
+<link rel="stylesheet" href="{% static 'css/editar_usuario.css' %}">
+{% endblock %}
+
+{% block titulo %}Editar Usuario{% endblock %}
+
+{% block contenido %}
+
+<main class="fondo">
+
+    <section class="contenedor-formulario">
+
+        <h2><em>EDITAR USUARIO</em></h2>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <label>Usuario</label>
+            <input type="text" name="username" value="{{ usuario.username }}" required>
+
+            <label>Correo</label>
+            <input type="email" name="email" value="{{ usuario.email }}">
+
+            <label>Rol</label>
+            <select name="grupo">
+
+                {% for grupo in grupos %}
+                    <option value="{{ grupo.id }}"
+                        {% if grupo in usuario.groups.all %}selected{% endif %}>
+                        {{ grupo.name }}
+                    </option>
+                {% endfor %}
+
+            </select>
+
+            <button type="submit" class="btn-guardar">
+                Guardar cambios
+            </button>
+
+        </form>
+
+        <a href="{% url 'ver_usuarios' %}" class="btn-volver">
+            Volver
+        </a>
+
+    </section>
+
+</main>
+
+{% endblock %}

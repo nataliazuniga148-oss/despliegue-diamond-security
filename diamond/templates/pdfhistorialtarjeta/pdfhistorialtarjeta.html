@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>
+        Reporte Historial Tarjetas
+    </title>
+
+    <style>
+
+        body {
+            font-family: Helvetica, Arial, sans-serif;
+            font-size: 10.5px;
+            color: #2b2b2b;
+            margin: 0;
+        }
+
+        .header {
+            width: 100%;
+            border-bottom: 2px solid #1f3c88;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .logo {
+            width: 95px;
+        }
+
+        .title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #1f3c88;
+        }
+
+        .subtitle {
+            font-size: 11px;
+            color: #666;
+            margin-top: 3px;
+        }
+
+        .meta {
+            font-size: 9.5px;
+            color: #888;
+            margin-top: 4px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead th {
+            background-color: #1f3c88;
+            color: white;
+            font-size: 10px;
+            padding: 7px;
+            border: 1px solid #1f3c88;
+            text-align: center;
+        }
+
+        tbody td {
+            border: 1px solid #ddd;
+            padding: 6px;
+            font-size: 9.5px;
+            text-align: center;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f4f6fa;
+        }
+
+        .status {
+            font-weight: bold;
+        }
+
+        .activa {
+            color: #1a7f37;
+        }
+
+        .desactivada {
+            color: #b42318;
+        }
+
+        .cambiada {
+            color: #1f3c88;
+        }
+
+        .asignada {
+            color: #7a4bcc;
+        }
+
+        .footer {
+            margin-top: 18px;
+            border-top: 1px solid #ddd;
+            padding-top: 8px;
+            font-size: 9px;
+            text-align: center;
+            color: #777;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <table class="header">
+
+        <tr>
+
+            <td style="width: 18%;">
+
+                <img src="image/logo.png" class="logo">
+
+            </td>
+
+            <td style="width: 82%;">
+
+                <div class="title">
+                    DIAMOND SECURITY
+                </div>
+
+                <div class="subtitle">
+                    Reporte oficial de historial de tarjetas
+                </div>
+
+                <div class="meta">
+                    Fecha de generación: {{ fecha_reporte }}
+                </div>
+
+            </td>
+
+        </tr>
+
+    </table>
+
+    <table>
+
+        <thead>
+
+            <tr>
+
+                <th>Nombre</th>
+
+                <th>Tarjeta</th>
+
+                <th>Estado</th>
+
+                <th>Fecha</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            {% for item in historial %}
+
+            <tr>
+
+                <td>
+
+                    {{ item.nombre }}
+
+                </td>
+
+                <td>
+
+                    {{ item.tarjeta }}
+
+                </td>
+
+                <td class="status">
+
+                    <span class="
+                        {% if item.estado == 'activada' %}
+                            activa
+                        {% elif item.estado == 'desactivada' %}
+                            desactivada
+                        {% elif item.estado == 'cambiada' %}
+                            cambiada
+                        {% elif item.estado == 'asignada' %}
+                            asignada
+                        {% endif %}
+                    ">
+
+                        {{ item.estado|capfirst }}
+
+                    </span>
+
+                </td>
+
+                <td>
+
+                    {{ item.fecha }}
+
+                </td>
+
+            </tr>
+
+            {% empty %}
+
+            <tr>
+
+                <td colspan="4">
+
+                    No hay historial disponible
+
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+    <div class="footer">
+
+        Sistema de control de accesos · Documento generado automáticamente
+
+    </div>
+
+</body>
+
+</html>

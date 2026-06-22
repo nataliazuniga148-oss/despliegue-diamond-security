@@ -3,7 +3,7 @@
     max-width: 1600px;
     margin: 30px auto;
     background: rgba(255, 255, 255, 0.9);
-    padding: 25px;
+    padding: 20px;
     border-radius: 15px;
     box-shadow: 0 0 18px rgba(0,0,0,0.15);
     font-family: Arial, sans-serif;
@@ -21,35 +21,41 @@
 .encabezado-registro,
 .fila-registro {
     display: grid;
+
     grid-template-columns:
-        180px
-        120px
-        150px
-        80px
-        140px
-        120px
-        120px
-        110px
-        110px
-        200px
-        100px;
+        0.8fr
+        1.5fr
+        0.8fr
+        1fr
+        1fr
+        1.5fr
+        1fr
+        0.8fr
+        0.8fr
+        0.8fr
+        1fr
+        0.8fr
+        1fr;
+
+    width: 100%;
     align-items: center;
     text-align: center;
+    gap: 5px;
 }
 
 .encabezado-registro {
     background: #c5d3e0;
-    color: #131313;
     padding: 12px;
-    border-radius: 8px;
+    border-radius: 10px;
     font-weight: bold;
-    margin-top: 10px;
+    font-size: 0.78em;
+    color: #111;
 }
 
 .fila-registro {
-    padding: 10px 12px;
+    padding: 10px 8px;
     border-bottom: 1px solid #ccc;
-    font-size: 0.95em;
+    font-size: 0.76em;
 }
 
 .fila-registro:hover {
@@ -61,29 +67,47 @@
 }
 
 .fila-registro span {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    word-break: break-word;
 }
 
-.btn-editar {
-    width: 80px;
-    margin: 0 auto;
-    padding: 6px 0;
-    border-radius: 8px;
+.acciones {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    align-items: center;
+}
+
+.btn-editar{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 120px;
+    height: 48px;
+
+    padding: 0 10px;
+
+    border-radius: 12px;
     font-weight: bold;
-    cursor: pointer;
+    font-size: 13px;
+
     text-decoration: none;
+
     border: 2px solid #333;
     background: #fff;
     color: #333;
-    transition: 0.3s ease;
+
+    transition: 0.3s;
+    box-sizing: border-box;
+
+    text-align: center;
+
+    line-height: 1.2;
 }
 
-.btn-editar:hover {
+.btn-editar:hover{
     background: #333;
     color: #fff;
-    transform: scale(1.05);
 }
 
 .paginacion {
@@ -91,72 +115,154 @@
     justify-content: center;
     align-items: center;
     gap: 8px;
-    margin-top: 12px;
-    padding: 12px 0;
+    margin-top: 18px;
+    flex-wrap: wrap;
 }
 
-.paginacion .pagina,
-.paginacion .puntos {
+.paginacion .pagina {
     padding: 8px 14px;
     border-radius: 8px;
     text-decoration: none;
-    font-size: 0.95em;
-    font-weight: 600;
-    transition: 0.3s ease;
+    font-size: 0.85em;
+    font-weight: bold;
+    transition: 0.3s;
 }
 
 .paginacion .numero {
     background: #f2f2f2;
-    color: #333;
+    color: #111;
     border: 1px solid #ccc;
 }
 
 .paginacion .numero:hover {
     background: #dfe9ff;
-    border-color: #8fb3ff;
 }
 
 .paginacion .active {
     background: #0e0e0e;
-    color: white;
-    border: 1px solid #141414;
+    color: #fff;
 }
 
 .paginacion .anterior,
 .paginacion .siguiente {
-    background: #ffffff;
-    border: 2px solid #0d0d0e;
-    color: #0d0d0d;
+    background: #fff;
+    border: 2px solid #111;
+    color: #111;
 }
 
 .paginacion .anterior:hover,
 .paginacion .siguiente:hover {
-    background: #040404;
+    background: #000;
     color: #fff;
 }
 
 .btn-volver-flecha {
     text-decoration: none;
-    text-align: center;
-    line-height: 32px;
     background-color: #c5d3e0;
     border: 2px solid #c5d3e0;
     color: #0c0c0c;
     font-weight: bold;
     border-radius: 10px;
-    transition: all 0.3s ease;
-    cursor: pointer;
     display: inline-block;
     width: 40px;
     height: 36px;
-    font-size: 1.2em;
+    text-align: center;
+    line-height: 32px;
     margin-bottom: 10px;
+    transition: 0.3s;
 }
 
 .btn-volver-flecha:hover {
     background-color: #7fb1fb;
     border-color: #88b7fd;
     color: white;
+}
+
+.buscador {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.buscador form {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.buscador input,
+.buscador select {
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1px solid #bbb;
+    font-size: 14px;
+    outline: none;
+    transition: 0.3s;
+}
+
+.buscador input {
+    width: 300px;
+}
+
+.buscador input:focus,
+.buscador select:focus {
+    border-color: #7fb1fb;
+    box-shadow: 0 0 0 3px rgba(127, 177, 251, 0.2);
+}
+
+.buscador select {
+    background: white;
+    cursor: pointer;
+    min-width: 170px;
+    font-weight: 600;
+    color: #333;
+}
+
+.botones-busqueda {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.btn-buscar,
+.btn-limpiar {
+    height: 42px;
+    padding: 0 18px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    border: none;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    box-sizing: border-box;
+}
+
+.btn-buscar {
+    background: #c5d3e0;
+    color: #111;
+}
+
+.btn-buscar:hover {
+    background: #000;
+    color: #fff;
+}
+
+.btn-limpiar {
+    background: #e5e7eb;
+    color: #111;
+}
+
+.btn-limpiar:hover {
+    background: #000;
+    color: #fff;
 }
 
 .menu-opciones {
@@ -181,18 +287,20 @@
     top: 100%;
     background: #fff;
     border: 1px solid #ccc;
-    border-radius: 8px;
+    border-radius: 10px;
     box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-    min-width: 160px;
+    min-width: 220px;
     z-index: 10;
+    overflow: hidden;
 }
 
 .opciones a {
     display: block;
-    padding: 10px 14px;
+    padding: 12px 14px;
     text-decoration: none;
     color: #000;
     font-weight: 600;
+    transition: 0.3s;
 }
 
 .opciones a:hover {
@@ -201,4 +309,56 @@
 
 .menu-opciones:focus-within .opciones {
     display: block;
+}
+
+.opciones form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px;
+    border-top: 1px solid #e5e5e5;
+}
+
+.opciones input[type="email"] {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 13px;
+    outline: none;
+    transition: 0.3s;
+    box-sizing: border-box;
+}
+
+.opciones input[type="email"]:focus {
+    border-color: #7fb1fb;
+    box-shadow: 0 0 0 3px rgba(127, 177, 251, 0.2);
+}
+
+.opciones button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    background: #c5d3e0;
+    color: #111;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.opciones button:hover {
+    background: #000;
+    color: #fff;
+}
+
+.badge{
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    display: inline-block;
+    text-align: center;
+    min-width: 95px;
 }

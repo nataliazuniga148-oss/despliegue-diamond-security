@@ -12,17 +12,48 @@
     <h2>Asignar Tarjeta</h2>
 
     {% if messages %}
-        {% for message in messages %}
-            <div style="background:#f8d7da; color:#721c24; padding:10px; margin-bottom:15px; border-radius:6px;">
-                {{ message }}
-            </div>
-        {% endfor %}
-    {% endif %}
+    {% for message in messages %}
 
-    <form method="get" class="buscador">
-        <input type="text" name="buscar" placeholder="Buscar..." value="{{ query }}">
-        <button type="submit" class="btn-buscar">Buscar</button>
-    </form>
+        <div
+            style="
+                padding:10px;
+                margin-bottom:15px;
+                border-radius:6px;
+
+                {% if message.tags == 'success' %}
+                    background:#d4edda;
+                    color:#155724;
+                    border:1px solid #c3e6cb;
+                {% else %}
+                    background:#f8d7da;
+                    color:#721c24;
+                    border:1px solid #f5c6cb;
+                {% endif %}
+            "
+        >
+            {{ message }}
+        </div>
+
+    {% endfor %}
+{% endif %}
+
+<form method="get" class="buscador">
+
+    <input type="text" name="buscar" placeholder="Nombre o documento..." value="{{ query }}">
+
+    <input type="text" name="tarjeta" placeholder="Número tarjeta..." value="{{ tarjeta_query }}">
+
+    <select name="estado">
+        <option value="">Todas</option>
+        <option value="con" {% if estado == "con" %}selected{% endif %}>Con tarjeta</option>
+        <option value="sin" {% if estado == "sin" %}selected{% endif %}>Sin tarjeta</option>
+    </select>
+
+    <button type="submit" class="btn-buscar">🔍 Buscar</button>
+
+    <a href="{% url 'asignartarjeta' %}" class="btn-buscar">⟲ Limpiar</a>
+
+</form>
 
     <div class="encabezado-registro">
         <span>Nombre</span>
@@ -50,38 +81,42 @@
 
             {% if not r.tarjeta %}
 
-            <form method="post">
-                {% csrf_token %}
+                <form method="post">
+                    {% csrf_token %}
 
-                <input type="hidden" name="registro_id" value="{{ r.id }}">
-                <input type="hidden" name="accion" value="asignar">
+                    <input type="hidden" name="registro_id" value="{{ r.id }}">
+                    <input type="hidden" name="accion" value="asignar">
 
-                <input 
-                    type="text" 
-                    name="nuevo_numero" 
-                    placeholder="Número tarjeta"
-                    style="padding:5px; border-radius:6px; border:1px solid #aaa; width:140px;"
-                >
+                    <input
+                        type="text"
+                        name="nuevo_numero"
+                        placeholder="Número tarjeta"
+                        style="padding:5px; border-radius:6px; border:1px solid #aaa; width:140px;"
+                    >
 
-                <div style="margin-top:8px;">
-                    <strong>Puertas:</strong><br>
+                    <div style="margin-top:8px;">
+                        <strong>Puertas:</strong><br>
 
-                    {% for p in puertas %}
-                        <label style="font-size:13px;">
-                            <input type="checkbox" name="puertas" value="{{ p.id }}">
-                            {{ p.nombre }}
-                        </label><br>
-                    {% endfor %}
-                </div>
+                        {% for p in puertas %}
+                            <label style="font-size:13px;">
+                                <input type="checkbox" name="puertas" value="{{ p.id }}">
+                                {{ p.nombre }}
+                            </label><br>
+                        {% endfor %}
+                    </div>
 
-                <button type="submit" class="btn-buscar" style="margin-top:8px;">
-                    Asignar
-                </button>
+                    {% if request.user.groups.all.0.name == "Administrador" or request.user.groups.all.0.name == "Supervisor" %}
+                        <button type="submit" class="btn-buscar" style="margin-top:8px;">
+                            Asignar
+                        </button>
+                    {% endif %}
 
-            </form>
+                </form>
 
             {% else %}
+
                 <span>Ya tiene tarjeta</span>
+
             {% endif %}
 
         </span>
@@ -89,36 +124,40 @@
     </div>
 
     {% empty %}
+
     <div class="fila-registro-accesos">
         <span colspan="4">No hay registros</span>
     </div>
+
+    {% endfor %}
+<div class="paginacion">
+
+    {% if registros.has_previous %}
+        <a class="pagina anterior"
+           href="?page={{ registros.previous_page_number }}&buscar={{ query }}">
+            ‹ Anterior
+        </a>
+    {% endif %}
+
+    {% for num in paginas %}
+
+        {% if registros.number == num %}
+            <span class="pagina active">{{ num }}</span>
+        {% else %}
+            <a class="pagina numero"
+               href="?page={{ num }}&buscar={{ query }}">
+                {{ num }}
+            </a>
+        {% endif %}
+
     {% endfor %}
 
-    <div class="paginacion">
-
-        {% if registros.has_previous %}
-            <a class="pagina anterior" href="?page={{ registros.previous_page_number }}&q={{ query }}">
-                ‹ Anterior
-            </a>
-        {% endif %}
-
-        {% for num in registros.paginator.page_range %}
-            {% if registros.number == num %}
-                <span class="pagina active">{{ num }}</span>
-            {% else %}
-                <a class="pagina numero" href="?page={{ num }}&q={{ query }}">
-                    {{ num }}
-                </a>
-            {% endif %}
-        {% endfor %}
-
-        {% if registros.has_next %}
-            <a class="pagina siguiente" href="?page={{ registros.next_page_number }}&q={{ query }}">
-                Siguiente ›
-            </a>
-        {% endif %}
-
-    </div>
+    {% if registros.has_next %}
+        <a class="pagina siguiente"
+           href="?page={{ registros.next_page_number }}&buscar={{ query }}">
+            Siguiente ›
+        </a>
+    {% endif %}
 
 </div>
 

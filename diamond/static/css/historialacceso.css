@@ -1,55 +1,211 @@
+/* ====================================
+   CONTENEDOR
+==================================== */
+
+.contenedor-historial{
+    width: 95%;
+    margin: 15px auto;
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: 0 4px 18px rgba(15,23,42,0.05);
+    border: 1px solid #edf2f7;
+    font-family: 'Segoe UI', sans-serif;
+}
 .contenedor-historial {
-    width: 1500px;
-    background: rgba(255, 255, 255, 0.85);
-    padding: 20px 50px;
-    border-radius: 15px;
-    margin: 1px auto;
-    box-shadow: 0 0 20px rgba(0,0,0,0.15);
-    font-family: Arial, sans-serif;
-    color: #333;
+    width: 95%;
+    margin: 10px auto;
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 12px;
+    border: 1px solid #edf0f7;
+
     position: relative;
 }
+/* ====================================
+   ENCABEZADO
+==================================== */
 
-.titulo-historial {
-    text-align: center;
-    margin-bottom: 25px;
+.encabezado-historial{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
 }
 
-.tabla-historial {
+.titulo-historial{
+    margin: 0;
+    font-size: 24px;
+    font-weight: 700;
+    color: #172554;
+}
+
+.titulo-historial::after{
+    content: "Consulta y monitorea los registros";
+    display: block;
+    font-size: 11px;
+    font-weight: 400;
+    color: #64748b;
+    margin-top: 4px;
+}
+
+/* ====================================
+   FILTROS
+==================================== */
+
+.filtro-form{
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr auto auto;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.filtro-form input{
+    height: 36px;
+    border-radius: 10px;
+    border: 1px solid #dbe4f0;
+    background: white;
+    padding: 0 12px;
+    font-size: 12px;
+    color: #0f172a;
+    outline: none;
+}
+
+.filtro-form input:focus{
+    border-color: #3b82f6;
+}
+
+/* ====================================
+   TABLA
+==================================== */
+
+.tabla-contenedor{
+    width: 100%;
+    overflow-x: auto;
+    border-radius: 14px;
+    border: 1px solid #edf2f7;
+}
+
+.tabla-historial{
     width: 100%;
     border-collapse: collapse;
-    font-size: 14px;
-    background: rgba(255,255,255,0.4);
-    border-radius: 10px;
-    overflow: hidden;
-    table-layout: fixed;
+    background: white;
 }
 
-.tabla-historial th,
-.tabla-historial td {
+.encabezado-tabla{
+    background: #f5f7ff;
+}
+
+.encabezado-tabla th{
     padding: 12px;
-    border-bottom: 1px solid rgba(0,0,0,0.1);
-    text-align: center;
-    word-wrap: break-word;
+    text-align: left;
+    font-size: 12px;
+    color: #172554;
+    font-weight: 700;
+    border-bottom: 1px solid #e2e8f0;
 }
 
-.tabla-historial th {
-    background: rgba(197, 211, 224, 0.8);
-    font-weight: bold;
+.tabla-historial td{
+    padding: 12px;
+    font-size: 12px;
+    color: #334155;
+    border-bottom: 1px solid #edf2f7;
 }
 
-.fila-tabla:hover {
-    background: rgba(255,255,255,0.3);
+.fila-tabla{
+    transition: 0.3s;
 }
 
-.sin-salida {
-    color: red;
-    font-weight: bold;
+.fila-tabla:hover{
+    background: #f8fbff;
 }
 
-.sin-registros {
+/* ====================================
+   SIN SALIDA
+==================================== */
+
+.sin-salida{
+    color: #ef4444;
+    font-weight: 700;
+}
+
+/* ====================================
+   BADGES
+==================================== */
+
+.badge{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 12px;
+    border-radius: 30px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.bg-success{
+    background: #eaf8ef;
+    color: #16a34a;
+}
+
+.bg-danger{
+    background: #ffe9ec;
+    color: #ef4444;
+}
+
+.bg-warning{
+    background: #fff7db;
+    color: #d97706;
+}
+
+.bg-secondary{
+    background: #eef2f7;
+    color: #475569;
+}
+
+/* ====================================
+   SIN REGISTROS
+==================================== */
+
+.sin-registros{
     text-align: center;
     padding: 20px;
+    color: #64748b;
+    font-size: 12px;
+}
+
+/* ====================================
+   RESPONSIVE
+==================================== */
+
+@media(max-width:1000px){
+
+    .filtro-form{
+        grid-template-columns: 1fr 1fr;
+    }
+
+}
+
+@media(max-width:700px){
+
+    .contenedor-historial{
+        padding: 12px;
+    }
+
+    .encabezado-historial{
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .titulo-historial{
+        font-size: 20px;
+    }
+
+    .filtro-form{
+        grid-template-columns: 1fr;
+    }
+
 }
 
 
@@ -286,3 +442,79 @@
 }
 
 
+.badge.bg-dark{
+    background: #fee2e2;
+    color: #b91c1c;
+    padding: 6px 10px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 12px;
+    border: 1px solid #fca5a5;
+}
+/* =========================
+BADGES ESTADO
+========================= */
+.badge{
+    font-size: 13px;
+    font-weight: 700;
+    display: inline-block;
+    text-align: center;
+    background: transparent !important;
+    border: none !important;
+    padding: 0;
+    border-radius: 0;
+}
+
+/* PERMITIDO */
+
+.bg-success{
+    color: #166534;
+}
+
+/* DENEGADO */
+
+.bg-danger{
+    color: #dc2626;
+}
+
+/* TARJETA BLOQUEADA */
+
+.bg-dark{
+    color: #7f1d1d;
+}
+
+/* TARJETA NO REGISTRADA */
+
+.bg-warning{
+    color: #d97706;
+}
+
+/* TEXTO OSCURO */
+
+.text-dark{
+    color: #92400e;
+}
+
+/* OTROS */
+
+.bg-secondary{
+    color: #374151;
+}
+
+.badge-tarjeta-no-registrada{
+    color: #dc2626;
+    font-weight: 700;
+    font-size: 14px;
+    background: transparent;
+    border: none;
+    padding: 0;
+}
+
+.badge-tarjeta-bloqueada{
+    color: #7f1d1d;
+    font-weight: 700;
+    font-size: 14px;
+    background: transparent;
+    border: none;
+    padding: 0;
+}

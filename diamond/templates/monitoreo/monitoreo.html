@@ -1,0 +1,140 @@
+{% extends 'baseaut.html' %}
+{% load static %}
+
+{% block estilos %}
+<link rel="stylesheet" href="{% static 'css/monitoreo.css' %}">
+{% endblock %}
+
+{% block contenido %}
+
+<div class="contenedor-monitoreo">
+
+    <h1>🔴 Centro de Monitoreo (Alertas)</h1>
+
+    <div class="lista">
+
+        {% for alerta in alertas %}
+
+            <div class="card-alerta">
+
+                <span class="tipo">
+
+                    {% if alerta.tipo == "WARNING" %}
+                        ⚠ ADVERTENCIA
+
+                    {% elif alerta.tipo == "ERROR" %}
+                        🚫 ERROR
+
+                    {% elif alerta.tipo == "INFO" %}
+                        ℹ INFORMACIÓN
+
+                    {% else %}
+                        {{ alerta.tipo }}
+
+                    {% endif %}
+
+                </span>
+
+                <p>
+                    {{ alerta.mensaje }}
+                </p>
+
+                <small>
+                    {{ alerta.fecha }}
+                </small>
+
+            </div>
+
+        {% empty %}
+
+            <p>No hay alertas registradas</p>
+
+        {% endfor %}
+
+    </div>
+
+    <!-- PAGINACIÓN -->
+    <div class="paginacion">
+
+        {% if alertas.has_previous %}
+            <a href="?page={{ alertas.previous_page_number }}">
+                ‹ Anterior
+            </a>
+        {% endif %}
+
+        <span>
+            Página {{ alertas.number }} de {{ alertas.paginator.num_pages }}
+        </span>
+
+        {% if alertas.has_next %}
+            <a href="?page={{ alertas.next_page_number }}">
+                Siguiente ›
+            </a>
+        {% endif %}
+
+    </div>
+
+</div>
+
+<script>
+
+function cargarAlertas() {
+
+    fetch("/api/alertas/")
+        .then(res => res.json())
+        .then(data => {
+
+            let contenedor = document.querySelector(".lista");
+
+            contenedor.innerHTML = "";
+
+            data.alertas.forEach(a => {
+
+                let tipoTexto = "";
+
+                if (a.tipo === "WARNING") {
+
+                    tipoTexto = "⚠ ADVERTENCIA";
+
+                } else if (a.tipo === "ERROR") {
+
+                    tipoTexto = "🚫 ERROR";
+
+                } else if (a.tipo === "INFO") {
+
+                    tipoTexto = "ℹ INFORMACIÓN";
+
+                } else {
+
+                    tipoTexto = a.tipo;
+
+                }
+
+                contenedor.innerHTML += `
+                    <div class="card-alerta ${a.tipo}">
+                        <span class="tipo">
+                            ${tipoTexto}
+                        </span>
+
+                        <p>
+                            ${a.mensaje}
+                        </p>
+
+                        <small>
+                            ${a.fecha}
+                        </small>
+                    </div>
+                `;
+
+            });
+
+        });
+
+}
+
+// Actualizar cada 5 segundos
+setInterval(cargarAlertas, 5000);
+
+</script>
+
+{% endblock %}

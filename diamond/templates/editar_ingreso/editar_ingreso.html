@@ -1,0 +1,103 @@
+{% extends 'baseaut.html' %}
+{% load static %}
+
+{% block estilos %}
+<link rel="stylesheet" href="{% static 'css/editar_ingreso.css' %}">
+{% endblock %}
+
+{% block titulo %}
+Editar ingreso
+{% endblock %}
+
+{% block contenido %}
+
+<div class="contenedor-editar">
+
+    <h2>Editar ingreso</h2>
+
+    <form method="POST" class="form-editar">
+
+        {% csrf_token %}
+
+        <div class="fila">
+
+            <div class="campo">
+                <label>Tipo de ingreso</label>
+                {{ form.tipo_ingreso }}
+            </div>
+
+            <div class="campo">
+                <label>Nombre completo</label>
+                {{ form.nombre }}
+            </div>
+
+        </div>
+
+        <div class="fila">
+
+            <div class="campo">
+                <label>Tipo documento</label>
+                {{ form.tipo_documento }}
+            </div>
+
+            <div class="campo">
+                <label>Número de documento</label>
+                {{ form.documento }}
+            </div>
+
+        </div>
+
+        <div class="fila">
+
+            <div class="campo">
+                <label>Persona o apto que visita</label>
+                {{ form.visita_a }}
+            </div>
+
+            <div class="campo">
+                <label>Placa del vehículo</label>
+                {{ form.placa }}
+            </div>
+
+        </div>
+
+        <div class="fila">
+
+            <div class="campo">
+                <label>Empresa</label>
+                {{ form.empresa }}
+            </div>
+
+            <div class="campo">
+                <label>Estado</label>
+                {{ form.estado }}
+            </div>
+
+        </div>
+
+        <div class="fila">
+
+            <div class="campo">
+                <label>Observaciones</label>
+                {{ form.observaciones }}
+            </div>
+
+        </div>
+
+        <div class="botones-acciones">
+
+            <button type="submit" class="botones btn-guardar">
+                Guardar cambios
+            </button>
+
+            <a href="{% url 'listaingresos' %}" class="botones btn-volver">
+                Volver
+            </a>
+
+        </div>
+
+    </form>
+
+</div>
+
+{% endblock %}

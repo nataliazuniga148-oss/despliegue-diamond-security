@@ -9,7 +9,7 @@
 
 {% block contenido %}
 <div class="contenedor-acceso">
-    <a href="{% url 'configuracion' %}" class="btn-volver-flecha">↩</a>
+    <a href="{% url 'cliente' %}" class="btn-volver-flecha">↩</a>
     <h2>Control de Acceso</h2>
 
     <div class="encabezado-tabla">
@@ -32,10 +32,12 @@
     {% else %}
         <p style="text-align:center; margin-top:20px;">No hay registros</p>
     {% endif %}
+    {% if request.user.groups.all.0.name == "Administrador" or request.user.groups.all.0.name == "Supervisor" %}
 
     <div class="acciones-acceso">
         <a href="{% url 'editaracc' %}" class="boton-accion btn-editar">Editar</a>
         <a href="#" class="boton-accion btn-guardar">Guardar</a>
     </div>
+    {% endif %}
 </div>
 {% endblock %}

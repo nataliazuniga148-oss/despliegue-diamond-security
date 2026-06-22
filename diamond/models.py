@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 import uuid
 from datetime import timedelta
 from django.utils import timezone
+from PIL import Image
+
 
 class PasswordResetToken(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -55,8 +57,7 @@ class Registro(models.Model):
     parqueadero = models.CharField(max_length=10, null=True, blank=True, default="...")
     placa = models.CharField(max_length=50, null=True, blank=True, default="...")
     fecha = models.DateField()
-    hora_ingreso = models.TimeField()
-    hora_salida = models.TimeField(null=True, blank=True)
+    hora_registro = models.TimeField()
     observaciones = models.CharField(max_length=50, null=True, blank=True, default="...")
 
     def __str__(self):
@@ -80,20 +81,68 @@ class Usuario(models.Model):
 
 
 class Paquetes(models.Model):
-    destinatario = models.CharField(max_length=200)
-    documento = models.CharField(max_length=50)
-    nombre_recibe = models.CharField(max_length=200)
-    torre = models.CharField(max_length=50)
-    paquete = models.CharField(max_length=50)
-    agencia = models.CharField(max_length=200)
+    
+    ESTADOS = [
+        ("Pendiente", "Pendiente"),
+        ("Entregado", "Entregado"),
+    ]
+
+    destinatario = models.CharField(
+        max_length=200
+    )
+
+    documento = models.CharField(
+        max_length=50
+    )
+
+    nombre_recibe = models.CharField(
+        max_length=200
+    )
+
+    torre = models.CharField(
+        max_length=50
+    )
+
+    paquete = models.CharField(
+        max_length=50
+    )
+
+    agencia = models.CharField(
+        max_length=200
+    )
+
     fecha = models.DateField()
+
     hora_ingreso = models.TimeField()
-    hora_entrega = models.TimeField(null=True, blank=True)
-    observaciones = models.CharField(max_length=50, null=True, blank=True, default="...")
+
+    hora_entrega = models.TimeField(
+        null=True,
+        blank=True
+    )
+
+    estado = models.CharField(
+        max_length=20,
+        choices=ESTADOS,
+        default="Pendiente"
+    )
+
+    entregado_por = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="paquetes_entregados"
+    )
+
+    observaciones = models.CharField(
+        max_length=50,
+        null=True,
+        blank=True,
+        default="..."
+    )
 
     def __str__(self):
         return self.destinatario
-
 
 class Ip(models.Model):
     puerta = models.CharField(max_length=100)
@@ -150,7 +199,8 @@ class RegistroAcceso(models.Model):
     fecha = models.DateField(auto_now_add=True)
     hora_entrada = models.TimeField(auto_now_add=True)
     hora_salida = models.TimeField(null=True, blank=True)
-    estado = models.CharField(max_length=20, default="permitido")
+    estado = models.CharField(max_length=400, default="permitido")
+    motivo = models.CharField(max_length=255, null=True, blank=True)
 
     def __str__(self):
         if self.tipo_acceso == "conjunto":
@@ -170,14 +220,35 @@ class Puerta(models.Model):
         return self.nombre
 
 
+
 class Tarjeta(models.Model):
-    numero = models.CharField(max_length=20, unique=True)
-    activa = models.BooleanField(default=True)
-    puertas = models.ManyToManyField(Puerta, blank=True)
+    
+    numero = models.CharField(
+        max_length=20,
+        unique=True
+    )
+
+    activa = models.BooleanField(
+        default=True
+    )
+
+    puertas = models.ManyToManyField(
+        Puerta,
+        blank=True
+    )
+
+    # NUEVO
+    intentos_fallidos = models.IntegerField(
+        default=0
+    )
+
+    # NUEVO
+    bloqueada = models.BooleanField(
+        default=False
+    )
 
     def __str__(self):
         return self.numero
-
 
 class HistorialTarjeta(models.Model):
     ACCIONES = [
@@ -214,3 +285,184 @@ class Dispositivo(models.Model):
 
     def __str__(self):
         return f"{self.puerta.nombre} - {self.ip}"
+    
+
+
+class Ingreso(models.Model):
+
+    TIPO_INGRESO = [
+        ('visitante_temporal', 'Visitante temporal'),
+        ('proveedor', 'Proveedor'),
+        ('domiciliario', 'Domiciliario'),
+    ]
+
+    TIPO_DOCUMENTO = [
+        ('cc', 'Cédula de ciudadanía'),
+        ('ce', 'Cédula de extranjería'),
+        ('pasaporte', 'Pasaporte'),
+        ('ti', 'Tarjeta de identidad'),
+    ]
+
+    tipo_ingreso = models.CharField(
+        max_length=30,
+        choices=TIPO_INGRESO
+    )
+
+    nombre = models.CharField(
+        max_length=100
+    )
+
+    tipo_documento = models.CharField(
+        max_length=20,
+        choices=TIPO_DOCUMENTO
+    )
+
+    documento = models.CharField(
+        max_length=30
+    )
+
+    visita_a = models.CharField(
+        max_length=100
+    )
+
+    placa = models.CharField(
+        max_length=20,
+        blank=True,
+        null=True
+    )
+
+    empresa = models.CharField(
+        max_length=100,
+        blank=True,
+        null=True
+    )
+    fecha = models.DateField()
+    hora_ingreso = models.TimeField()
+
+    hora_salida = models.TimeField(
+        blank=True,
+        null=True
+    )
+
+    estado = models.CharField(
+        max_length=20,
+        default='Dentro'
+    )
+
+    observaciones = models.TextField(
+        blank=True,
+        null=True
+    )
+
+    def __str__(self):
+        return self.nombre
+    
+    
+class Perfil(models.Model):
+    
+    usuario = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+        related_name='perfil'
+    )
+
+    foto = models.ImageField(
+        upload_to='perfiles/',
+        blank=True,
+        null=True
+    )
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+        if self.foto:
+            img = Image.open(self.foto.path)
+
+            # 🔥 mejora calidad
+            img = img.convert("RGB")
+
+            # tamaño ideal
+            img.thumbnail((300, 300))
+
+            # guardar con buena calidad
+            img.save(self.foto.path, quality=95)
+
+    def __str__(self):
+        return self.usuario.username
+from django.db import models
+
+
+class ConfiguracionSistema(models.Model):
+
+    bloqueo_automatico = models.BooleanField(default=True)
+
+    cierre_automatico = models.CharField(
+        max_length=20,
+        default='10 minutos'
+    )
+
+    verificacion_adicional = models.BooleanField(default=False)
+
+    alertas_correo = models.BooleanField(default=True)
+
+    alertas_sonoras = models.BooleanField(default=False)
+
+    actividad_sospechosa = models.BooleanField(default=True)
+
+    guardar_historial = models.BooleanField(default=True)
+
+    actividad_nocturna = models.BooleanField(default=True)
+
+    tiempo_almacenamiento = models.CharField(
+    max_length=20,
+    default='6 meses'
+    )
+
+    rol_principal = models.CharField(
+        max_length=30,
+        default='Administrador'
+    )
+
+    edicion_usuarios = models.BooleanField(default=True)
+
+    creacion_cuentas = models.BooleanField(default=False)
+
+    modo_oscuro = models.BooleanField(default=False)
+
+    version = models.CharField(
+        max_length=20,
+        default='v1.0.3'
+    )
+
+    def __str__(self):
+        return "Configuración del sistema"
+    
+class Alerta(models.Model):
+    TIPO = [
+        ("INFO", "INFO"),
+        ("WARNING", "WARNING"),
+        ("ERROR", "ERROR"),
+    ]
+
+    tipo = models.CharField(max_length=20, choices=TIPO)
+    mensaje = models.TextField()
+    usuario = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    fecha = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.tipo} - {self.mensaje}"
+    
+
+
+class TarjetaDesconocida(models.Model):
+    
+    uid = models.CharField(max_length=100, unique=True)
+
+    intentos_fallidos = models.IntegerField(default=0)
+
+    bloqueada = models.BooleanField(default=False)
+
+    ultima_fecha = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.uid

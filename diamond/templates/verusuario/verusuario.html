@@ -9,21 +9,38 @@
 
 {% block contenido %}
 <div class="registro">
+
     <a href="{% url 'cliente' %}" class="btn-volver-flecha">↩</a>
+    {% if request.user.groups.all.0.name == "Administrador" or request.user.groups.all.0.name == "Supervisor" %}
 
     <div class="menu-opciones">
         <a href="#" class="btn-tres-puntos">⋮</a>
+
         <div class="opciones">
-            <a href="#">Exportar a PDF</a>
-            <a href="#">Imprimir</a>
+
+            <a href="{% url 'pdfusuarios' %}">Exportar a PDF</a>
+
+  
+
+            <form action="{% url 'pdfusuarios' %}" method="GET">
+                <input type="email" name="email" placeholder="Correo electrónico" required>
+                <button type="submit">Enviar PDF</button>
+            </form>
+
         </div>
     </div>
+    {% endif %}
 
     <h2>Listado de Usuarios</h2>
 
     <div class="buscador">
-        <input type="text" placeholder="Buscar por número de documento o nombre">
-        <button class="btn-buscar">🔍</button>
+        <form method="GET">
+            <input type="text" name="q" value="{{ query }}"
+                   placeholder="Buscar por número de documento o nombre">
+            <button type="submit" class="btn-buscar">🔍 Buscar</button>
+            <a href="{% url 'verusuario' %}" class="btn-buscar"> ⟲ Limpiar </a>
+            
+        </form>
     </div>
 
     <div class="encabezado-registro">
@@ -38,25 +55,23 @@
         <span class="campo">Numero de parqueadero</span>
         <span class="campo">Vehiculo</span>
         <span class="campo">Fecha</span>
-        <span class="campo">Hora ingreso</span>
-        <span class="campo">Hora salida</span>
+        <span class="campo">Hora de registro</span>
     </div>
 
     {% for r in registros %}
     <div class="fila-registro-accesos">
-        <span class="campo" title="{{ r.tipo_usuario }}">{{ r.tipo_usuario }}</span>
-        <span class="campo" title="{{ r.nombre }}">{{ r.nombre }}</span>
-        <span class="campo" title="{{ r.tipo_documento }}">{{ r.tipo_documento }}</span>
-        <span class="campo" title="{{ r.documento }}">{{ r.documento }}</span>
-        <span class="campo" title="{{ r.telefono }}">{{ r.telefono }}</span>
-        <span class="campo" title="{{ r.email }}">{{ r.email }}</span>
-        <span class="campo" title="{{ r.torre }}">{{ r.torre }}</span>
-        <span class="campo" title="{{ r.tarjeta }}">{{ r.tarjeta }}</span>
-        <span class="campo" title="{{ r.parqueadero }}">{{ r.parqueadero|default:"..." }}</span>
-        <span class="campo" title="{{ r.placa }}">{{ r.placa|default:"..." }}</span>
-        <span class="campo" title="{{ r.fecha }}">{{ r.fecha }}</span>
-        <span class="campo" title="{{ r.hora_ingreso }}">{{ r.hora_ingreso }}</span>
-        <span class="campo" title="{{ r.hora_salida }}">{{ r.hora_salida|default:"..." }}</span>
+        <span class="campo">{{ r.tipo_usuario }}</span>
+        <span class="campo">{{ r.nombre }}</span>
+        <span class="campo">{{ r.tipo_documento }}</span>
+        <span class="campo">{{ r.documento }}</span>
+        <span class="campo">{{ r.telefono }}</span>
+        <span class="campo">{{ r.email }}</span>
+        <span class="campo">{{ r.torre }}</span>
+        <span class="campo">{{ r.tarjeta }}</span>
+        <span class="campo">{{ r.parqueadero|default:"..." }}</span>
+        <span class="campo">{{ r.placa|default:"..." }}</span>
+        <span class="campo">{{ r.fecha }}</span>
+        <span class="campo">{{ r.hora_ingreso }}</span>
     </div>
     {% empty %}
     <div class="fila-registro-accesos">
@@ -64,22 +79,48 @@
     </div>
     {% endfor %}
 
-    <div class="paginacion">
-        {% if registros.has_previous %}
-            <a class="pagina anterior" href="?page={{ registros.previous_page_number }}">‹ Página anterior</a>
+<div class="paginacion">
+
+    {% if registros.has_previous %}
+        <a
+            class="pagina anterior"
+            href="?page={{ registros.previous_page_number }}&persona={{ persona }}&torre={{ torre }}&fecha={{ fecha }}&puerta={{ puerta }}"
+        >
+            ‹ Anterior
+        </a>
+    {% endif %}
+
+    {% for num in paginas %}
+
+        {% if registros.number == num %}
+
+            <span class="pagina numero active">
+                {{ num }}
+            </span>
+
+        {% else %}
+
+            <a
+                class="pagina numero"
+                href="?page={{ num }}&persona={{ persona }}&torre={{ torre }}&fecha={{ fecha }}&puerta={{ puerta }}"
+            >
+                {{ num }}
+            </a>
+
         {% endif %}
 
-        {% for num in registros.paginator.page_range %}
-            {% if registros.number == num %}
-                <a class="pagina numero active">{{ num }}</a>
-            {% else %}
-                <a class="pagina numero" href="?page={{ num }}">{{ num }}</a>
-            {% endif %}
-        {% endfor %}
+    {% endfor %}
 
-        {% if registros.has_next %}
-            <a class="pagina siguiente" href="?page={{ registros.next_page_number }}">Siguiente página ›</a>
-        {% endif %}
-    </div>
+    {% if registros.has_next %}
+        <a
+            class="pagina siguiente"
+            href="?page={{ registros.next_page_number }}&persona={{ persona }}&torre={{ torre }}&fecha={{ fecha }}&puerta={{ puerta }}"
+        >
+            Siguiente ›
+        </a>
+    {% endif %}
+
+</div>
+
 </div>
 {% endblock %}

@@ -9,85 +9,239 @@
 
 <div class="contenedor-historial">
 
-    <h2 class="titulo-historial">Historial de Tarjetas</h2>
+    <div class="encabezado-historial">
+
+        <h2 class="titulo-historial">
+            Historial de Tarjetas
+        </h2>
+        {% if request.user.groups.all.0.name == "Administrador" or request.user.groups.all.0.name == "Supervisor" %}
+
+        <div class="menu-opciones">
+
+            <button type="button" class="btn-tres-puntos">
+                ⋮
+            </button>
+
+            <div class="opciones">
+
+                <a href="{% url 'pdfhistorialtarjeta' %}?nombre={{ nombre }}&tarjeta={{ tarjeta }}&fecha={{ fecha }}">
+                    Exportar a PDF
+                </a>
+
+                <form action="{% url 'pdfhistorialtarjeta' %}" method="GET">
+
+                    <input type="hidden" name="nombre" value="{{ nombre }}">
+                    <input type="hidden" name="tarjeta" value="{{ tarjeta }}">
+                    <input type="hidden" name="fecha" value="{{ fecha }}">
+
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="Correo electrónico"
+                        required
+                    >
+
+                    <button type="submit">
+                        Enviar PDF
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+        {% endif %}
+
+
+    </div>
+    
+
+    <form method="GET" class="filtro-form">
+
+        <input 
+            type="text" 
+            name="nombre" 
+            placeholder="Buscar nombre"
+            value="{{ nombre|default:'' }}"
+        >
+
+        <input 
+            type="text" 
+            name="tarjeta" 
+            placeholder="Número de tarjeta"
+            value="{{ tarjeta|default:'' }}"
+        >
+
+        <input 
+            type="date" 
+            name="fecha"
+            value="{{ fecha|default:'' }}"
+        >
+
+        <button type="submit">
+           🔍 Buscar
+        </button>
+
+        <a href="{% url 'historialtarjeta' %}" class="btn-limpiar">
+           ⟲ Limpiar
+        </a>
+
+    </form>
 
     <div class="tabla-contenedor">
+
         <table class="tabla-historial">
 
             <thead>
+
                 <tr>
+
                     <th>Nombre</th>
+
                     <th>Tarjeta</th>
+
                     <th>Estado</th>
+
                     <th>Fecha</th>
+
                 </tr>
+
             </thead>
 
             <tbody>
 
                 {% for h in historial %}
+
                 <tr class="fila-tabla">
 
+                    <!-- NOMBRE -->
+
                     <td>
+
                         {% if h.registro %}
-                            {{ h.registro.nombre }}
+
+                            <div class="usuario-nombre">
+
+                                <span class="usuario-icono">
+                                    👤
+                                </span>
+
+                                <span>
+                                    {{ h.registro.nombre }}
+                                </span>
+
+                            </div>
+
                         {% else %}
+
                             Usuario no disponible
+
                         {% endif %}
+
                     </td>
 
+                    <!-- TARJETA -->
+
                     <td>
+
                         {% if h.tarjeta %}
-                            {{ h.tarjeta.numero }}
+
+                            💳 {{ h.tarjeta.numero }}
+
                         {% else %}
+
                             Sin tarjeta
+
                         {% endif %}
+
                     </td>
 
-                    <td>
-                        {{ h.estado_legible }}
-                    </td>
+                    <!-- ESTADO -->
 
                     <td>
-                        {{ h.fecha|date:"d/m/Y H:i" }}
+
+                        {% if h.estado_legible == "Tarjeta activa" %}
+
+                            <span class="estado activa">
+                                ✅ {{ h.estado_legible }}
+                            </span>
+
+                        {% elif h.estado_legible == "Tarjeta desactivada" %}
+
+                            <span class="estado desactivada">
+                                ❌ {{ h.estado_legible }}
+                            </span>
+
+                        {% else %}
+
+                            <span class="estado cambiada">
+                                🔄 {{ h.estado_legible }}
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+                    <!-- FECHA -->
+
+                    <td>
+
+                        🕒 {{ h.fecha|date:"d/m/Y H:i" }}
+
                     </td>
 
                 </tr>
 
                 {% empty %}
+
                 <tr>
+
                     <td colspan="4" class="sin-registros">
+
                         No hay historial
+
                     </td>
+
                 </tr>
+
                 {% endfor %}
 
             </tbody>
 
         </table>
-    </div>
-
-    <div class="paginacion">
-
-        {% if historial.has_previous %}
-            <a class="pagina anterior" href="?page=1">«</a>
-            <a class="pagina anterior" href="?page={{ historial.previous_page_number }}">‹</a>
-        {% endif %}
-
-        {% for num in historial.paginator.page_range %}
-            {% if historial.number == num %}
-                <span class="pagina numero active">{{ num }}</span>
-            {% else %}
-                <a class="pagina numero" href="?page={{ num }}">{{ num }}</a>
-            {% endif %}
-        {% endfor %}
-
-        {% if historial.has_next %}
-            <a class="pagina siguiente" href="?page={{ historial.next_page_number }}">›</a>
-            <a class="pagina siguiente" href="?page={{ historial.paginator.num_pages }}">»</a>
-        {% endif %}
 
     </div>
+
+ <div class="paginacion">
+
+    {% if historial.has_previous %}
+        <a class="pagina anterior"
+           href="?page={{ historial.previous_page_number }}&nombre={{ nombre }}&tarjeta={{ tarjeta }}&fecha={{ fecha }}">
+            ‹ Página anterior
+        </a>
+    {% endif %}
+
+    {% for num in paginas %}
+
+        {% if historial.number == num %}
+            <span class="pagina numero active">
+                {{ num }}
+            </span>
+        {% else %}
+            <a class="pagina numero"
+               href="?page={{ num }}&nombre={{ nombre }}&tarjeta={{ tarjeta }}&fecha={{ fecha }}">
+                {{ num }}
+            </a>
+        {% endif %}
+
+    {% endfor %}
+
+    {% if historial.has_next %}
+        <a class="pagina siguiente"
+           href="?page={{ historial.next_page_number }}&nombre={{ nombre }}&tarjeta={{ tarjeta }}&fecha={{ fecha }}">
+            Siguiente página ›
+        </a>
+    {% endif %}
 
 </div>
 

@@ -41,7 +41,9 @@
     cursor: pointer;
     transition: 0.3s;
     font-weight: bold;
+    text-decoration: none;
 }
+
 
 .btn-buscar:hover {
     background: #333;
@@ -50,7 +52,7 @@
 .encabezado-registro,
 .fila-registro-accesos {
     display: grid;
-    grid-template-columns: 1.4fr 0.9fr 1fr 0.9fr 1fr 0.8fr 0.8fr 0.8fr 0.8fr 0.8fr 0.8fr 0.8fr 0.8fr;
+    grid-template-columns: 1.4fr 0.9fr 1fr 0.9fr 1fr 0.8fr 0.8fr 0.8fr 0.8fr 0.8fr 0.8fr 0.8fr ;
     text-align: center;
     align-items: center;
 }
@@ -239,3 +241,57 @@ html, body {
 .menu-opciones:hover .opciones {
     display: block;
 }
+.opciones form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 10px;
+    border-top: 1px solid #e5e5e5;
+    margin-top: 8px;
+}
+
+.opciones input[type="email"] {
+    width: 100%;
+    padding: 9px 12px;
+    border: 1px solid #f1eded;
+    border-radius: 8px;
+    font-size: 13px;
+    outline: none;
+    transition: 0.2s;
+    box-sizing: border-box;
+}
+
+.opciones input[type="email"]:focus {
+    border-color: #fcf8f8;
+    box-shadow: 0 0 0 2px rgba(31, 60, 136, 0.15);
+}
+
+.opciones button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    background: #c5d3e0;
+    color: rgb(12, 12, 12);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.opciones button:hover {
+    background: #a7d0f7;
+}
+.badge{
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    display: inline-block;
+    text-align: center;
+    min-width: 95px;
+}
+.btn-buscar {
+    text-decoration: none;
+}
+

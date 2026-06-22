@@ -10,122 +10,722 @@
 <div class="contenedor">
 
     {% if messages %}
+
         <div class="mensajes">
+
             {% for message in messages %}
-                <div class="alerta">{{ message }}</div>
+
+                <div class="alerta">
+                    {{ message }}
+                </div>
+
             {% endfor %}
+
         </div>
+
     {% endif %}
 
-    <form method="GET" class="buscador">
-        <input type="text" name="buscar" placeholder="Buscar..." value="{{ query }}">
-        <button type="submit">🔍</button>
-    </form>
+  
 
-    {% for r in registros %}
-    <div class="fila">
+    <div class="encabezado-tarjetas">
 
-        <div class="info">
-            <strong>{{ r.nombre }}</strong>
-            <span>{{ r.documento }}</span>
-        </div>
+        <div class="titulo-box">
 
-        <div class="tarjeta-box">
-
-            {% if r.tarjeta %}
-
-                <form method="POST">
-                    {% csrf_token %}
-                    <input type="hidden" name="tarjeta_id" value="{{ r.tarjeta.id }}">
-                    <input type="hidden" name="accion" value="cambiar_estado">
-
-                    <label class="switch">
-                        <input type="checkbox"
-                               onchange="this.form.submit()"
-                               {% if r.tarjeta.activa %}checked{% endif %}>
-                        <span class="slider"></span>
-                    </label>
-
-                    {% if r.tarjeta.activa %}
-                        <span style="color:green;">Tarjeta activa</span>
-                    {% else %}
-                        <span style="color:red;">Tarjeta desactivada</span>
-                    {% endif %}
-                </form>
-
-                <form method="POST" class="editar">
-                    {% csrf_token %}
-                    <input type="hidden" name="tarjeta_id" value="{{ r.tarjeta.id }}">
-                    <input type="hidden" name="accion" value="editar_numero">
-
-                    <input type="text"
-                           name="nuevo_numero"
-                           value="{{ r.tarjeta.numero }}"
-                           class="input-numero"
-                           required>
-
-                    <button type="submit">Guardar</button>
-                </form>
-
-                <form method="POST">
-                    {% csrf_token %}
-                    <input type="hidden" name="tarjeta_id" value="{{ r.tarjeta.id }}">
-                    <input type="hidden" name="accion" value="cambiar_tarjeta">
-
-                    <div class="puertas">
-                        {% for p in puertas %}
-                            <label class="puerta-item">
-                                <span>{{ p.nombre }}</span>
-                                <input type="checkbox"
-                                       name="puertas"
-                                       value="{{ p.id }}"
-                                       {% if p in r.tarjeta.puertas.all %}checked{% endif %}>
-                                <span class="slider"></span>
-                            </label>
-                        {% endfor %}
-                    </div>
-
-                    <button type="submit">Actualizar puertas</button>
-                </form>
-
-            {% else %}
-                <span class="sin-tarjeta">Sin tarjeta asignada</span>
-            {% endif %}
+            <h1>
+                Gestión de Tarjetas
+            </h1>
 
         </div>
 
     </div>
-    {% empty %}
-        <p>No hay registros</p>
-    {% endfor %}
+
+
+
+    <div class="stats-grid">
+
+        <div class="stat-card">
+
+            <div class="icono violeta">
+                💳
+            </div>
+
+            <div class="stat-info">
+
+                <h3>
+                    {{ total_tarjetas }}
+                </h3>
+
+                <span>
+                    Total tarjetas
+                </span>
+
+            </div>
+
+        </div>
+
+        <div class="stat-card">
+
+            <div class="icono verde">
+                ✅
+            </div>
+
+            <div class="stat-info">
+
+                <h3>
+                    {{ tarjetas_activas }}
+                </h3>
+
+                <span>
+                    Tarjetas activas
+                </span>
+
+            </div>
+
+        </div>
+
+        <div class="stat-card">
+
+            <div class="icono naranja">
+                ⚠️
+            </div>
+
+            <div class="stat-info">
+
+                <h3>
+                    {{ tarjetas_inactivas }}
+                </h3>
+
+                <span>
+                    Tarjetas inactivas
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <form method="GET" class="filtros">
+
+        <div class="search-box">
+
+            <span class="search-icon">
+                🔍
+            </span>
+
+            <input
+                type="text"
+                name="buscar"
+                placeholder="Buscar nombre o documento"
+                value="{{ query }}"
+            >
+
+        </div>
+
+        <div class="filtro-select">
+
+            <select name="estado">
+
+                <option value="">
+                    Estado: Todos
+                </option>
+
+                <option value="activa"
+                    {% if estado == "activa" %}selected{% endif %}>
+                    Activas
+                </option>
+
+                <option value="inactiva"
+                    {% if estado == "inactiva" %}selected{% endif %}>
+                    Inactivas
+                </option>
+
+            </select>
+
+        </div>
+
+        <div class="filtro-select">
+
+            <select name="puerta">
+
+                <option value="">
+                    Puerta: Todas
+                </option>
+
+                {% for p in puertas %}
+
+                    <option
+                        value="{{ p.id }}"
+                        {% if puerta == p.id|stringformat:"s" %}selected{% endif %}
+                    >
+
+                        {{ p.nombre }}
+
+                    </option>
+
+                {% endfor %}
+
+            </select>
+
+        </div>
+
+        <button type="submit" class="btn-filtro">
+
+            🔍 Buscar
+
+        </button>
+
+        <a href="{% url 'tarjetas' %}" class="btn-icon">
+
+            ⟲ Limpiar
+
+        </a>
+
+    </form>
+
+  
+    <div class="tabla-box">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th></th>
+
+                    <th>
+                        Titular
+                    </th>
+
+                    <th>
+                        Tarjeta
+                    </th>
+
+                    <th>
+                        Puertas
+                    </th>
+
+                    <th>
+                        Estado
+                    </th>
+
+                    <!-- ACCIONES -->
+
+                    <th class="th-acciones">
+
+                        <div class="acciones-header">
+
+                            <span>
+                                Acciones
+                            </span>
+
+                            <!-- MENU OPCIONES -->
+                             {% if request.user.groups.all.0.name == "Administrador" or request.user.groups.all.0.name == "Supervisor" %}
+
+                            <div class="menu-opciones">
+
+                                <button type="button" class="btn-tres-puntos">
+                                    ⋮
+                                </button>
+
+                                <div class="opciones">
+
+
+                                    <a href="{% url 'reporte_tarjetas_pdf' %}?buscar={{ query }}&estado={{ estado }}&puerta={{ puerta }}">
+                                        Exportar PDF
+                                    </a>
+
+
+
+                                    <form action="{% url 'reporte_tarjetas_pdf' %}" method="GET">
+
+                                        <input
+                                            type="hidden"
+                                            name="buscar"
+                                            value="{{ query }}"
+                                        >
+
+                                        <input
+                                            type="hidden"
+                                            name="estado"
+                                            value="{{ estado }}"
+                                        >
+
+                                        <input
+                                            type="hidden"
+                                            name="puerta"
+                                            value="{{ puerta }}"
+                                        >
+
+                                        <input
+                                            type="email"
+                                            name="email"
+                                            placeholder="Correo electrónico"
+                                            required
+                                        >
+
+                                        <button type="submit">
+                                            Enviar PDF
+                                        </button>
+
+                                    </form>
+
+                                </div>
+
+                            </div>
+                            {% endif %}
+
+                        </div>
+
+                    </th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for r in registros %}
+
+                <tr>
+
+                    <td>
+
+                        <input type="checkbox">
+
+                    </td>
+
+                    <!-- TITULAR -->
+
+                    <td>
+
+                        <div class="usuario">
+
+                            <div class="avatar">
+
+                                {{ r.nombre|slice:":1" }}
+
+                            </div>
+
+                            <div class="datos">
+
+                                <h4>
+                                    {{ r.nombre }}
+                                </h4>
+
+                                <span>
+                                    {{ r.documento }}
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </td>
+
+                    <!-- TARJETA -->
+
+                    <td>
+
+                        {% if r.tarjeta %}
+
+                            <div class="codigo">
+
+                                {{ r.tarjeta.numero }}
+
+                            </div>
+
+                        {% else %}
+
+                            <div class="codigo">
+
+                                Sin tarjeta
+
+                            </div>
+
+                        {% endif %}
+
+                    </td>
+
+   
+
+                    <td>
+
+                        {% if r.tarjeta %}
+
+                            <div class="puertas">
+
+                                {% for p in r.tarjeta.puertas.all %}
+
+                                    <div class="puerta">
+
+                                        <span class="punto"></span>
+
+                                        <span>
+                                            {{ p.nombre }}
+                                        </span>
+
+                                    </div>
+
+                                {% empty %}
+
+                                    <span>
+                                        Sin puertas
+                                    </span>
+
+                                {% endfor %}
+
+                            </div>
+
+                        {% endif %}
+
+                    </td>
+
+                    <!-- ESTADO -->
+
+                    <td>
+
+                        {% if r.tarjeta and r.tarjeta.activa %}
+
+                            <span class="badge activa">
+
+                                Activa
+
+                            </span>
+
+                        {% else %}
+
+                            <span class="badge inactiva">
+
+                                Inactiva
+
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+                    <!-- ACCIONES -->
+
+                    <td>
+
+                        <div class="acciones">
+
+   
+
+                            <a
+                                href="{% url 'detalle_tarjeta' r.id %}"
+                                class="btn-accion"
+                                title="Ver detalles"
+                            >
+                                👁
+                            </a>
+                            {% if request.user.groups.all.0.name == "Administrador" or request.user.groups.all.0.name == "Supervisor" %}
+                            {% if r.tarjeta %}
+
+                            <button
+                                type="button"
+                                class="btn-accion"
+                                title="Cambiar estado"
+                                onclick="abrirConfirmacion('{{ r.tarjeta.id }}')"
+                            >
+
+                                {% if r.tarjeta.activa %}
+
+                                    ⛔
+
+                                {% else %}
+
+                                    ✅
+
+                                {% endif %}
+
+                            </button>
+                                {% endif %}
+
+                            {% endif %}
+
+                            <!-- CAMBIAR TARJETA -->
+                            {% if request.user.groups.all.0.name == "Administrador" or request.user.groups.all.0.name == "Supervisor" %}
+
+                            {% if r.tarjeta %}
+
+                            <button
+                                type="button"
+                                class="btn-accion"
+                                title="Cambiar tarjeta"
+                                onclick="abrirModal('{{ r.tarjeta.id }}')"
+                            >
+                                🔁
+                            </button>
+
+                            {% endif %}
+                            {% endif %}
+
+                        </div>
+
+                    </td>
+
+                </tr>
+
+                {% empty %}
+
+                <tr>
+
+                    <td colspan="6">
+
+                        <div class="vacio">
+
+                            No hay registros disponibles
+
+                        </div>
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
 
     <div class="paginacion">
 
-        {% if registros.has_previous %}
-            <a class="pagina anterior"
-               href="?page={{ registros.previous_page_number }}&buscar={{ query }}">
-               ‹ Página anterior
+    {% if registros.has_previous %}
+        <a
+            class="pagina anterior"
+            href="?page={{ registros.previous_page_number }}&persona={{ persona }}&torre={{ torre }}&fecha={{ fecha }}&puerta={{ puerta }}"
+        >
+            ‹ Anterior
+        </a>
+    {% endif %}
+
+    {% for num in paginas %}
+
+        {% if registros.number == num %}
+
+            <span class="pagina numero active">
+                {{ num }}
+            </span>
+
+        {% else %}
+
+            <a
+                class="pagina numero"
+                href="?page={{ num }}&persona={{ persona }}&torre={{ torre }}&fecha={{ fecha }}&puerta={{ puerta }}"
+            >
+                {{ num }}
             </a>
+
         {% endif %}
 
-        {% for num in registros.paginator.page_range %}
-            {% if registros.number == num %}
-                <a class="pagina numero active">{{ num }}</a>
-            {% else %}
-                <a class="pagina numero"
-                   href="?page={{ num }}&buscar={{ query }}">{{ num }}</a>
-            {% endif %}
-        {% endfor %}
+    {% endfor %}
 
-        {% if registros.has_next %}
-            <a class="pagina siguiente"
-               href="?page={{ registros.next_page_number }}&buscar={{ query }}">
-               Siguiente página ›
-            </a>
-        {% endif %}
+    {% if registros.has_next %}
+        <a
+            class="pagina siguiente"
+            href="?page={{ registros.next_page_number }}&persona={{ persona }}&torre={{ torre }}&fecha={{ fecha }}&puerta={{ puerta }}"
+        >
+            Siguiente ›
+        </a>
+    {% endif %}
+
+</div>
+</div>
+
+
+
+<div class="modal-tarjeta" id="modalTarjeta">
+
+    <div class="modal-contenido">
+
+        <h3>
+            Cambiar tarjeta
+        </h3>
+
+        <form method="POST" action="{% url 'tarjetas' %}">
+
+            {% csrf_token %}
+
+            <input
+                type="hidden"
+                name="accion"
+                value="cambiar_tarjeta"
+            >
+
+            <input
+                type="hidden"
+                name="tarjeta_id"
+                id="tarjeta_id_modal"
+            >
+
+            <label>
+                Seleccionar puertas
+            </label>
+
+            <div class="lista-puertas">
+
+                {% for p in puertas %}
+
+                    <label class="check-puerta">
+
+                        <input
+                            type="checkbox"
+                            name="puertas"
+                            value="{{ p.id }}"
+                        >
+
+                        <span>
+                            {{ p.nombre }}
+                        </span>
+
+                    </label>
+
+                {% endfor %}
+
+            </div>
+
+            <div class="acciones-modal">
+
+                <button
+                    type="submit"
+                    class="btn-guardar"
+                >
+                    Guardar
+                </button>
+
+                <button
+                    type="button"
+                    class="btn-cancelar"
+                    onclick="cerrarModal()"
+                >
+                    Cancelar
+                </button>
+
+            </div>
+
+        </form>
 
     </div>
 
 </div>
 
+
+
+<div class="modal-confirmacion" id="modalConfirmacion">
+
+    <div class="confirmacion-box">
+
+        <h3>
+            Confirmar acción
+        </h3>
+
+        <p>
+            ¿Seguro que deseas cambiar el estado de esta tarjeta?
+        </p>
+
+        <form method="POST" action="{% url 'tarjetas' %}">
+
+            {% csrf_token %}
+
+            <input
+                type="hidden"
+
+                name="accion"
+                value="cambiar_estado"
+            >
+
+            <input
+                type="hidden"
+                name="tarjeta_id"
+                id="tarjeta_confirmacion"
+            >
+
+            <div class="acciones-confirmacion">
+
+                <button
+                    type="submit"
+                    class="btn-confirmar"
+                >
+                    Sí, cambiar
+                </button>
+
+                <button
+                    type="button"
+                    class="btn-cerrar"
+                    onclick="cerrarConfirmacion()"
+                >
+                    Cancelar
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<script>
+
+function abrirModal(tarjetaId){
+
+    document.getElementById("modalTarjeta").style.display = "flex";
+
+    document.getElementById("tarjeta_id_modal").value = tarjetaId;
+
+}
+
+function cerrarModal(){
+
+    document.getElementById("modalTarjeta").style.display = "none";
+
+}
+
+function abrirConfirmacion(tarjetaId){
+
+    document.getElementById("modalConfirmacion").style.display = "flex";
+
+    document.getElementById("tarjeta_confirmacion").value = tarjetaId;
+
+}
+
+function cerrarConfirmacion(){
+
+    document.getElementById("modalConfirmacion").style.display = "none";
+
+}
+
+window.onclick = function(event){
+
+    let modalTarjeta = document.getElementById("modalTarjeta");
+
+    let modalConfirmacion = document.getElementById("modalConfirmacion");
+
+    if(event.target == modalTarjeta){
+
+        cerrarModal();
+
+    }
+
+    if(event.target == modalConfirmacion){
+
+        cerrarConfirmacion();
+
+    }
+
+}
+
+</script>
+
 {% endblock %}
+
+

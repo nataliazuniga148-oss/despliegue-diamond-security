@@ -93,17 +93,10 @@
 
                 <div class="fila">
                     <div class="campo">
-                        <label for="hora_ingreso">Hora de ingreso:</label>
+                        <label for="hora_ingreso">Hora de registro:</label>
                         <input type="time" name="hora_ingreso" id="hora_ingreso" required>
                     </div>
 
-                    <div class="campo">
-                        <label for="hora_salida">Hora de salida:</label>
-                        <input type="time" name="hora_salida" id="hora_salida">
-                    </div>
-                </div>
-
-                <div class="fila">
                     <div class="campo">
                         <label for="observaciones">Observaciones</label>
                         <input type="text" name="observaciones" id="observaciones" placeholder="Digite la observación correspondiente">
@@ -112,7 +105,7 @@
 
                 <div class="fila centrar">
                     <button type="submit" class="btn-registrar">Registrar</button>
-                    <a href="{% url 'usuarios' %}" class="btn-ver">Ver registro</a>
+                    <a href="{% url 'verusuario' %}" class="btn-ver">Ver registros</a>
                 </div>
 
             </form>

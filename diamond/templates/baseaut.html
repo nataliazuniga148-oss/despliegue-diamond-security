@@ -1,45 +1,212 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" href="{% static 'css/admin.css' %}">
+
     {% block estilos %}
-    
     {% endblock %}
-    
-  
+
     <title>{% block titulo %}{% endblock %}</title>
-    <header class="header">
+</head>
+
+<body>
+
+<header class="header">
+
     <div class="logo">
-        <img src="{% static 'image/logo.png' %}" alt="Logo Diamond Security">
+        <img src="{% static 'image/logo.png' %}">
         <span>DIAMOND SECURITY</span>
     </div>
 
-    <h2 class="welcome">BIENVENIDO, ADMIN</h2>
+    <h2 class="welcome">
+        {% if request.user.groups.all.0.name == "Administrador" %}
+            👑 Bienvenido, Administrador
+        {% elif request.user.groups.all.0.name == "Supervisor" %}
+            📋 Bienvenido, Supervisor
+        {% elif request.user.groups.all.0.name == "Seguridad" %}
+            🛡️ Bienvenido, Seguridad
+        {% else %}
+            Bienvenido, {{ request.user.username }}
+        {% endif %}
+    </h2>
 
     <div class="right-section">
+
         <a href="{% url 'cliente' %}" class="menu-icon">☰</a>
-        <img src="{% static 'image/ima.png' %}" alt="foto Diamond Security">
+
+        <a href="{% url 'cambiar_foto' %}">
+            {% if perfil and perfil.foto %}
+                <img src="{{ perfil.foto.url }}" class="foto-perfil-header">
+            {% else %}
+                <img src="{% static 'image/ima.png' %}" class="foto-perfil-header">
+            {% endif %}
+        </a>
+
     </div>
+
 </header>
 
-   
-    {% block contenido %}
+{% if messages %}
+    {% for message in messages %}
+    <div class="fondo-alerta" id="modalAlerta">
+        <div class="modal-alerta">
 
-    {% endblock %}
+            {% if message.tags == "success" %}
+                <h3>✅ Operación exitosa</h3>
+            {% elif message.tags == "error" %}
+                <h3>⚠ Acceso restringido</h3>
+            {% elif message.tags == "warning" %}
+                <h3>⚠ Advertencia</h3>
+            {% else %}
+                <h3>ℹ Información</h3>
+            {% endif %}
 
+            <p>{{ message }}</p>
 
-    <footer>
-        <div class="piedepagina">
+            <button class="btn-alerta" onclick="cerrarAlerta()">
+                Aceptar
+            </button>
 
         </div>
-    </footer>
+    </div>
+    {% endfor %}
+{% endif %}
+
+{% block contenido %}
+{% endblock %}
+
+<footer>
+    <div class="piedepagina"></div>
+</footer>
+
+<!-- ===================== -->
+<!-- MODAL INACTIVIDAD -->
+<!-- ===================== -->
+
+<div id="inactivityModal" class="fondo-alerta" style="display:none;">
+
+    <div class="modal-alerta">
+
+        <h3>⏳ Sesión por inactividad</h3>
+
+        <p>Has estado inactivo durante varios minutos.</p>
+        <p>Por seguridad tu sesión se cerrará en:</p>
+
+        <h2 id="contadorLogout">60</h2>
+
+        <button class="btn-alerta" onclick="stayActive()" style="background:green;">
+            Seguir activo
+        </button>
+
+        <button class="btn-alerta" onclick="logoutUser()" style="background:red;">
+            Salir
+        </button>
+
+    </div>
+
+</div>
+
+<!-- ===================== -->
+<!-- SCRIPTS (CORREGIDO) -->
+<!-- ===================== -->
+
+<script>
+
+function cerrarAlerta(){
+
+    let modal = document.getElementById("modalAlerta");
+
+    if(modal){
+        modal.style.display = "none";
+    }
+
+
+    if(window.location.pathname.includes("ajustes")){
+        window.location.href = "{% url 'cliente' %}";
+    }
+}
+
+/* CONFIGURACIÓN DINÁMICA */
+let inactivityTimer;
+let warningTimer;
+let countdownTimer;
+let modalVisible = false;
+
+/* desde backend */
+const cierreAutomatico = "{{ configuracion.cierre_automatico|default:'10 minutos' }}";
+
+let minutos = 10;
+
+if(cierreAutomatico === "5 minutos"){
+    minutos = 5;
+}
+else if(cierreAutomatico === "30 minutos"){
+    minutos = 30;
+}
+
+const TIMEOUT = minutos * 60 * 1000;
+const WARNING = (minutos - 1) * 60 * 1000;
+
+function resetTimer(){
+
+    if(modalVisible) return;
+
+    clearTimeout(inactivityTimer);
+    clearTimeout(warningTimer);
+
+    warningTimer = setTimeout(showWarning, WARNING);
+    inactivityTimer = setTimeout(logoutUser, TIMEOUT);
+}
+
+function showWarning(){
+
+    let modal = document.getElementById("inactivityModal");
+    if(!modal) return;
+
+    modal.style.display = "flex";
+    modalVisible = true;
+
+    let segundos = 60;
+    document.getElementById("contadorLogout").innerText = segundos;
+
+    countdownTimer = setInterval(function(){
+
+        segundos--;
+        document.getElementById("contadorLogout").innerText = segundos;
+
+        if(segundos <= 0){
+            clearInterval(countdownTimer);
+            logoutUser();
+        }
+
+    }, 1000);
+}
+
+function stayActive(){
+
+    clearInterval(countdownTimer);
+    document.getElementById("inactivityModal").style.display = "none";
+    modalVisible = false;
+    resetTimer();
+}
+
+function logoutUser(){
+    window.location.href = "{% url 'logout' %}";
+}
+
+document.addEventListener("mousemove", resetTimer);
+document.addEventListener("keypress", resetTimer);
+document.addEventListener("click", resetTimer);
+document.addEventListener("scroll", resetTimer);
+
+window.onload = resetTimer;
+
+</script>
+
 </body>
 </html>
-
-
-
-
-

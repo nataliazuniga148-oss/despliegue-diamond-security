@@ -1,0 +1,82 @@
+{% extends 'baseaut.html' %}
+{% load static %}
+
+{% block estilos %}
+<link rel="stylesheet" href="{% static 'css/crear_usuario.css' %}">
+{% endblock %}
+
+{% block titulo %}Crear Usuario{% endblock %}
+
+{% block contenido %}
+
+<main class="fondo">
+
+    <section class="contenedor-formulario">
+
+        <h2><em>CREAR USUARIO</em></h2>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="mensaje">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            <div class="fila">
+
+                <div class="campo">
+                    <label>Nombre de usuario</label>
+                    <input type="text" name="username" required>
+                </div>
+
+                <div class="campo">
+                    <label>Rol</label>
+
+                    <select name="grupo" required>
+                        <option value="">Seleccione un rol</option>
+                        <option value="Administrador">Administrador</option>
+                        <option value="Supervisor">Supervisor</option>
+                        <option value="Seguridad">Seguridad</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="fila">
+
+                <div class="campo">
+                    <label>Contraseña</label>
+                    <input type="password" name="password" required>
+                </div>
+
+                <div class="campo">
+                    <label>Confirmar contraseña</label>
+                    <input type="password" name="confirmar_password" required>
+                </div>
+
+            </div>
+
+            <div class="fila centrar">
+
+                <button type="submit" class="btn-registrar">
+                    Crear usuario
+                </button>
+
+                <a href="{% url 'ajustes' %}" class="btn-ver">
+                    Volver
+                </a>
+
+            </div>
+
+        </form>
+
+    </section>
+
+</main>
+
+{% endblock %}

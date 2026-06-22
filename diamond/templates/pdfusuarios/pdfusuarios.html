@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Reporte Usuarios</title>
+
+    <style>
+
+        @page {
+            size: A4 landscape;
+            margin: 20px;
+        }
+
+        body {
+            font-family: Helvetica, Arial, sans-serif;
+            font-size: 8px;
+            color: #2b2b2b;
+            margin: 0;
+        }
+
+        .header {
+            width: 100%;
+            border-bottom: 2px solid #1f3c88;
+            padding-bottom: 8px;
+            margin-bottom: 12px;
+        }
+
+        .logo {
+            width: 70px;
+        }
+
+        .title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #1f3c88;
+        }
+
+        .subtitle {
+            font-size: 9px;
+            color: #666;
+            margin-top: 2px;
+        }
+
+        .meta {
+            font-size: 8px;
+            color: #888;
+            margin-top: 3px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+
+        thead th {
+            background-color: #1f3c88;
+            color: white;
+            font-size: 7px;
+            padding: 4px;
+            border: 1px solid #1f3c88;
+            text-align: center;
+            word-wrap: break-word;
+        }
+
+        tbody td {
+            border: 1px solid #ccc;
+            padding: 3px;
+            font-size: 7px;
+            text-align: center;
+            word-wrap: break-word;
+            word-break: break-all;
+            overflow-wrap: break-word;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f4f6fa;
+        }
+
+        .footer {
+            margin-top: 15px;
+            border-top: 1px solid #ddd;
+            padding-top: 6px;
+            font-size: 8px;
+            text-align: center;
+            color: #777;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <table class="header">
+
+        <tr>
+
+            <td style="width: 15%;">
+
+                <img src="image/logo.png" class="logo">
+
+            </td>
+
+            <td style="width: 85%;">
+
+                <div class="title">
+                    DIAMOND SECURITY
+                </div>
+
+                <div class="subtitle">
+                    Reporte oficial de usuarios registrados
+                </div>
+
+                <div class="meta">
+                    Fecha de generación: {{ fecha_reporte }}
+                </div>
+
+            </td>
+
+        </tr>
+
+    </table>
+
+    <table>
+
+        <thead>
+
+            <tr>
+
+                <th style="width: 7%;">Tipo</th>
+
+                <th style="width: 13%;">Nombre</th>
+
+                <th style="width: 9%;">Doc</th>
+
+                <th style="width: 10%;">Tel</th>
+
+                <th style="width: 16%;">Email</th>
+
+                <th style="width: 10%;">Torre</th>
+
+                <th style="width: 8%;">Tarjeta</th>
+
+                <th style="width: 7%;">Parq</th>
+
+                <th style="width: 10%;">Vehículo</th>
+
+                <th style="width: 10%;">Fecha</th>
+
+                <th style="width: 8%;">Hora</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            {% for item in registros %}
+
+            <tr>
+
+                <td>
+                    {{ item.tipo_usuario }}
+                </td>
+
+                <td>
+                    {{ item.nombre }}
+                </td>
+
+                <td>
+                    {{ item.documento }}
+                </td>
+
+                <td>
+                    {{ item.telefono }}
+                </td>
+
+                <td style="font-size:6px;">
+                    {{ item.email }}
+                </td>
+
+                <td>
+                    {{ item.torre }}
+                </td>
+
+                <td>
+                    {{ item.tarjeta }}
+                </td>
+
+                <td>
+                    {{ item.parqueadero }}
+                </td>
+
+                <td>
+                    {{ item.placa }}
+                </td>
+
+                <td>
+                    {{ item.fecha }}
+                </td>
+
+                <td>
+                    {{ item.hora_registro }}
+                </td>
+
+            </tr>
+
+            {% empty %}
+
+            <tr>
+
+                <td colspan="11">
+                    No hay usuarios registrados
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+    <div class="footer">
+        Sistema de control de usuarios · Documento generado automáticamente
+    </div>
+
+</body>
+
+</html>
