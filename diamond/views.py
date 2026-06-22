@@ -376,9 +376,9 @@ def obtener_ip(request):
 @api_view(["POST"])
 def registrar_acceso(request):
 
-    # =========================
+
     # CONFIGURACIÓN (AÑADIDO)
-    # =========================
+  
     config = ConfiguracionSistema.objects.first()
     # CÓDIGO AÑADIDO DE CONFIGURACIÓN
 
@@ -386,9 +386,9 @@ def registrar_acceso(request):
     tipo_acceso = request.data.get("tipo_acceso")
     torre = request.data.get("torre")
 
-    # =========================
+    
     # NORMALIZAR TORRE ENVIADA
-    # =========================
+  
     if torre:
 
         torre_texto = str(torre).lower()
@@ -401,9 +401,9 @@ def registrar_acceso(request):
 
             torre = f"torre_{numero_torre}"
 
-    # =========================
+  
     # VALIDAR TARJETA
-    # =========================
+
     if not tarjeta:
 
         RegistroAcceso.objects.create(
@@ -428,9 +428,9 @@ def registrar_acceso(request):
             status=400
         )
 
-    # =========================
+    
     # VALIDAR TIPO ACCESO
-    # =========================
+  
     if not tipo_acceso:
 
         RegistroAcceso.objects.create(
@@ -553,9 +553,9 @@ def registrar_acceso(request):
                 status=500
             )
 
-        # =========================
+       
         # VALIDAR PUERTA
-        # =========================
+       
         if not puerta_obj:
 
             RegistroAcceso.objects.create(
@@ -580,9 +580,9 @@ def registrar_acceso(request):
                 status=500
             )
 
-        # =========================
+       
         # MODO EMERGENCIA
-        # =========================
+      
         if puerta_obj.emergencia:
 
             acceso = RegistroAcceso.objects.create(
@@ -596,9 +596,8 @@ def registrar_acceso(request):
 
             return Response(serializer.data, status=201)
 
-        # =========================
-        # ACCESO CONJUNTO
-        # =========================
+
+
         if tipo_acceso == "conjunto":
 
             if not tarjeta_obj.puertas.filter(
@@ -629,9 +628,8 @@ def registrar_acceso(request):
             puerta_registro = puerta_obj.tipo
             torre_registro = None
 
-        # =========================
         # ACCESO TORRE
-        # =========================
+
         elif tipo_acceso == "torre":
 
             if not torre:
@@ -672,9 +670,9 @@ def registrar_acceso(request):
             puerta_registro = None
             torre_registro = torre
 
-        # =========================
+
         # PARQUEADERO
-        # =========================
+
         elif tipo_acceso == "parqueadero":
 
             if not persona.parqueadero:
@@ -744,9 +742,6 @@ def registrar_acceso(request):
                     usuario=None
                 )
 
-        # =========================
-        # ENTRADA
-        # =========================
         acceso = RegistroAcceso.objects.create(
             persona=persona,
             tipo_acceso=tipo_acceso,
@@ -1550,7 +1545,7 @@ def historialtarjeta(request):
             tarjeta__numero__icontains=tarjeta
         )
 
-    # ✅ FILTRO FECHA CORRECTO (RANGO)
+    # FILTRO FECHA CORRECTO (RANGO)
     if fecha:
         try:
             fecha_obj = datetime.strptime(fecha, "%Y-%m-%d")
@@ -1703,7 +1698,7 @@ from django.db.models import Q
 
 def paquetes(request):
     
-    # 🔐 PERMISOS
+    #  PERMISOS
     if not (
         request.user.groups.filter(name="Administrador").exists()
         or request.user.groups.filter(name="Supervisor").exists()
@@ -1712,15 +1707,15 @@ def paquetes(request):
         messages.error(request, "No tienes permisos")
         return redirect("cliente")
 
-    # 🔎 PARÁMETROS
+    #  PARÁMETROS
     query = request.GET.get("q", "")
     fecha = request.GET.get("fecha", "")
     estado = request.GET.get("estado", "")
 
-    # 📦 QUERY BASE
+    # QUERY BASE
     queryset = Paquetes.objects.all().order_by("-id")
 
-    # 🔍 BÚSQUEDA GENERAL (DB)
+    
     if query:
         queryset = queryset.filter(
             Q(destinatario__icontains=query) |
@@ -1729,7 +1724,7 @@ def paquetes(request):
             Q(agencia__icontains=query)
         )
 
-        # 🧠 FILTRO DIFUSO (FUZZY SEARCH)
+        # FILTRO DIFUSO (FUZZY SEARCH)
         resultados = []
 
         for p in queryset:
@@ -1746,20 +1741,19 @@ def paquetes(request):
 
         queryset = queryset.filter(id__in=resultados)
 
-    # 📅 FILTRO POR FECHA
+    # FILTRO POR FECHA
     if fecha:
         queryset = queryset.filter(fecha=fecha)
 
-    # 📦 FILTRO POR ESTADO
+    #  FILTRO POR ESTADO
     if estado:
         queryset = queryset.filter(estado=estado)
 
-    # 📄 PAGINACIÓN
+
     paginator = Paginator(queryset, 4)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
 
-    # 📊 RANGO DE PÁGINAS (VENTANA DE 5)
     current_page = page_obj.number
     start = ((current_page - 1) // 5) * 5 + 1
     end = min(start + 4, paginator.num_pages)
@@ -1999,9 +1993,9 @@ def historialacceso(request):
     fecha = request.GET.get("fecha", "")
     puerta = request.GET.get("puerta", "")
 
-    # =========================
+
     # EVITAR NONE
-    # =========================
+
     if persona == "None":
         persona = ""
 
@@ -2014,9 +2008,9 @@ def historialacceso(request):
     if puerta == "None":
         puerta = ""
 
-    # =========================
+  
     # CONSULTA BASE
-    # =========================
+
     lista = RegistroAcceso.objects.select_related(
         "persona",
         "persona__tarjeta"
@@ -2025,9 +2019,9 @@ def historialacceso(request):
         "-hora_entrada"
     )
 
-    # =========================
+
     # FILTRO PERSONA
-    # =========================
+
     if persona:
 
         lista = lista.filter(
@@ -2035,9 +2029,9 @@ def historialacceso(request):
             Q(persona__documento__icontains=persona)
         )
 
-    # =========================
+
     # FILTRO TORRE
-    # =========================
+
     if torre:
 
         torre = torre.lower().replace(" ", "")
@@ -2055,18 +2049,18 @@ def historialacceso(request):
             torre__icontains=torre
         )
 
-    # =========================
+
     # FILTRO FECHA
-    # =========================
+
     if fecha:
 
         lista = lista.filter(
             fecha=fecha
         )
 
-    # =========================
+
     # FILTRO PUERTA
-    # =========================
+
     if puerta:
 
         try:
@@ -2082,9 +2076,7 @@ def historialacceso(request):
             Q(tipo_acceso__icontains=puerta_limpia)
         )
 
-    # =========================
-    # DETECTAR TARJETA BLOQUEADA
-    # =========================
+
     for acceso in lista:
 
         acceso.tarjeta_bloqueada = False
@@ -2103,9 +2095,6 @@ def historialacceso(request):
 
                 acceso.tarjeta_bloqueada = False
 
-    # =========================
-    # PAGINACIÓN
-    # =========================
     paginator = Paginator(lista, 6)
 
     page_number = request.GET.get("page")
@@ -2123,9 +2112,7 @@ def historialacceso(request):
 
     paginas = range(inicio,fin + 1)
 
-    # =========================
-    # RENDER
-    # =========================
+
     return render(
         request,
         "historialacceso/historialacceso.html",
@@ -2223,18 +2210,17 @@ def reporte_historial_pdf(request):
     fecha = limpiar(fecha)
     puerta = limpiar(puerta)
 
-    # -------------------
+
     # FILTRO PERSONA
-    # -------------------
+
     if persona:
         registros_qs = registros_qs.filter(
             Q(persona__nombre__icontains=persona) |
             Q(persona__documento__icontains=persona)
         )
 
-    # -------------------
-    # FILTRO TORRE (IGUAL QUE HISTORIAL)
-    # -------------------
+    # FILTRO TORRE 
+
     if torre:
 
         torre = torre.lower().replace(" ", "")
@@ -2248,15 +2234,15 @@ def reporte_historial_pdf(request):
             torre__icontains=torre
         )
 
-    # -------------------
+
     # FILTRO FECHA
-    # -------------------
+
     if fecha:
         registros_qs = registros_qs.filter(fecha=fecha)
 
-    # -------------------
-    # FILTRO PUERTA (CORREGIDO)
-    # -------------------
+
+    # FILTRO PUERTA 
+
     if puerta:
 
         puerta_limpia = limpiar_texto(puerta)
@@ -2266,9 +2252,9 @@ def reporte_historial_pdf(request):
             Q(tipo_acceso__icontains=puerta_limpia)
         )
 
-    # -------------------
+
     # ARMAR DATA PARA PDF
-    # -------------------
+
     registros = []
 
     for r in registros_qs:
@@ -2300,9 +2286,6 @@ def reporte_historial_pdf(request):
         link_callback=link_callback
     )
 
-    # -------------------
-    # ENVÍO EMAIL (OPCIONAL)
-    # -------------------
     if email_destino:
 
         email = EmailMessage(
@@ -2544,7 +2527,7 @@ def pdfhistorialtarjeta(request):
             tarjeta__numero__icontains=tarjeta
         )
 
-    # ✅ FILTRO FECHA CORREGIDO (RANGO)
+    #FILTRO FECHA 
     if fecha:
         try:
             fecha_obj = datetime.strptime(fecha, "%Y-%m-%d")
@@ -2937,9 +2920,6 @@ def ajustes(request):
 
     if request.method == "POST":
 
-        # =========================
-        # BOOLEAN FIELDS
-        # =========================
 
         boolean_fields = [
             "bloqueo_automatico",
@@ -2955,9 +2935,7 @@ def ajustes(request):
         for field in boolean_fields:
             setattr(configuracion, field, field in request.POST)
 
-        # =========================
-        # CAMPOS DE TEXTO
-        # =========================
+
 
         configuracion.cierre_automatico = request.POST.get(
             "cierre_automatico"
@@ -2971,9 +2949,6 @@ def ajustes(request):
 
         configuracion.save()
 
-        # =========================
-        # LIMPIEZA DE REGISTROS
-        # =========================
 
         hoy = timezone.now().date()
 
@@ -2999,9 +2974,7 @@ def ajustes(request):
                 fecha__lt=fecha_limite
             ).delete()
 
-        # =========================
-        # REGISTRO DE ACTIVIDAD
-        # =========================
+
 
         RegistroAcceso.objects.create(
             persona=None,
@@ -3010,9 +2983,7 @@ def ajustes(request):
             motivo=f"Configuración modificada por {request.user.username}"
         )
 
-        # =========================
-        # ALERTA DEL SISTEMA
-        # =========================
+
 
         if (
             configuracion.actividad_sospechosa
@@ -3025,9 +2996,6 @@ def ajustes(request):
                 usuario=request.user
             )
 
-        # =========================
-        # ENVÍO DE CORREO
-        # =========================
 
         if configuracion.alertas_correo:
 
