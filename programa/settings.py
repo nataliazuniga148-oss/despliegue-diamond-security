@@ -15,9 +15,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'cambiar-en-produccion'
 
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -45,6 +45,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware', 
 ]
 
 ROOT_URLCONF = 'programa.urls'
@@ -74,20 +75,31 @@ WSGI_APPLICATION = 'programa.wsgi.application'
 
 # Database
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'diamon_security',
-        'USER': 'root',
-        'PASSWORD': '1049412618',
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
-        'OPTIONS': {
-            'charset': 'utf8mb4',
-        },
-    }
-}
+import os
 
+if os.environ.get('RENDER'):
+    
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+else:
+   
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'diamon_security',
+            'USER': 'root',
+            'PASSWORD': '1049412618',
+            'HOST': '127.0.0.1',
+            'PORT': '3306',
+            'OPTIONS': {
+                'charset': 'utf8mb4',
+            },
+        }
+    }
 
 # Password validation
 
@@ -132,6 +144,8 @@ STATICFILES_DIRS = [
     BASE_DIR / 'diamond' / 'static',
 ]
 
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 MEDIA_URL = '/media/'
@@ -157,10 +171,8 @@ EMAIL_HOST_USER = 'diamondsecurity3@gmail.com'
 
 EMAIL_HOST_PASSWORD = 'cxlu eavi uoyj wbmg'
 
-STATIC_URL = '/static/'
+
 AUTO_LOGOUT_DELAY = 600  # 10 minutos
 
-STATICFILES_DIRS = [
-    BASE_DIR / "static"
-]
+
 
