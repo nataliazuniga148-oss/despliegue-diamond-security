@@ -223,3 +223,9 @@ LOGGING = {
         'level': 'DEBUG',
     },
 }
+import os
+
+if os.environ.get("RENDER"):
+    from django.contrib.auth.models import User
+    if not User.objects.filter(username="natalia").exists():
+        User.objects.create_superuser("natalia", "nataliazuniga148@gmail.com", "Natalia1234*")
