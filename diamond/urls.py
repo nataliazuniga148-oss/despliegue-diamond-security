@@ -89,6 +89,7 @@ urlpatterns = [
     path("ver_usuarios/",views.ver_usuarios,name="ver_usuarios"),
     path('usuarios/estado/<int:id>/',views.cambiar_estado,name='cambiar_estado'),
     path('usuarios/editar/<int:id>/',views.editar_usuario,name='editar_usuario'),
+    path("crear-admin/", views.crear_admin),
  
 
 

@@ -107,6 +107,22 @@ from django.contrib.auth.models import User, Group
 
 from django.contrib.auth.models import User
 
+def crear_admin(request):
+    clave = request.GET.get("clave")
+
+    if clave != "diamond2026":
+        return HttpResponse("Acceso denegado")
+
+    if not User.objects.filter(username="admin").exists():
+        User.objects.create_superuser(
+            username="admin",
+            email="admin@gmail.com",
+            password="Admin12345*"
+        )
+        return HttpResponse("Administrador creado")
+
+    return HttpResponse("El administrador ya existe")
+
 
 def editar_usuario(request, id):
     usuario = get_object_or_404(User, id=id)
