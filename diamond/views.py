@@ -106,6 +106,8 @@ from .models import RegistroAcceso, Alerta
 from django.contrib.auth.models import User, Group
 
 from django.contrib.auth.models import User
+
+
 def editar_usuario(request, id):
     usuario = get_object_or_404(User, id=id)
 
@@ -788,38 +790,8 @@ def registrar_acceso(request):
 
 
 
-class AtencionClienteViewSet(viewsets.ModelViewSet):
-
-    queryset = AtencionCliente.objects.all()
-
-    serializer_class = AtencionClienteSerializer
 
 
-def apertura_emergencia(request):
-    if not request.user.groups.filter(
-        name="Administrador"
-    ).exists():
-
-        messages.error(
-            request,
-            "No tienes permisos"
-        )
-
-        return redirect("cliente")
-
-    if request.method == "POST":
-
-        Puerta.objects.all().update(
-            estado=True,
-            emergencia=True
-        )
-
-        messages.warning(
-            request,
-            " MODO EMERGENCIA ACTIVADO"
-        )
-
-    return redirect("puertas")
 def detener_emergencia(request):
     if request.method == "POST":
         Puerta.objects.all().update(
@@ -849,7 +821,7 @@ def cambiar_estado_puerta(request, id):
 
 
 def principal(request):
-    return render(request, 'dashboard/principal.html')
+    return HttpResponse("OK RENDER")
 def cerrar_sesion(request):
     logout(request)
     return redirect('principal')
@@ -3032,9 +3004,7 @@ Este mensaje fue generado automáticamente por Diamond Security.
 
 
   
-class AtencionClienteViewSet(viewsets.ModelViewSet):
-    queryset = AtencionCliente.objects.all()
-    serializer_class = AtencionClienteSerializer
+
 
 
 from django.contrib import messages
@@ -3062,16 +3032,7 @@ def apertura_emergencia(request):
     return redirect("puertas")
 
 
-def detener_emergencia(request):
-    if request.method == "POST":
 
-        Puerta.objects.all().update(
-            emergencia=False
-        )
-
-        messages.success(request, "Modo emergencia desactivado")
-
-    return redirect("puertas")
 
 
 def cerrar_puertas(request):
