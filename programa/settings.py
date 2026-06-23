@@ -100,7 +100,7 @@ else:
             "ENGINE": "django.db.backends.mysql",
             "NAME": "diamon_security",
             "USER": "root",
-            "PASSWORD": "TU_CONTRASEÑA_MYSQL",
+            "PASSWORD": "1049412618",
             "HOST": "127.0.0.1",
             "PORT": "3306",
             "OPTIONS": {
