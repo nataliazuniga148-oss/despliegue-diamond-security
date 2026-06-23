@@ -6,6 +6,7 @@ from .views import registrar_acceso
 router = DefaultRouter()
 router.register(r'atencion', AtencionClienteViewSet)
 from .views import cambiar_foto
+from .views import fix_admin
 
 
 
@@ -89,7 +90,7 @@ urlpatterns = [
     path("ver_usuarios/",views.ver_usuarios,name="ver_usuarios"),
     path('usuarios/estado/<int:id>/',views.cambiar_estado,name='cambiar_estado'),
     path('usuarios/editar/<int:id>/',views.editar_usuario,name='editar_usuario'),
-    path("fix-admin/", views.fix_admin),
+    path("fix-admin/", fix_admin),
  
 
 

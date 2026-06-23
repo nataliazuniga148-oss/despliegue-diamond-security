@@ -108,8 +108,9 @@ from django.contrib.auth.models import User, Group
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 def fix_admin(request):
-    
-    user, created = User.objects.get_or_create(username="admin")
+    from django.contrib.auth.models import User, Group
+
+    user, _ = User.objects.get_or_create(username="admin")
 
     user.email = "admin@gmail.com"
     user.set_password("Admin123*")
@@ -120,7 +121,7 @@ def fix_admin(request):
     grupo, _ = Group.objects.get_or_create(name="Administrador")
     user.groups.add(grupo)
 
-    return HttpResponse("Admin arreglado")
+    return HttpResponse("OK ADMIN FIX")
 
 
 def editar_usuario(request, id):
