@@ -89,7 +89,7 @@ WSGI_APPLICATION = 'programa.wsgi.application'
 
 # DATABASES
 
-if os.environ.get("DATABASE_URL"):
+"""if os.environ.get("DATABASE_URL"):
     import dj_database_url
     DATABASES = {
         "default": dj_database_url.config(default=os.environ.get("DATABASE_URL"))
@@ -107,7 +107,14 @@ else:
                 "charset": "utf8mb4",
             },
         }
+    }"""
+    
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
+}
 
 
 # PASSWORD VALIDATION
@@ -202,7 +209,7 @@ EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 
 # AUTO LOGOUT
 
-AUTO_LOGOUT_DELAY = 600
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
