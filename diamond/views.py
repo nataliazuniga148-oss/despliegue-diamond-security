@@ -2171,19 +2171,7 @@ def link_callback(uri, rel):
     return path
 
 
-def link_callback(uri, rel):
-    
-    result = finders.find(uri)
 
-    if result:
-        path = os.path.abspath(result)
-    else:
-        path = os.path.join(settings.BASE_DIR, uri)
-
-    if not os.path.isfile(path):
-        raise Exception(f"Archivo no encontrado: {path}")
-
-    return path
 
 
 def reporte_historial_pdf(request):
