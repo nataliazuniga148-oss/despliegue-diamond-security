@@ -109,21 +109,23 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse
 def crear_admin(request):
     
-    if not User.objects.filter(username="admin").exists():
+    usuario, created = User.objects.get_or_create(
+        username="admin",
+        defaults={
+            "email": "admin@gmail.com",
+        }
+    )
 
-        usuario = User.objects.create_superuser(
-            username="admin",
-            email="admin@gmail.com",
-            password="Admin123*"
-        )
+    if created:
+        usuario.set_password("Admin123*")
+        usuario.is_staff = True
+        usuario.is_superuser = True
+        usuario.save()
 
-        grupo, created = Group.objects.get_or_create(
-            name="Administrador"
-        )
-
+        grupo, _ = Group.objects.get_or_create(name="Administrador")
         usuario.groups.add(grupo)
 
-    return HttpResponse("Administrador creado")
+    return HttpResponse("Administrador listo")
 
 
 def editar_usuario(request, id):
