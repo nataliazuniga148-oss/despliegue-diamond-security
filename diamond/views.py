@@ -106,7 +106,7 @@ from .models import RegistroAcceso, Alerta
 from django.contrib.auth.models import User, Group
 
 from django.contrib.auth.models import User
-
+from django.http import HttpResponse
 def crear_admin(request):
     clave = request.GET.get("clave")
 
