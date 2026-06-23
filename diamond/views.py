@@ -821,7 +821,7 @@ def cambiar_estado_puerta(request, id):
 
 
 def principal(request):
-    return HttpResponse("OK RENDER")
+    return render(request, 'dashboard/principal.html')
 def cerrar_sesion(request):
     logout(request)
     return redirect('principal')

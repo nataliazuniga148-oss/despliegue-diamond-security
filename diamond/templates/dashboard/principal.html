@@ -1,22 +1,15 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block estilos %}
-  <link rel="stylesheet" href="{% static 'css/pplantilla.css' %}">   
-{% endblock %}   
-{% block titulo %}principal{% endblock %}
-{% block contenido  %}
 
-<main class="diseño">
-    <div class="contenido">
-        <h1 class="titulo">DIAMOND SECURITY</h1>
-        
-        <nav class="botones-principales">
-            <a href="{% url 'cotizar' %}" class="botones">COTIZAR</a>
-            <a href="{% url 'nosotros' %}" class="botones">SOBRE NOSOTROS</a>
-            <a href="{% url 'contacto' %}" class="botones">CONTACTO</a>
-            <a href="{% url 'integraciones' %}" class="botones">ATENCION AL CLIENTE</a>
-        </nav>
-    </div>
-</main>
+{% block content %}
+
+<nav class="botones-principales">
+    <a href="{% url 'cotizar' %}" class="botones">COTIZAR</a>
+    <a href="{% url 'nosotros' %}" class="botones">SOBRE NOSOTROS</a>
+    <a href="{% url 'contacto' %}" class="botones">CONTACTO</a>
+    <a href="{% url 'integraciones' %}" class="botones">ATENCIÓN AL CLIENTE</a>
+</nav>
+
+{% endblock %}
 
 {% endblock contenido%}
