@@ -107,20 +107,20 @@ from django.contrib.auth.models import User, Group
 
 from django.contrib.auth.models import User
 from django.http import HttpResponse
-def crear_admin(request):
+def fix_admin(request):
     
-    usuario, created = User.objects.get_or_create(username="admin")
+    user, created = User.objects.get_or_create(username="admin")
 
-    usuario.email = "admin@gmail.com"
-    usuario.is_staff = True
-    usuario.is_superuser = True
-    usuario.set_password("Admin123*")  # 🔥 SIEMPRE resetea la contraseña
-    usuario.save()
+    user.email = "admin@gmail.com"
+    user.set_password("Admin123*")
+    user.is_staff = True
+    user.is_superuser = True
+    user.save()
 
     grupo, _ = Group.objects.get_or_create(name="Administrador")
-    usuario.groups.add(grupo)
+    user.groups.add(grupo)
 
-    return HttpResponse("Admin sincronizado correctamente")
+    return HttpResponse("Admin arreglado")
 
 
 def editar_usuario(request, id):
